@@ -40,7 +40,6 @@ arr:
 Final array value stored in memory after running the given bubblesort.asm
 > arr: 1, 12, 34, 45, 78
 
-___________________________________
 ## How it works
 - UI- it will show the contents of memory and registers pre and post simulation along with a simulate button. 
 ##### classes
@@ -54,7 +53,7 @@ ___________________________________
   - execute - Sets the counter to *main* and reads line by line to perform desired instructions by comparing with opcode values and registers and increments the counter until it reaches EOF.
  
 ***Note:** For reference to instruction set refer to *Instruction chart*.
-___________________________________
+
 ## Contributing
 First fork this repo then clone it into your system.
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
