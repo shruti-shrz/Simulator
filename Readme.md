@@ -8,7 +8,7 @@ Our Simulator supports these features:-
 
 ## Installation
 
-clone this repo into your system, build all the files and run the **Extra.java**
+clone this repo into your system, build all the files and run the **Main.java**
 ```bash
 javac Opcodes.java
 javac Assembler.java
@@ -18,7 +18,7 @@ java Extra
 
 ## Usage
 JDK should be present in your system
-Change *<your_file_name.asm>* in the Extra.java file
+Change *<your_file_name.asm>* in the Main.java file
 ```java
 try {
     file = new BufferedReader(new FileReader("<your_file_name.asm>"));
