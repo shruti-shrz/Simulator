@@ -12,8 +12,8 @@ clone this repo into your system, build all the files and run the **Main.java**
 ```bash
 javac Opcodes.java
 javac Assembler.java
-javac Extra.java
-java Extra
+javac Main.java
+java Main
 ```
 
 ## Usage
