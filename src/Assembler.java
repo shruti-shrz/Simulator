@@ -178,6 +178,13 @@ class Parser{
                 no_of_instructions++;
             }
             else
+            if(prevInstr[0]=="7")
+            {
+                dataforwarding_exemem();
+                stall++;
+                no_of_instructions++;
+            }
+            else
             {
                 k = alu.executer(currInstr,Registers);// stage 3 execute, execute for independent instructions
                 no_of_instructions++;
