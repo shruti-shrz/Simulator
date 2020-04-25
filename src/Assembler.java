@@ -190,7 +190,8 @@ class Parser{
             else
             {
                 System.out.print("hello 123");
-                k = alu.executer(currInstr,Registers);// stage 3 execute, execute for independent instructions
+                k = alu.executer(currInstr,Registers);
+                // stage 3 execute, execute for independent instructions
                 no_of_instructions++;
             }
             for(int i=0;i<currInstr.length;i++)
@@ -205,30 +206,28 @@ class Parser{
             {
                 k =  mem(k,currInstr);
             }
-            wb(k,currInstr); // write back stage 5
+            wb(k,currInstr);
+            if(alu.flag == -1) {
+                System.out.print("hello ex");
+                if (currInstr[0] == "5") {
+                    if (alu.latch[Integer.parseInt(currInstr[1])] != alu.latch[Integer.parseInt(currInstr[2])])
+                        alu.counter = alu.labels.get(currInstr[3]) + 1;
+                    else
+                        alu.counter++;
+                } else if (currInstr[0] == "6") {
+                    if (alu.latch[Integer.parseInt(currInstr[1])] == alu.latch[Integer.parseInt(currInstr[2])])
+                        alu.counter = alu.labels.get(currInstr[3]) + 1;
+                    else
+                        alu.counter++;
+                } else if (currInstr[0] == "7") {
+                    alu.counter = alu.labels.get(currInstr[1]) + 1;
+                } else
+                { alu.counter++;
+                    System.out.print("Heyy i m counter" + alu.counter);}
+            }// write back stage 5
         }
-        if(currInstr[0]=="5")
-        {
-            if(alu.latch[Integer.parseInt(currInstr[1])]!=alu.latch[Integer.parseInt(currInstr[2])])
-                alu.counter = alu.labels.get(currInstr[3]) +1 ;
-            else
-                alu.counter++;
-        }
-        else
-        if(currInstr[0]=="6")
-        {
-            if(alu.latch[Integer.parseInt(currInstr[1])]==alu.latch[Integer.parseInt(currInstr[2])])
-                alu.counter =alu.labels.get(currInstr[3]) +1 ;
-            else
-                alu.counter++;
-        }
-        else
-        if(currInstr[0]=="7")
-        {
-            alu.counter =alu.labels.get(currInstr[1]) +1;
-        }
-        else
-            alu.counter++;
+        System.out.print("hello ex 11");// ye tak nahi print hua problem highlighted part me hai, wo else condition thha kya?? kaunsa else - one where counter is present
+        // kyu nahi increment horaha, else condition nahi chal raha that means
         System.out.println(m.getMem());
         for(int i=0;i<Registers.length;i++)
             System.out.print(Registers[i] + " ");
