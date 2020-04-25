@@ -13,6 +13,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Main {
     JFrame f;
     private JButton button1;
+    ALU a;
     Main(BufferedReader file){
         int offset = 360; // offset for frame setting
         f=new JFrame();
@@ -20,8 +21,10 @@ public class Main {
         Memory m = Memory.getInstance(); //
 
         Parser p0 = new Parser(file);
-        JButton b = new JButton("Simulate");//creating instance of JButton
-        b.setBounds(70+offset,400,90, 20);
+        JButton b = new JButton("Simulate");
+        JButton b2 = new JButton("Step by Step");//creating instance of JButton
+        b.setBounds(70+offset,450,90, 20);
+        b2.setBounds(70+offset,480,120,20);
         StringBuilder sb = new StringBuilder();
         for (Integer i : m.getMem()) {
             sb.append(i == null ? "" : i.toString()+", ");
@@ -34,14 +37,14 @@ public class Main {
         l2.setBounds(70+offset,350,100, 40);
 
         JLabel l3 = new JLabel("Registers");
-        l3.setBounds(50+offset,5,120, 20);
+        l3.setBounds(70+offset,5,120, 20);
 
         JPanel panel = new JPanel();
-        panel.setBounds(40+offset,30,30, 400);
+        panel.setBounds(70+offset,30,50, 400);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         JPanel panel2 = new JPanel();
-        panel2.setBounds(100+offset,30,20, 400);
+        panel2.setBounds(120+offset,30,30, 400);
         panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
         ArrayList<JLabel> lbw0 = new ArrayList<>();
         ArrayList<JLabel> lbw1 = new ArrayList<>();
@@ -49,7 +52,7 @@ public class Main {
         {
             JLabel p = new JLabel();
             lbw0.add(p);
-            lbw0.get(i).setText("t" + i + " = ");
+            lbw0.get(i).setText("t" + i + "  =  ");
             panel.add(lbw0.get(i));
         }
         for(int i=0;i<=19;i++)
@@ -60,7 +63,7 @@ public class Main {
             panel2.add(lbw1.get(i));
         }
         JTextArea tarea = p0.tarea; // this one
-        tarea.setBounds(50,10,300,600);
+        tarea.setBounds(70,10,300,600);
         int startIndex = 0;
         int endIndex = 0;
         try {
@@ -75,19 +78,41 @@ public class Main {
         } catch (BadLocationException e) {
             e.printStackTrace();
         }
-
-        JLabel l5 = new JLabel("cycles = "); // for cycle label
-        l5.setBounds(70+offset,430,100, 40);
-        JLabel a = new JLabel();
-        a.setText("0");
-        a.setBounds(180+offset,430,200, 40);
-
         JLabel l6 = new JLabel("stalls = "); // for stall label
-        l6.setBounds(70+offset,480,100, 40);
+        l6.setBounds(70+offset,410,100, 40);
         JLabel c = new JLabel();
         c.setText("0");
-        c.setBounds(180+offset,480,200, 40);
+        c.setBounds(180+offset,410,200, 40);
 
+        JLabel l5 = new JLabel("cycles = "); // for cycle label
+        l5.setBounds(70+offset,380,100, 40);
+        JLabel a = new JLabel();
+        a.setText("0");
+        a.setBounds(180+offset,380,200, 40);
+
+        b2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            p0.getalu().flag = -1;
+            p0.length = p0.getalu().counter +1;
+            System.out.println(p0.length + " ");
+            p0.startSimulation();
+            System.out.print("hll");
+
+                System.out.println(p0.stall);
+                a.setText(String.valueOf(p0.cycles));
+                c.setText(String.valueOf(p0.stall));
+                StringBuilder sb = new StringBuilder();
+                for (Integer i : m.getMem()) {
+                    sb.append(i == null ? "" : i.toString()+", ");
+                }
+                l.setText(sb.toString());
+                for(int i=0;i<=19;i++) {
+                    lbw1.get(i).setText(String.valueOf(p0.getReg()[i]));
+                    panel2.add(lbw1.get(i));
+                }
+            }
+        });
         b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -107,7 +132,8 @@ public class Main {
             }
         });
 
-        f.add(b);//adding button in JFrame
+        f.add(b);
+        f.add(b2);//adding button in JFrame
         f.add(l2);
         f.add(l3);
         f.add(l);
@@ -129,7 +155,7 @@ public class Main {
         BufferedReader file;
         try {
 //            String path1 = "C:/Users/visha/OneDrive/Desktop/ideas/themes.txt";
-            String path2 = "C:/Users/Shruti priya/Downloads/bubblesort.asm";
+            String path2 = "C:/Users/Shruti priya/Downloads/test.asm";
             file = new BufferedReader(new FileReader(path2));
 //                PreParser q = new PreParser(file);
 //            Parser p = new Parser(file);

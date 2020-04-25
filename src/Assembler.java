@@ -12,6 +12,7 @@ class PreParser{
     HashMap<String,Integer> labels = new HashMap<>();
     int lineNum = 0;
     JTextArea tarea = new JTextArea();
+    JButton b2 = new JButton();
     PreParser(BufferedReader file){
         String line;
         try{
@@ -69,13 +70,14 @@ class PreParser{
 class Parser{
     Dictionary<String,List<String>> opcodes;
     ArrayList<String> allLines;
+    static int length=0;
     JTextArea tarea;
     Memory m;
     int[] Registers;
     String[] arr;
     PreParser q;
     static int c=0;
-    String[] currInstr;
+   static String[] currInstr;
     int[] memlatch;
     int stall;
     int cycles;
@@ -138,7 +140,7 @@ class Parser{
         else
             return false;
     }
-    String[] prevInstr;
+    static String[] prevInstr;
     int k;
     int no_of_instructions;
     public void startSimulation()
@@ -147,10 +149,11 @@ class Parser{
 //        int stall=0;
         for(int i=0;i<prevInstr.length;i++)
             prevInstr[i] = "-1";
-        while (alu.counter < (allLines.size())){
+        System.out.print(alu.counter + " " + length + " ");
+        while (alu.counter < length){
             line = allLines.get(alu.counter);
             currInstr = decodeinst(line); // stage 2, instruction decode
-            if(currInstr[0].equals("-2"))
+            if(currInstr[0].equals("-2") && alu.flag ==0)
             {
                 alu.counter++;
             }
@@ -186,6 +189,7 @@ class Parser{
             }
             else
             {
+                System.out.print("hello 123");
                 k = alu.executer(currInstr,Registers);// stage 3 execute, execute for independent instructions
                 no_of_instructions++;
             }
@@ -203,6 +207,28 @@ class Parser{
             }
             wb(k,currInstr); // write back stage 5
         }
+        if(currInstr[0]=="5")
+        {
+            if(alu.latch[Integer.parseInt(currInstr[1])]!=alu.latch[Integer.parseInt(currInstr[2])])
+                alu.counter = alu.labels.get(currInstr[3]) +1 ;
+            else
+                alu.counter++;
+        }
+        else
+        if(currInstr[0]=="6")
+        {
+            if(alu.latch[Integer.parseInt(currInstr[1])]==alu.latch[Integer.parseInt(currInstr[2])])
+                alu.counter =alu.labels.get(currInstr[3]) +1 ;
+            else
+                alu.counter++;
+        }
+        else
+        if(currInstr[0]=="7")
+        {
+            alu.counter =alu.labels.get(currInstr[1]) +1;
+        }
+        else
+            alu.counter++;
         System.out.println(m.getMem());
         for(int i=0;i<Registers.length;i++)
             System.out.print(Registers[i] + " ");
@@ -219,6 +245,7 @@ class Parser{
         q = new PreParser(file);
         tarea = q.tarea;
         allLines = q.getList();
+        length = allLines.size();
         alu = ALU.getInstance(file,allLines,q.base,q.labels);
         Opcodes pt = Opcodes.getInstance();
         opcodes = pt.opt();
