@@ -8,17 +8,17 @@ Our Simulator supports these features:-
 
 ## Installation
 
-clone this repo into your system, build all the files and run the **Extra.java**
+clone this repo into your system, build all the files and run the **Main.java**
 ```bash
 javac Opcodes.java
 javac Assembler.java
-javac Extra.java
-java Extra
+javac Main.java
+java Main
 ```
 
 ## Usage
 JDK should be present in your system
-Change *<your_file_name.asm>* in the Extra.java file
+Change *<your_file_name.asm>* in the Main.java file
 ```java
 try {
     file = new BufferedReader(new FileReader("<your_file_name.asm>"));
@@ -40,7 +40,6 @@ arr:
 Final array value stored in memory after running the given bubblesort.asm
 > arr: 1, 12, 34, 45, 78
 
-___________________________________
 ## How it works
 - UI- it will show the contents of memory and registers pre and post simulation along with a simulate button. 
 ##### classes
@@ -54,7 +53,7 @@ ___________________________________
   - execute - Sets the counter to *main* and reads line by line to perform desired instructions by comparing with opcode values and registers and increments the counter until it reaches EOF.
  
 ***Note:** For reference to instruction set refer to *Instruction chart*.
-___________________________________
+
 ## Contributing
 First fork this repo then clone it into your system.
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
