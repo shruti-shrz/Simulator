@@ -13,6 +13,7 @@ import java.util.concurrent.locks.ReentrantLock;
 class PreParser{
     ArrayList<String> all = new ArrayList<>();
     HashMap<String,Integer> base = new HashMap<>();
+    Cache1 c1 = Cache1.getInstance();
     Memory memory = Memory.getInstance();
     HashMap<String,Integer> labels = new HashMap<>();
     int lineNum = 0;
@@ -186,7 +187,7 @@ class Parser{
                 stall++;
                 no_of_instructions++;
                 dataforwarding_exemem();
-                System.out.println(no_of_instructions + " branch ");
+               // System.out.println(no_of_instructions + " branch ");
             }
             else
             if(currInstr[0]=="7")
@@ -245,11 +246,21 @@ class Parser{
         m = Memory.getInstance();
         memlatch = new int[32];
     }
+    public static String toBinaryString(int a, int len)
+    {
+        if(len > 0)
+        {
+            return String.format("%" + len + "s", Integer.toBinaryString(a)).replaceAll(" ", "0");
+        }
+        return null;
+    }
     int mem(int v,String[] g)
     {
         if(Integer.parseInt(g[0])==2)
         {
             memlatch = Registers;
+            String add = toBinaryString(v,32);
+            //System.out.print(add);
             return m.getMem().get(v);
         }
         else
