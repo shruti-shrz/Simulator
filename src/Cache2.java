@@ -1,10 +1,6 @@
-import org.apache.commons.lang3.ArrayUtils;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import static java.lang.Integer.parseInt;
 
@@ -37,7 +33,8 @@ public class Cache2 {
             for(int i=0;i<8;i++)
             {
                 if(((num-num%8)+i)<m.getMem().size())
-                cac2[rear*8 +i] = m.getMem().get((num-num%8)+i);
+                {cac2[rear*8 +i] = m.getMem().get((num-num%8)+i);
+                    System.out.print(cac2[rear * 8 + i] +" cache 2 " + (rear * 8 + i)+" ");}
             }
         }else
         {
@@ -46,7 +43,25 @@ public class Cache2 {
             for(int i=0;i<8;i++)
             {
                 if(((num-num%8)+i)<m.getMem().size())
-                cac2[rear*8 +i] = m.getMem().get((num-num%8)+i);
+                {cac2[rear*8 +i] = m.getMem().get((num-num%8)+i);
+                    System.out.print(cac2[rear * 8 + i] +" cache 2 " + (rear * 8 + i)+" ");}
+            }
+        }
+        System.out.println();
+    }
+    public void finalpush()
+    {
+        for(int i=front;i<=rear;i++)
+        {
+            if(tag2[i]!=null)
+            {
+                String l = tag2[i]+"000";
+                for(int j=0;j<8;j++)
+                {
+                    if((parseInt(l,2)+j)<m.getMem().size())
+                        m.getMem().set((parseInt(l,2)+j),cac2[8*i+j]);
+                }
+                // if(m.getmem().set((parseInt(l,2)))
             }
         }
     }
@@ -59,8 +74,10 @@ public class Cache2 {
         else
             if(rear==front)
             {
+                int k = cac2[8*rear];
                front=-1;
                rear = -1;
+               return k;
             }else
             {
                 for(int i=front;i<=rear;i++)
@@ -73,16 +90,21 @@ public class Cache2 {
                         tag2 = l.toArray(new String[512]);
                         for(int k=0;k<8;k++)
                         {
-                            if(cac2==null)
-                                return -1;
-                            List<Integer> k1 = IntStream.of(cac2)
-                                    .boxed()
-                                    .collect(Collectors.toList());
-                            k1.remove(i*4 + k);
-                            cac2 = ArrayUtils.toPrimitive(k1.toArray(new Integer[4096]));
+                            for(int j = 8*i + k ; j <= (rear*8 +7);j++)
+                            {
+                                cac2[j] = cac2[j+1];
+                                //System.out.print(cac2[j]);
+                            }
+//                            if(cac2==null)
+//                                return -1;
+//                            List<Integer> k1 = IntStream.of(cac2)
+//                                    .boxed()
+//                                    .collect(Collectors.toList());
+//                            k1.remove(i*4 + k);
+//                            cac2 = ArrayUtils.toPrimitive(k1.toArray(new Integer[4096]));
                         }
                         rear = rear-1;
-                        return cac2[i];
+                        return cac2[8*i];
                     }
 
                 }
@@ -108,7 +130,7 @@ public class Cache2 {
             pop(tag2[front]);
 
     }
-    public int search(String tag,int off) {
+    public int search(String tag,int off,int ch) {
             int i;
             if(front==-1 && rear ==-1)
                 return -1;
@@ -116,8 +138,9 @@ public class Cache2 {
                 for (i = front; i <= rear; i++) {
                     if (tag2[i].equals(tag)) {
                         int k = cac2[off + i * 8];
-                        int m = pop(tag);
-                        push(tag, m);
+                        if(ch!=-1)
+                        {int m = pop(tag);
+                        push(tag, m);}
                         return k;
                     }
                 }
@@ -134,6 +157,7 @@ public class Cache2 {
                     int k = cac2[front * 8 + i];
                     if (k != m.getMem().get(parseInt(iAdd, 2) + i)) {
                         m.getMem().set((parseInt(iAdd, 2) + i), k);
+
                     }
                 }
 

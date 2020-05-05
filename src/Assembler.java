@@ -1,14 +1,9 @@
 import javax.swing.*;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DefaultHighlighter;
-import javax.swing.text.Highlighter;
-import java.awt.*;
 import java.io.BufferedReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 import static java.lang.Integer.parseInt;
 
@@ -27,7 +22,7 @@ class PreParser{
             while((line = file.readLine()) != null){
                 line = line.trim();
                 tarea.append(line+'\n');
-                System.out.println(line);
+               // System.out.println(line);
                 all.add(line);
                 if (line.length() != 0) {
                     if(line.charAt(line.length() - 1) == ':') {
@@ -159,7 +154,7 @@ class Parser{
 //        int stall=0;
         for(int i=0;i<prevInstr.length;i++)
             prevInstr[i] = "-1";
-        System.out.print(alu.counter + " " + length + " ");
+      //  System.out.print(alu.counter + " " + length + " ");
         while (alu.counter < length){
             line = allLines.get(alu.counter);
             currInstr = decodeinst(line); // stage 2, instruction decode
@@ -175,7 +170,8 @@ class Parser{
 
             if((prevInstr[0] == "2" && areDependent(currInstr, prevInstr) == true) || (prevInstr[0] == "11" && areDependent(currInstr, prevInstr) == true))// here this stall is because of lw and la instructions
             {
-                dataforwarding_memwb(); // dataforwarding from memwb latch
+                //dataforwarding_memwb(); // dataforwarding from memwb latch
+                k = alu.executer(currInstr,Registers);
                 stall++;
                 no_of_instructions++;
             }else
@@ -219,9 +215,12 @@ class Parser{
             {
                 k =  mem(k,currInstr);
             }
+            if(parseInt(currInstr[0])!=3)
             wb(k,currInstr);
           // write back stage 5
         }
+        c1.finalPush();
+        c2.finalpush();
        // System.out.print("hello ex 11");
         System.out.println(m.getMem());
         for(int i=0;i<Registers.length;i++)
@@ -264,12 +263,13 @@ class Parser{
         int l = c1.search(add.substring(0,30),parseInt(add.substring(31),2),parseInt(add.substring(30,31),2));
         if(l==-1)
         {
-           l =  c2.search(add.substring(0,30),parseInt(add.substring(30),2));
+           l =  c2.search(add.substring(0,30),parseInt(add.substring(30),2),0);
            if(l==-1)
            {
                if(g[0]=="2")
                {
                      val = m.getMem().get(parseInt(add,2));
+                     System.out.println(" value if present nowhere " + val);
                      c1.insert(add.substring(0,30),parseInt(add.substring(30,31),2),parseInt(add,2));
                      c2.insert(add.substring(0,30),parseInt(add,2));
                      return val;
@@ -279,6 +279,7 @@ class Parser{
                    m.getMem().set(parseInt(add,2),Registers[parseInt(g[1])]);
                    c1.insert(add.substring(0,30),parseInt(add.substring(30,31),2),parseInt(add,2));
                    c2.insert(add.substring(0,30),parseInt(add,2));
+                   System.out.println(" value if present nowhere  sw " + val);
                    return Registers[parseInt(g[1])];
                }
            }
@@ -287,6 +288,7 @@ class Parser{
                if(g[0]=="2")
                {
                    val = l;
+                   System.out.println(" value if present in c2 " + val);
                    c1.insert(add.substring(0,30),parseInt(add.substring(30,31),2),parseInt(add,2));
                    return val;
                }
@@ -295,6 +297,7 @@ class Parser{
                    val = l;
                    c2.set(add.substring(0,30),parseInt(add.substring(30),2),Registers[parseInt(g[1])]);// i need here tag index
                    c1.insert(add.substring(0,30),parseInt(add.substring(30,31),2),parseInt(add,2));
+                   System.out.println(" value if present in c2 sw " + val);
                    return val;
                }
            }
@@ -304,11 +307,13 @@ class Parser{
         {
             if(g[0]=="2") {
                 val = l;
+                System.out.println(" value if present in c1 " + val);
                 return val;
             }
             if(g[0]=="3") {
                 val = l;
                 c1.set(add.substring(0,30),parseInt(add.substring(31),2),parseInt(add.substring(30,31),2),Registers[parseInt(g[1])],add);
+                System.out.println(" value if present in c1 sw " + val);
                 return val;
             }
         }
@@ -339,14 +344,14 @@ class Parser{
     {
         return alu.executer(curr,alu.latch);
     }
-    int memwb(String[] curr)
-    {
-        return alu.executer(curr,memlatch);
-    }
-    void dataforwarding_memwb()
-    {
-        k = memwb(currInstr);
-    }
+//    int memwb(String[] curr)
+//    {
+//        return alu.executer(curr,memlatch);
+//    }
+//    void dataforwarding_memwb()
+//    {
+//        k = memwb(currInstr);
+//    }
     void dataforwarding_exemem()
     {
         k = exmem(currInstr);
