@@ -10,6 +10,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import static java.lang.Integer.parseInt;
+
 class PreParser{
     ArrayList<String> all = new ArrayList<>();
     HashMap<String,Integer> base = new HashMap<>();
@@ -55,7 +57,7 @@ class PreParser{
                 set = val.get(i + 1).split("[ ,]+");
                 base.put(val.get(i).substring(0,val.get(i).length()-1),mc);
                 for (int j = 1; j < set.length; j++) {
-                    memory.insert(Integer.parseInt(set[j]));
+                    memory.insert(parseInt(set[j]));
                     mc++;
                 }
             }
@@ -79,6 +81,8 @@ class Parser{
     static int length=0;
     JTextArea tarea;
     Memory m;
+    Cache1 c1 = Cache1.getInstance();
+    Cache2 c2 = Cache2.getInstance();
     int[] Registers;
     String[] arr;
     PreParser q;
@@ -139,7 +143,7 @@ class Parser{
         {
             return false;
         }
-        if((prv[1].equals(curr[2]) || prv[1].equals(curr[3])) && Integer.parseInt(prv[0])!= 5 && Integer.parseInt(prv[0])!= 6 && Integer.parseInt(curr[0])!= 9)// we have to remove branch cases
+        if((prv[1].equals(curr[2]) || prv[1].equals(curr[3])) && parseInt(prv[0])!= 5 && parseInt(prv[0])!= 6 && parseInt(curr[0])!= 9)// we have to remove branch cases
         {
             return true;
         }
@@ -207,11 +211,11 @@ class Parser{
                 prevInstr[i] = currInstr[i];
 
 
-            if(Integer.parseInt(currInstr[0])==3)
+            if(parseInt(currInstr[0])==3)
             {
                 mem(k,currInstr);// mem stage 4
             }
-            if(Integer.parseInt(currInstr[0])==2)
+            if(parseInt(currInstr[0])==2)
             {
                 k =  mem(k,currInstr);
             }
@@ -254,21 +258,67 @@ class Parser{
         }
         return null;
     }
-    int mem(int v,String[] g)
+    int val;
+     int Controller(String add,String[] g)
     {
-        if(Integer.parseInt(g[0])==2)
+        int l = c1.search(add.substring(0,30),parseInt(add.substring(31),2),parseInt(add.substring(30,31),2));
+        if(l==-1)
         {
-            memlatch = Registers;
-            String add = toBinaryString(v,32);
-            //System.out.print(add);
-            return m.getMem().get(v);
+           l =  c2.search(add.substring(0,30),parseInt(add.substring(30),2));
+           if(l==-1)
+           {
+               if(g[0]=="2")
+               {
+                     val = m.getMem().get(parseInt(add,2));
+                     c1.insert(add.substring(0,30),parseInt(add.substring(30,31),2),parseInt(add,2));
+                     c2.insert(add.substring(0,30),parseInt(add,2));
+                     return val;
+               }
+               if(g[0]=="3")
+               {
+                   m.getMem().set(parseInt(add,2),Registers[parseInt(g[1])]);
+                   c1.insert(add.substring(0,30),parseInt(add.substring(30,31),2),parseInt(add,2));
+                   c2.insert(add.substring(0,30),parseInt(add,2));
+                   return Registers[parseInt(g[1])];
+               }
+           }
+           else
+           {
+               if(g[0]=="2")
+               {
+                   val = l;
+                   c1.insert(add.substring(0,30),parseInt(add.substring(30,31),2),parseInt(add,2));
+                   return val;
+               }
+               if(g[0]=="3")
+               {
+                   val = l;
+                   c2.set(add.substring(0,30),parseInt(add.substring(30),2),Registers[parseInt(g[1])]);// i need here tag index
+                   c1.insert(add.substring(0,30),parseInt(add.substring(30,31),2),parseInt(add,2));
+                   return val;
+               }
+           }
+
         }
         else
-        if(Integer.parseInt(g[0])==3)
         {
-            m.getMem().set(v,Registers[Integer.parseInt(g[1])]);
+            if(g[0]=="2") {
+                val = l;
+                return val;
+            }
+            if(g[0]=="3") {
+                val = l;
+                c1.set(add.substring(0,30),parseInt(add.substring(31),2),parseInt(add.substring(30,31),2),Registers[parseInt(g[1])],add);
+                return val;
+            }
         }
         return 0;
+    }
+    int mem(int v,String[] g)
+    {
+        String add = toBinaryString(v,32);
+       int val = Controller(add,g);
+        return val;
     }
     ALU getalu(){
         return alu;
@@ -282,7 +332,7 @@ class Parser{
         if(val!=-1)
         {
 
-            Registers[Integer.parseInt(g[1])] = val;
+            Registers[parseInt(g[1])] = val;
         }
     }
     int exmem(String[] curr)
