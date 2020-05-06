@@ -159,7 +159,7 @@ public class Main {
     public static void main(String[] args) {
         BufferedReader file;
         try {
-            String path1 = "D:/sentiment_analysis/dataset/gamma_dataset/bubblesort.asm";
+            String path1 = "D:/sentiment_analysis/dataset/gamma_dataset/test.asm";
             String path2 = "C:/Users/Shruti priya/Downloads/bubblesort.asm";
             file = new BufferedReader(new FileReader(path1));
 //                PreParser q = new PreParser(file);
