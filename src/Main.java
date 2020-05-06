@@ -64,8 +64,8 @@ public class Main {
         }
         JTextArea tarea = p0.tarea; // this one
         tarea.setBounds(70,10,300,600);
-        int startIndex = 0;
-        int endIndex = 0;
+        int startIndex = 4000;
+        int endIndex = 5000;
         try {
             startIndex = tarea.getLineStartOffset(2);
             endIndex = tarea.getLineEndOffset(2);
@@ -154,9 +154,10 @@ public class Main {
     public static void main(String[] args) {
         BufferedReader file;
         try {
-//            String path1 = "C:/Users/visha/OneDrive/Desktop/ideas/themes.txt";
+            String path3 = "D:/sentiment_analysis/dataset/gamma_dataset/bubblesort.asm";
+            String path1 = "C:/Users/visha/OneDrive/Desktop/ideas/themes.txt";
             String path2 = "C:/Users/Shruti priya/Downloads/test.asm";
-            file = new BufferedReader(new FileReader(path2));
+            file = new BufferedReader(new FileReader(path3));
 //                PreParser q = new PreParser(file);
 //            Parser p = new Parser(file);
 
