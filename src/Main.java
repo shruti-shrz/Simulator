@@ -5,10 +5,10 @@ import javax.swing.text.Highlighter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class Main {
     JFrame f;
@@ -64,6 +64,7 @@ public class Main {
         }
         JTextArea tarea = p0.tarea; // this one
         tarea.setBounds(70,10,300,600);
+<<<<<<< HEAD
         int startIndex = 4000;
         int endIndex = 5000;
         try {
@@ -78,6 +79,9 @@ public class Main {
         } catch (BadLocationException e) {
             e.printStackTrace();
         }
+=======
+
+>>>>>>> 892463a20b7198ea7675df260e10f05cc55cdeab
         JLabel l6 = new JLabel("stalls = "); // for stall label
         l6.setBounds(70+offset,410,100, 40);
         JLabel c = new JLabel();
@@ -93,8 +97,25 @@ public class Main {
         b2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            p0.getalu().flag = -1;
-            p0.length = p0.getalu().counter +1;
+           // p0.getalu().flag = -1;
+                if(p0.currInstr[0] == "7")
+                    p0.length = p0.getalu().labels.get(p0.currInstr[1])+1; // why is it not further extending after 556?
+                 else
+                    p0.length = p0.getalu().counter +1;
+                int startIndex = 0;
+                int endIndex = 0;
+                try {
+                    startIndex = tarea.getLineStartOffset(p0.alu.counter);
+                    endIndex = tarea.getLineEndOffset(p0.alu.counter);
+                } catch (BadLocationException ex) {
+                    ex.printStackTrace();
+                }
+                Highlighter.HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.RED);// for highlighting the line.
+                try {
+                    tarea.getHighlighter().addHighlight(startIndex, endIndex, painter);
+                } catch (BadLocationException ex) {
+                    ex.printStackTrace();
+                }
             System.out.println(p0.length + " ");
             p0.startSimulation();
             System.out.print("hll");
@@ -116,6 +137,8 @@ public class Main {
         b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+              //  p0.getalu().flag = 0;
+                p0.length = p0.allLines.size();
                 p0.startSimulation();
                 System.out.println(p0.stall);
                 a.setText(String.valueOf(p0.cycles));
@@ -154,10 +177,16 @@ public class Main {
     public static void main(String[] args) {
         BufferedReader file;
         try {
+<<<<<<< HEAD
             String path3 = "D:/sentiment_analysis/dataset/gamma_dataset/bubblesort.asm";
             String path1 = "C:/Users/visha/OneDrive/Desktop/ideas/themes.txt";
             String path2 = "C:/Users/Shruti priya/Downloads/test.asm";
             file = new BufferedReader(new FileReader(path3));
+=======
+//            String path1 = "C:/Users/visha/OneDrive/Desktop/ideas/themes.txt";
+            String path2 = "C:/Users/Shruti priya/Downloads/bubblesort.asm";
+            file = new BufferedReader(new FileReader(path2));
+>>>>>>> 892463a20b7198ea7675df260e10f05cc55cdeab
 //                PreParser q = new PreParser(file);
 //            Parser p = new Parser(file);
 

@@ -1,13 +1,16 @@
 import javax.swing.*;
 import java.io.BufferedReader;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.List;
+
+import static java.lang.Integer.parseInt;
 
 class PreParser{
     ArrayList<String> all = new ArrayList<>();
     HashMap<String,Integer> base = new HashMap<>();
+    Cache1 c1 = Cache1.getInstance();
     Memory memory = Memory.getInstance();
     HashMap<String,Integer> labels = new HashMap<>();
     int lineNum = 0;
@@ -19,7 +22,7 @@ class PreParser{
             while((line = file.readLine()) != null){
                 line = line.trim();
                 tarea.append(line+'\n');
-                System.out.println(line);
+               // System.out.println(line);
                 all.add(line);
                 if (line.length() != 0) {
                     if(line.charAt(line.length() - 1) == ':') {
@@ -49,7 +52,7 @@ class PreParser{
                 set = val.get(i + 1).split("[ ,]+");
                 base.put(val.get(i).substring(0,val.get(i).length()-1),mc);
                 for (int j = 1; j < set.length; j++) {
-                    memory.insert(Integer.parseInt(set[j]));
+                    memory.insert(parseInt(set[j]));
                     mc++;
                 }
             }
@@ -73,6 +76,8 @@ class Parser{
     static int length=0;
     JTextArea tarea;
     Memory m;
+    Cache1 c1 = Cache1.getInstance();
+    Cache2 c2 = Cache2.getInstance();
     int[] Registers;
     String[] arr;
     PreParser q;
@@ -133,7 +138,7 @@ class Parser{
         {
             return false;
         }
-        if((prv[1].equals(curr[2]) || prv[1].equals(curr[3])) && Integer.parseInt(prv[0])!= 5 && Integer.parseInt(prv[0])!= 6 && Integer.parseInt(curr[0])!= 9)// we have to remove branch cases
+        if((prv[1].equals(curr[2]) || prv[1].equals(curr[3])) && parseInt(prv[0])!= 5 && parseInt(prv[0])!= 6 && parseInt(curr[0])!= 9)// we have to remove branch cases
         {
             return true;
         }
@@ -149,13 +154,14 @@ class Parser{
 //        int stall=0;
         for(int i=0;i<prevInstr.length;i++)
             prevInstr[i] = "-1";
-        System.out.print(alu.counter + " " + length + " ");
+      //  System.out.print(alu.counter + " " + length + " ");
         while (alu.counter < length){
             line = allLines.get(alu.counter);
             currInstr = decodeinst(line); // stage 2, instruction decode
-            if(currInstr[0].equals("-2") && alu.flag ==0)
+            if(currInstr[0].equals("-2"))
             {
                 alu.counter++;
+
             }
             if(currInstr[0].equals("8")){
                 break;
@@ -164,7 +170,8 @@ class Parser{
 
             if((prevInstr[0] == "2" && areDependent(currInstr, prevInstr) == true) || (prevInstr[0] == "11" && areDependent(currInstr, prevInstr) == true))// here this stall is because of lw and la instructions
             {
-                dataforwarding_memwb(); // dataforwarding from memwb latch
+                //dataforwarding_memwb(); // dataforwarding from memwb latch
+                k = alu.executer(currInstr,Registers);
                 stall++;
                 no_of_instructions++;
             }else
@@ -174,14 +181,16 @@ class Parser{
                 no_of_instructions++;
             }
             else
-            if(prevInstr[0]=="5" || prevInstr[0]=="6")// here dataforwarding and 1 stall for all branch cases,
+            if(currInstr[0]=="5" || currInstr[0]=="6")// here dataforwarding and 1 stall for all branch cases,
             {
-                dataforwarding_exemem(); // dataforwarding from exemem latch for branch instruction i.e. counter value of label
+                 // dataforwarding from exemem latch for branch instruction i.e. counter value of label
                 stall++;
                 no_of_instructions++;
+                dataforwarding_exemem();
+               // System.out.println(no_of_instructions + " branch ");
             }
             else
-            if(prevInstr[0]=="7")
+            if(currInstr[0]=="7")
             {
                 dataforwarding_exemem();
                 stall++;
@@ -189,7 +198,7 @@ class Parser{
             }
             else
             {
-                System.out.print("hello 123");
+               // System.out.print("hello 123");
                 k = alu.executer(currInstr,Registers);
                 // stage 3 execute, execute for independent instructions
                 no_of_instructions++;
@@ -198,36 +207,21 @@ class Parser{
                 prevInstr[i] = currInstr[i];
 
 
-            if(Integer.parseInt(currInstr[0])==3)
+            if(parseInt(currInstr[0])==3)
             {
                 mem(k,currInstr);// mem stage 4
             }
-            if(Integer.parseInt(currInstr[0])==2)
+            if(parseInt(currInstr[0])==2)
             {
                 k =  mem(k,currInstr);
             }
+            if(parseInt(currInstr[0])!=3)
             wb(k,currInstr);
-            if(alu.flag == -1) {
-                System.out.print("hello ex");
-                if (currInstr[0] == "5") {
-                    if (alu.latch[Integer.parseInt(currInstr[1])] != alu.latch[Integer.parseInt(currInstr[2])])
-                        alu.counter = alu.labels.get(currInstr[3]) + 1;
-                    else
-                        alu.counter++;
-                } else if (currInstr[0] == "6") {
-                    if (alu.latch[Integer.parseInt(currInstr[1])] == alu.latch[Integer.parseInt(currInstr[2])])
-                        alu.counter = alu.labels.get(currInstr[3]) + 1;
-                    else
-                        alu.counter++;
-                } else if (currInstr[0] == "7") {
-                    alu.counter = alu.labels.get(currInstr[1]) + 1;
-                } else
-                { alu.counter++;
-                    System.out.print("Heyy i m counter" + alu.counter);}
-            }// write back stage 5
+          // write back stage 5
         }
-        System.out.print("hello ex 11");// ye tak nahi print hua problem highlighted part me hai, wo else condition thha kya?? kaunsa else - one where counter is present
-        // kyu nahi increment horaha, else condition nahi chal raha that means
+        c1.finalPush();
+        c2.finalpush();
+       // System.out.print("hello ex 11");
         System.out.println(m.getMem());
         for(int i=0;i<Registers.length;i++)
             System.out.print(Registers[i] + " ");
@@ -255,19 +249,81 @@ class Parser{
         m = Memory.getInstance();
         memlatch = new int[32];
     }
-    int mem(int v,String[] g)
+    public static String toBinaryString(int a, int len)
     {
-        if(Integer.parseInt(g[0])==2)
+        if(len > 0)
         {
-            memlatch = Registers;
-            return m.getMem().get(v);
+            return String.format("%" + len + "s", Integer.toBinaryString(a)).replaceAll(" ", "0");
+        }
+        return null;
+    }
+    int val;
+     int Controller(String add,String[] g)
+    {
+        int l = c1.search(add.substring(0,30),parseInt(add.substring(31),2),parseInt(add.substring(30,31),2));
+        if(l==-1)
+        {
+           l =  c2.search(add.substring(0,30),parseInt(add.substring(30),2),0);
+           if(l==-1)
+           {
+               if(g[0]=="2")
+               {
+                     val = m.getMem().get(parseInt(add,2));
+                     System.out.println(" value if present nowhere " + val);
+                     c1.insert(add.substring(0,30),parseInt(add.substring(30,31),2),parseInt(add,2));
+                     c2.insert(add.substring(0,30),parseInt(add,2));
+                     return val;
+               }
+               if(g[0]=="3")
+               {
+                   m.getMem().set(parseInt(add,2),Registers[parseInt(g[1])]);
+                   c1.insert(add.substring(0,30),parseInt(add.substring(30,31),2),parseInt(add,2));
+                   c2.insert(add.substring(0,30),parseInt(add,2));
+                   System.out.println(" value if present nowhere  sw " + val);
+                   return Registers[parseInt(g[1])];
+               }
+           }
+           else
+           {
+               if(g[0]=="2")
+               {
+                   val = l;
+                   System.out.println(" value if present in c2 " + val);
+                   c1.insert(add.substring(0,30),parseInt(add.substring(30,31),2),parseInt(add,2));
+                   return val;
+               }
+               if(g[0]=="3")
+               {
+                   val = l;
+                   c2.set(add.substring(0,30),parseInt(add.substring(30),2),Registers[parseInt(g[1])]);// i need here tag index
+                   c1.insert(add.substring(0,30),parseInt(add.substring(30,31),2),parseInt(add,2));
+                   System.out.println(" value if present in c2 sw " + val);
+                   return val;
+               }
+           }
+
         }
         else
-        if(Integer.parseInt(g[0])==3)
         {
-            m.getMem().set(v,Registers[Integer.parseInt(g[1])]);
+            if(g[0]=="2") {
+                val = l;
+                System.out.println(" value if present in c1 " + val);
+                return val;
+            }
+            if(g[0]=="3") {
+                val = l;
+                c1.set(add.substring(0,30),parseInt(add.substring(31),2),parseInt(add.substring(30,31),2),Registers[parseInt(g[1])],add);
+                System.out.println(" value if present in c1 sw " + val);
+                return val;
+            }
         }
         return 0;
+    }
+    int mem(int v,String[] g)
+    {
+        String add = toBinaryString(v,32);
+       int val = Controller(add,g);
+        return val;
     }
     ALU getalu(){
         return alu;
@@ -281,21 +337,21 @@ class Parser{
         if(val!=-1)
         {
 
-            Registers[Integer.parseInt(g[1])] = val;
+            Registers[parseInt(g[1])] = val;
         }
     }
     int exmem(String[] curr)
     {
         return alu.executer(curr,alu.latch);
     }
-    int memwb(String[] curr)
-    {
-        return alu.executer(curr,memlatch);
-    }
-    void dataforwarding_memwb()
-    {
-        k = memwb(currInstr);
-    }
+//    int memwb(String[] curr)
+//    {
+//        return alu.executer(curr,memlatch);
+//    }
+//    void dataforwarding_memwb()
+//    {
+//        k = memwb(currInstr);
+//    }
     void dataforwarding_exemem()
     {
         k = exmem(currInstr);
