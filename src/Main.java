@@ -64,24 +64,6 @@ public class Main {
         }
         JTextArea tarea = p0.tarea; // this one
         tarea.setBounds(70,10,300,600);
-<<<<<<< HEAD
-        int startIndex = 4000;
-        int endIndex = 5000;
-        try {
-            startIndex = tarea.getLineStartOffset(2);
-            endIndex = tarea.getLineEndOffset(2);
-        } catch (BadLocationException e) {
-            e.printStackTrace();
-        }
-        Highlighter.HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.RED);// for highlighting the line.
-        try {
-            tarea.getHighlighter().addHighlight(startIndex, endIndex, painter);
-        } catch (BadLocationException e) {
-            e.printStackTrace();
-        }
-=======
-
->>>>>>> 892463a20b7198ea7675df260e10f05cc55cdeab
         JLabel l6 = new JLabel("stalls = "); // for stall label
         l6.setBounds(70+offset,410,100, 40);
         JLabel c = new JLabel();
@@ -167,7 +149,7 @@ public class Main {
         f.add(panel);
         f.add(panel2);
         f.add(tarea);
-        f.setSize(400,500);//400 width and 500 height
+        f.setSize(800,800);//400 width and 500 height
         f.setLayout(null);
         //f.pack();//using no layout managers
         f.setVisible(true);
@@ -177,16 +159,9 @@ public class Main {
     public static void main(String[] args) {
         BufferedReader file;
         try {
-<<<<<<< HEAD
-            String path3 = "D:/sentiment_analysis/dataset/gamma_dataset/bubblesort.asm";
-            String path1 = "C:/Users/visha/OneDrive/Desktop/ideas/themes.txt";
-            String path2 = "C:/Users/Shruti priya/Downloads/test.asm";
-            file = new BufferedReader(new FileReader(path3));
-=======
-//            String path1 = "C:/Users/visha/OneDrive/Desktop/ideas/themes.txt";
+            String path1 = "D:/sentiment_analysis/dataset/gamma_dataset/bubblesort.asm";
             String path2 = "C:/Users/Shruti priya/Downloads/bubblesort.asm";
-            file = new BufferedReader(new FileReader(path2));
->>>>>>> 892463a20b7198ea7675df260e10f05cc55cdeab
+            file = new BufferedReader(new FileReader(path1));
 //                PreParser q = new PreParser(file);
 //            Parser p = new Parser(file);
 
