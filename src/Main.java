@@ -164,7 +164,6 @@ public class Main {
             file = new BufferedReader(new FileReader(path1));
 //                PreParser q = new PreParser(file);
 //            Parser p = new Parser(file);
-
             new Main(file);
 
         } catch (FileNotFoundException e) {
