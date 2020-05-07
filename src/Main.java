@@ -67,7 +67,6 @@ public class Main {
         }
         JTextArea tarea = p0.tarea; // this one
         tarea.setBounds(70,10,300,600);
-
         JLabel l6 = new JLabel("stalls = "); // for stall label
         l6.setBounds(70+offset,410,100, 40);
         JLabel c = new JLabel();
@@ -153,7 +152,7 @@ public class Main {
         f.add(panel);
         f.add(panel2);
         f.add(tarea);
-        f.setSize(400,500);//400 width and 500 height
+        f.setSize(800,800);//400 width and 500 height
         f.setLayout(null);
         //f.pack();//using no layout managers
         f.setVisible(true);
@@ -166,6 +165,7 @@ public class Main {
 //            String path1 = "C:/Users/visha/OneDrive/Desktop/ideas/themes.txt";
             String path2 = "C:/Users/Shruti priya/Downloads/test1.asm";
             file = new BufferedReader(new FileReader(path2));
+
 //                PreParser q = new PreParser(file);
 //            Parser p = new Parser(file);
 

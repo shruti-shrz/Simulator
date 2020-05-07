@@ -40,6 +40,9 @@ public class Cache1 {
         if(front!=-1 && rear !=-1)
         for(int i=front;i<=rear;i++)
         {
+            if(front==-1 && rear ==-1){ // cache has nothing now
+                return;
+            }
             if(tag1[i]!=null)
             {
                 String l = tag1[i]+"0"+"00";
@@ -56,6 +59,9 @@ public class Cache1 {
         if(front2!=-1 && rear2 !=-1)
         for(int i=front2;i<=rear2;i++)
         {
+            if(front2==-1 && rear2 ==-1){ // cache has nothing now
+                return;
+            }
             if(tag1[i]!=null)
             {
                 String l = tag1[i]+"1"+"00";

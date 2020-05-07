@@ -33,8 +33,10 @@ public class Cache2 {
             for(int i=0;i<8;i++)
             {
                 if(((num-num%8)+i)<m.getMem().size())
-                {cac2[rear*8 +i] = m.getMem().get((num-num%8)+i);
-                    System.out.print(cac2[rear * 8 + i] +" cache 2 " + (rear * 8 + i)+" ");}
+                {
+                    cac2[rear*8 +i] = m.getMem().get((num-num%8)+i);
+                    System.out.print(cac2[rear * 8 + i] +" cache 2 " + (rear * 8 + i)+" ");
+                }
             }
         }else
         {
@@ -43,8 +45,10 @@ public class Cache2 {
             for(int i=0;i<8;i++)
             {
                 if(((num-num%8)+i)<m.getMem().size())
-                {cac2[rear*8 +i] = m.getMem().get((num-num%8)+i);
-                    System.out.print(cac2[rear * 8 + i] +" cache 2 " + (rear * 8 + i)+" ");}
+                {
+                    cac2[rear*8 +i] = m.getMem().get((num-num%8)+i);
+                    System.out.print(cac2[rear * 8 + i] +" cache 2 " + (rear * 8 + i)+" ");
+                }
             }
         }
         System.out.println();
@@ -54,6 +58,9 @@ public class Cache2 {
         if(front!=-1 && rear !=-1)
         for(int i=front;i<=rear;i++)
         {
+            if(front==-1 && rear ==-1){ // cache has nothing now
+                return;
+            }
             if(tag2[i]!=null)
             {
                 String l = tag2[i]+"000";
