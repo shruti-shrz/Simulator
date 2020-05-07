@@ -1,11 +1,13 @@
+import Simulator.Registers;
+
 import java.io.BufferedReader;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.HashMap;
 
 public class ALU {
     int[] latch;
+    Registers r;
     Dictionary<String,Integer> opcodes;
     ArrayList<String> allLines;
     HashMap<String,Integer> base;
@@ -13,8 +15,8 @@ public class ALU {
     static ALU alu;
     static HashMap<String,Integer> labels;
     public ALU(BufferedReader f,ArrayList<String> all,HashMap<String,Integer> b,HashMap<String,Integer> Labels){
-        latch = new int[32];
-
+        r = Registers.getInstance();
+        latch = r.getC();
 //        q = new PreParser(f);
         allLines = all;
         //memory = Memory.getInstance();
@@ -25,13 +27,12 @@ public class ALU {
     }
 
 
-    public int executer(String[] arr,int[] Registers){
+    public int executer(String[] arr, int ch){
         //System.out.print(labels);
-        for(int i=0;i<Registers.length;i++)
-            latch[i] = Registers[i];
+        // for(int i=0;i<Registers.length;i++)
+        //    latch[i] = Registers[i];
+        //  latch = Registers;
         // System.out.println(counter);
-        String  line;
-        int i=0;
 //        for(int j=0;j<arr.length;j++){
 //            System.out.print(arr[j]+" ");
 //        }
@@ -64,106 +65,153 @@ public class ALU {
 //                    continue;
 //                }
             if(Integer.parseInt(arr[0]) == 0){
-                latch[Integer.parseInt(arr[1])] = latch[Integer.parseInt(arr[2])]+latch[Integer.parseInt(arr[3])];
+                int l,m;
+                if(ch==0)
+                {  l = r.getreg(Integer.parseInt(arr[2]));
+                    m = r.getreg(Integer.parseInt(arr[3]));}
+                else
+                {  l = latch[Integer.parseInt(arr[2])];
+                    m = latch[Integer.parseInt(arr[3])];}
+                //  latch[Integer.parseInt(arr[1])] = l+m;
+                int n = l+m;
 //                   System.out.println(Registers);
-               // if(flag==0)
                 counter++;
-                return latch[Integer.parseInt(arr[1])];// this is val, when is val = -1
+                return n;// this is val, when is val = -1
 //                    continue;
             }
             if(Integer.parseInt(arr[0]) == 1){
-                latch[Integer.parseInt(arr[1])] = latch[Integer.parseInt(arr[2])]-latch[Integer.parseInt(arr[3])];
+                int l,m;
+                if(ch==0)
+                { l = r.getreg(Integer.parseInt(arr[2]));
+                    m = r.getreg(Integer.parseInt(arr[3]));}
+                else
+                {  l = latch[Integer.parseInt(arr[2])];
+                    m = latch[Integer.parseInt(arr[3])];}
+                // latch[Integer.parseInt(arr[1])] = l-m;
+                int n = l-m;
 //                   System.out.println(Registers);
-               // if(flag==0)
                 counter++;
-                return latch[Integer.parseInt(arr[1])];
+                return n;
 //                    continue;
             }
             if(Integer.parseInt(arr[0]) == 2){
 //                   System.out.println(memory.get(Registers[Integer.parseInt(set[2].substring(3,set[2].length()-1))] + Integer.parseInt(set[2].substring(0,t))));
                 //   latch[Integer.parseInt(arr[1])] = memory.getMem().get(latch[Integer.parseInt(arr[2])] + Integer.parseInt(arr[3]));
-                latch[Integer.parseInt(arr[1])] = latch[Integer.parseInt(arr[2])] + Integer.parseInt(arr[3]);
+                int l;
+                if(ch==0)
+                    l = r.getreg(Integer.parseInt(arr[2]));
+                else
+                    l = latch[Integer.parseInt(arr[2])];
+                //latch[Integer.parseInt(arr[1])] = l + Integer.parseInt(arr[3]);
+                int n = l + Integer.parseInt(arr[3]);
                 // System.out.println(Registers[Integer.parseInt(set[1].substring(1))]);
 //                   System.out.println(Integer.parseInt(set[2].substring(0,t)));
-               // if(flag==0)
                 counter++;
-                return latch[Integer.parseInt(arr[1])];
+                return n;
 //                    continue;
             }
             if(Integer.parseInt(arr[0]) == 3){
-                int index = (latch[Integer.parseInt(arr[2])] + Integer.parseInt(arr[3]));
+                int l;
+                if(ch==0)
+                    l = r.getreg(Integer.parseInt(arr[2]));
+                else
+                    l = latch[Integer.parseInt(arr[2])];
+                int index = l + Integer.parseInt(arr[3]);
                 //memory.getMem().set(index,latch[Integer.parseInt(arr[1])]);
                 // System.out.println(memory);
-               // if(flag==0)
                 counter++;
                 return index;
 //                    continue;
             }
             if(Integer.parseInt(arr[0]) == 4){
-                if(latch[Integer.parseInt(arr[2])]>latch[Integer.parseInt(arr[3])]){
-                    latch[Integer.parseInt(arr[1])] = 1;
+                int l=0;
+                int m=0;
+                if(ch==0)
+                { l = r.getreg(Integer.parseInt(arr[2]));
+                    m = r.getreg(Integer.parseInt(arr[3]));}
+                else
+                    l = latch[Integer.parseInt(arr[2])];
+                m = latch[Integer.parseInt(arr[3])];
+                int n;
+                if(l < m){
+                    //latch[Integer.parseInt(arr[1])] = 1;
+                    n = 1;
                 }
                 else
                 {
-                    latch[Integer.parseInt(arr[1])] = 0;
+                    n=0;
                 }
 //                   Registers[(int)set[1].charAt(1) - 48] = memory.get((Registers[set[2].charAt(3)-48] + (int)set[2].charAt(0)-48));
 //                   System.out.println(Registers);
-               // if(flag==0)
                 counter++;
-                return latch[Integer.parseInt(arr[1])];
+                return n;
 //                    continue;
             }
             if(Integer.parseInt(arr[0]) == 5){
-                if( latch[Integer.parseInt(arr[1])]!= latch[Integer.parseInt(arr[2])]){
-                   // if(flag==0)
-                     counter = labels.get(arr[3])+1;
+                int l,m;
+                if(ch==0)
+                {l = r.getreg(Integer.parseInt(arr[1]));
+                    m = r.getreg(Integer.parseInt(arr[2]));}
+                else
+                {l = latch[Integer.parseInt(arr[1])];
+                    m = latch[Integer.parseInt(arr[2])];}
+                if( l!= m){
+                    counter = labels.get(arr[3])+1;
                 }else
-                {
-                        counter++;}
+                    counter++;
                 return -1;
 //                    continue;
             }
             if(Integer.parseInt(arr[0]) == 6){
-                if( latch[Integer.parseInt(arr[1])]== latch[Integer.parseInt(arr[2])]){
+                int l,m;
+                if(ch==0)
+                { l = r.getreg(Integer.parseInt(arr[1]));
+                    m = r.getreg(Integer.parseInt(arr[2]));}
+                else
+                {l = latch[Integer.parseInt(arr[1])];
+                    m = latch[Integer.parseInt(arr[2])];}
+                if(l == m){
                     //System.out.print(labels.get(arr[3])+" gjhdgfh");
                     int t = labels.get(arr[3]);
-                   // if(flag==0)
                     counter = t+1;
                 }else
-                {// if(flag==0)
-                    counter++;}
+                    counter++;
                 return -1;
 //                    continue;
             }
             if(Integer.parseInt(arr[0]) == 7){
-                //if(flag==0)
                 counter = labels.get(arr[1])+1;
                 return -1;
 //                   System.out.println(Registers);
 //                    continue;
             }
             if(Integer.parseInt(arr[0])==9){
-                latch[Integer.parseInt(arr[1])] = Integer.parseInt(arr[2]);
-               // if(flag==0)
+                // latch[Integer.parseInt(arr[1])] = Integer.parseInt(arr[2]);
+                //  System.out.print("heyy");
+                int n = Integer.parseInt(arr[2]);
                 counter++;
-                return latch[Integer.parseInt(arr[1])];
+                return n;
 //                    continue;
             }
             if(Integer.parseInt(arr[0]) == 10) {
-                latch[Integer.parseInt(arr[1])] = latch[Integer.parseInt(arr[2])] + Integer.parseInt(arr[3]);
-               // if(flag==0)
+                int l;
+                if(ch==0)
+                    l = r.getreg(Integer.parseInt(arr[2]));
+                else
+                    l = latch[Integer.parseInt(arr[2])];
+                // latch[Integer.parseInt(arr[1])] = l + Integer.parseInt(arr[3]);
+                int n =  l + Integer.parseInt(arr[3]);
                 counter++;
-                return latch[Integer.parseInt(arr[1])];
+                return n;
 //                    continue;
             }
             if(Integer.parseInt(arr[0]) == 11){
                 //  System.out.println(base.get(arr[2]));
-                latch[Integer.parseInt(arr[1])] = base.get(arr[2]);
+                //  latch[Integer.parseInt(arr[1])] = base.get(arr[2]);
+                int n = base.get(arr[2]);
 //                   System.out.println(Registers);
-               // if(flag==0)
                 counter++;
-                return latch[Integer.parseInt(arr[1])];
+                return n;
 //                    continue;
             }
 

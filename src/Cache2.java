@@ -51,6 +51,7 @@ public class Cache2 {
     }
     public void finalpush()
     {
+        if(front!=-1 && rear !=-1)
         for(int i=front;i<=rear;i++)
         {
             if(tag2[i]!=null)
@@ -112,17 +113,20 @@ public class Cache2 {
             }
             return 0;
     }
-    public void set(String tag,int off,int newValue)
+    public void set(String add,int off,int newValue)
     {
-               for(int i=front;i<=rear;i++)
-               {
-                   if(tag2[i]!=null)
-                   if(tag2[i].equals(tag))
-                   {
-                       cac2[i*8+off] = newValue;
-                       break;
-                   }
-               }
+//               for(int i=front;i<=rear;i++)
+//               {
+//                   if(tag2[i]!=null)
+//                   if(tag2[i].equals(tag))
+//                   {
+//                       cac2[i*8+off] = newValue;
+//                       break;
+//                   }
+//               }
+        m.getMem().set(parseInt(add,2),newValue);
+        cac2[rear*8+off] = newValue;
+
     }
     public void evict()
     {
@@ -138,9 +142,8 @@ public class Cache2 {
                 for (i = front; i <= rear; i++) {
                     if (tag2[i].equals(tag)) {
                         int k = cac2[off + i * 8];
-                        if(ch!=-1)
-                        {int m = pop(tag);
-                        push(tag, m);}
+                        int m = pop(tag);
+                        push(tag, m);
                         return k;
                     }
                 }
@@ -148,6 +151,11 @@ public class Cache2 {
                     return -1;
             }
         return 0;
+    }
+    public void pcache()
+    {
+        for(int i =front;i<=rear;i++)
+            System.out.print(cac2[i] + "  ");
     }
     public void insert(String tag,int num) {
         if (rear >= 512) {

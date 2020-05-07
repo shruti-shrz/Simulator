@@ -5,8 +5,6 @@ import java.util.List;
 import static java.lang.Integer.parseInt;
 public class Cache1 {
     static Cache1 cache1;
-    int count1=0;
-    int count2=0;
     int front=-1;
     int rear = -1;
     int front2=127;
@@ -27,8 +25,19 @@ public class Cache1 {
         }
         return cache1;
     }
+    public void pcache()
+    {
+        for(int i =front;i<=rear2;i++)
+        {System.out.print(tag1[i] + "  ");
+        }
+        System.out.println("now tags");
+        for(int i =front;i<=rear2;i++)
+        {System.out.print(cac1[i] + "  ");
+        }
+    }
     public void finalPush()
     {
+        if(front!=-1 && rear !=-1)
         for(int i=front;i<=rear;i++)
         {
             if(tag1[i]!=null)
@@ -44,6 +53,7 @@ public class Cache1 {
                // if(m.getmem().set((parseInt(l,2)))
             }
         }
+        if(front2!=-1 && rear2 !=-1)
         for(int i=front2;i<=rear2;i++)
         {
             if(tag1[i]!=null)
@@ -68,7 +78,7 @@ public class Cache1 {
                 for (int i = 0; i < 4; i++) {
                     if (((num - num % 4) + i) < m.getMem().size()) {
                         cac1[rear * 4 + i] = m.getMem().get((num - num % 4) + i);
-                        System.out.print(cac1[rear * 4 + i] +" cache 1 index 0 " + (rear * 4 + i)+" ");
+                        System.out.print(cac1[rear * 4 + i] +" cache one index zero " + (rear * 4 + i)+" ");
                     }//same i did here
                 }
 
@@ -78,7 +88,7 @@ public class Cache1 {
                 for (int i = 0; i < 4; i++) {
                     if (((num - num % 4) + i) < m.getMem().size())
                         cac1[rear * 4 + i] = m.getMem().get((num - num % 4) + i);
-                    System.out.print(cac1[rear * 4 + i] +" cache 1 index 0 " + (rear * 4 + i)+" ");
+                    System.out.print(cac1[rear * 4 + i] +" cache one index zero " + (rear * 4 + i)+" ");
                 }
             }
             System.out.println();
@@ -116,9 +126,9 @@ public class Cache1 {
         System.out.println();
     }
     public int pop(String num,int index) {
-        if (index == 0 && rear<128)
+        if (index == 0)
         { if (rear == -1 && front == -1) {
-                return 0;
+                return -1;
             } else if (rear == front) {
                 int k = cac1[4*rear];
                 front = -1;
@@ -155,7 +165,7 @@ public class Cache1 {
 
             }
     }
-        if(index==1 && rear2<256) {
+        if(index==1) {
             if (rear2 == 127 && front2 == 127) {
                 return 0;
             } else if (rear2 == front2) {
@@ -235,22 +245,25 @@ public class Cache1 {
     public void set(String tag,int off,int index,int newValue,String add) {
         int i;
         if (index == 0) {
-            for ( i = front; i <= rear; i++) {
-                if(tag1[i]!=null)
-                if (tag1[i].equals(tag)) {
-                    cac1[off+i*4] = newValue;
-                    break;
-                }
-            }
+//            for ( i = front; i <= rear; i++) {
+//                if(tag1[i]!=null)
+//                if (tag1[i].equals(tag)) {
+//                    cac1[off+i*4] = newValue;
+//                    break;
+//                }
+//            }
+            cac1[rear*4 + off] = newValue;
 
         } else if (index == 1) {
-            for (i = front2; i <= rear2;i++) {
-                if(tag1[i]!=null)
-                if (tag1[i].equals(tag)) {
-                    cac1[off+i*4] = newValue;
-                    break;
-                }
-            }
+//            for (i = front2; i <= rear2;i++) {
+//                if(tag1[i]!=null)
+//                if (tag1[i].equals(tag)) {
+//                    cac1[off+i*4] = newValue;
+//                    break;
+//                }
+//
+//            }
+            cac1[rear2*4 +off] = newValue;
         }
         int l = c2.search(add.substring(0,30),parseInt(add.substring(30),2),-1);
         if(l==-1)
@@ -259,6 +272,7 @@ public class Cache1 {
         }
         else
         {
+            m.getMem().set(parseInt(add,2),newValue);
             c2.set(add.substring(0,30),parseInt(add.substring(30)),newValue);
         }
        // writethrough(tag,int off,)

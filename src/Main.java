@@ -1,3 +1,5 @@
+import Simulator.Registers;
+
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
@@ -14,12 +16,13 @@ public class Main {
     JFrame f;
     private JButton button1;
     ALU a;
+    Registers r;
     Main(BufferedReader file){
         int offset = 360; // offset for frame setting
         f=new JFrame();
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Memory m = Memory.getInstance(); //
-
+        r = Registers.getInstance();
         Parser p0 = new Parser(file);
         JButton b = new JButton("Simulate");
         JButton b2 = new JButton("Step by Step");//creating instance of JButton
@@ -112,7 +115,7 @@ public class Main {
                 }
                 l.setText(sb.toString());
                 for(int i=0;i<=19;i++) {
-                    lbw1.get(i).setText(String.valueOf(p0.getReg()[i]));
+                    lbw1.get(i).setText(String.valueOf(r.getreg(i)));
                     panel2.add(lbw1.get(i));
                 }
             }
@@ -132,7 +135,7 @@ public class Main {
                 }
                 l.setText(sb.toString());
                 for(int i=0;i<=19;i++) {
-                    lbw1.get(i).setText(String.valueOf(p0.getReg()[i]));
+                    lbw1.get(i).setText(String.valueOf(r.getreg(i)));
                     panel2.add(lbw1.get(i));
                 }
             }
@@ -161,7 +164,7 @@ public class Main {
         BufferedReader file;
         try {
 //            String path1 = "C:/Users/visha/OneDrive/Desktop/ideas/themes.txt";
-            String path2 = "C:/Users/Shruti priya/Downloads/bubblesort.asm";
+            String path2 = "C:/Users/Shruti priya/Downloads/test1.asm";
             file = new BufferedReader(new FileReader(path2));
 //                PreParser q = new PreParser(file);
 //            Parser p = new Parser(file);
