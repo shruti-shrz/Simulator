@@ -1,19 +1,16 @@
 .data
 arr:
-.word 5, 3, 21, 20, 9, 1, 100
+.word 1, 2, 3, 4, 5, 6, 7
 .text
 .globl main
 main:
-li t1, 4 #a
-li t0, 1 #b
-li t4, 0 #i
-li t3, 8 #n
-la t5, arr
+li t0, 0
+li t1, 7
+la t2, arr
 loop1:
-beq t3, t4, exit
+beq t0, t1, end
+lw t3, 0(t2)
+sw t3, 0(t2)
 addi t0, t0, 1
-addi t4, t4, 1
-addi t1, t1, 1
-j loop1
-exit:
+addi t2, t2, 1
 syscall

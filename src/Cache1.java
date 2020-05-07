@@ -26,19 +26,12 @@ public class Cache1 {
         return cache1;
     }
 
-    public void pcache() {
-        for (int i = front; i <= rear2; i++) {
-            System.out.print(tag1[i] + "  ");
-        }
-        System.out.println("now tags");
-        for (int i = front; i <= rear2; i++) {
-            System.out.print(cac1[i] + "  ");
-        }
-    }
-
     public void finalPush() {
         if (front != -1 && rear != -1)
             for (int i = front; i <= rear; i++) {
+                if (front == -1 && rear == -1) {
+                    return;
+                }
                 if (tag1[i] != null) {
                     String l = tag1[i] + "0" + "00";
                     for (int j = 0; j < 4; j++) {
@@ -69,61 +62,44 @@ public class Cache1 {
             if ((rear == -1 && front == -1)) {
                 rear++;
                 front++;
-                tag1[rear] = k;//index 0 no issue, index 1 other half will be filled
-                System.out.println(" y "+tag1[rear]+" ");
+                tag1[rear] = k;
                 for (int i = 0; i < 4; i++) {
                     if (((num - num % 4) + i) < m.getMem().size()) {
                         cac1[rear * 4 + i] = m.getMem().get((num - num % 4) + i);
-                        System.out.print("cache one " + cac1[rear * 4 + i] + " " + (rear * 4 + i) + " ");
-                    }//same i did here
+                    }
                 }
 
             } else {
                 rear++;
-                tag1[rear] = k;//thats it right?? wait just lemme check againok
-                System.out.println(" hee hee "+tag1[rear]+" ");
+                tag1[rear] = k;
                 for (int i = 0; i < 4; i++) {
                     if (((num - num % 4) + i) < m.getMem().size())
                         cac1[rear * 4 + i] = m.getMem().get((num - num % 4) + i);
-                    System.out.print("cache one " + cac1[rear * 4 + i] + " " + (rear * 4 + i) + " ");
                 }
             }
-            System.out.println();
         }else
         if (index == 1) {
 
             if ((rear2 == 127 && front2 == 127)) {
                 rear2++;
                 front2++;
-                tag1[rear2] = k;//index 0 no issue, index 1 other half will be filled
-                System.out.println(" ch "+tag1[rear2]+" ");
+                tag1[rear2] = k;
                 for (int i = 0; i < 4; i++) {
                     if (((num - num % 4) + i) < m.getMem().size()) {
                         cac1[rear2 * 4 + i] = m.getMem().get((num - num % 4) + i);
-
-                        System.out.print("cache one" + cac1[rear2 * 4 + i] + " " + (rear2 * 4 + i) + " ");
-                    }//same i did here}
-//                    System.out.print(cac1[rear2 * 4 + i] +" cache 1 index 1 " + (rear2 * 4 + i)+" ");
+                    }
                 }
             }
         } else {
             rear2++;
             tag1[rear2] = k;
-            System.out.println(" ch2 "+tag1[rear2]+" ");
-            //System.out.print(tag1.length + " ");
             for (int i = 0; i < 4; i++) {
                 if (((num - num % 4) + i) < m.getMem().size()) {
-                    //System.out.print(cac1.length + "  l ");
                     cac1[rear2 * 4 + i] = m.getMem().get((num - num % 4) + i);
-                    System.out.print(" cache one " + cac1[rear * 4 + i] + " " + (rear * 4 + i) + " ");
-//                        System.out.print(cac1[rear * 4 + i] +" cache 1 index 0 " + (rear * 4 + i)+" ");
                 }
             }
         }
-        System.out.println();
     }
-      //  System.out.println();
-
 
     public int pop(String num,int index) {
         if (index == 0)
@@ -141,20 +117,12 @@ public class Cache1 {
                         List<String> l = new ArrayList<String>(Arrays.asList(tag1));
                         l.remove(num);
                         tag1 = l.toArray(new String[256]);
-                       // tag1 = l.stream().toArray(String[]::new);
                         for (int k = 0; k < 4; k++) {
-//                            int finalK = k;
-//                            int finalI = i;
-//                            cac1 = IntStream.range(0, cac1.length)
-//                                    .filter(m -> m != finalI * 4 + finalK)
-//                                    .map(m -> cac1[m])
-//                                    .toArray();
                             if(cac1==null)
                                 return -1;
                             for(int j = 4*i + k ; j <= (rear*4 +3);j++)
                             {
                                 cac1[j] = cac1[j+1];
-                                //System.out.print(cac1[j]);
                             }
                         }
                         rear--;
@@ -186,7 +154,6 @@ public class Cache1 {
                             for(int j = 4*i + k ; j <= (rear2*4 +3);j++)
                             {
                                 cac1[j] = cac1[j+1];
-                                //System.out.print(cac1[j]);
                             }
                         }
                         rear2--;
@@ -204,9 +171,9 @@ public class Cache1 {
         if (index == 0) {
             if(rear==-1 && front==-1)
             {
-                System.out.println("not present in cache1");
                return -1;
-            }else {
+            }
+            else {
                 for (i = front; i <= rear; i++) {
                     System.out.println(" "+tag1[i]+" ");
                     if(tag1[i]!=null)
@@ -217,7 +184,7 @@ public class Cache1 {
                         return k;
                     }
                 }
-                if (i == rear + 1)//this for not find
+                if (i == rear + 1)
                 {
                     System.out.println("not present in cache1 ");
                     return -1;
@@ -229,19 +196,16 @@ public class Cache1 {
                 return -1;
             } else {
                 for (i = front2; i <= rear2; i++) {
-                   // System.out.println(tag1[i]);
-                    System.out.println(" "+tag1[i]+" ");
                     if(tag1[i]!=null)
                     if (tag1[i].equals(tag)) {
                         int k = cac1[off + i * 4];
                         int m = pop(tag, index);
-                         push(tag, m, index);
+                        push(tag, m, index);
                         return k;
                     }
                 }
-                if (i == rear2 + 1)//this for not find
+                if (i == rear2 + 1)
                 {
-                    System.out.println("not present in cache1 ");
                     return -1;
                 }
             }
@@ -251,24 +215,9 @@ public class Cache1 {
     public void set(String tag,int off,int index,int newValue,String add) {
         int i;
         if (index == 0) {
-//            for ( i = front; i <= rear; i++) {
-//                if(tag1[i]!=null)
-//                if (tag1[i].equals(tag)) {
-//                    cac1[off+i*4] = newValue;
-//                    break;
-//                }
-//            }
             cac1[rear*4 + off] = newValue;
 
         } else if (index == 1) {
-//            for (i = front2; i <= rear2;i++) {
-//                if(tag1[i]!=null)
-//                if (tag1[i].equals(tag)) {
-//                    cac1[off+i*4] = newValue;
-//                    break;
-//                }
-//
-//            }
             cac1[rear2*4 +off] = newValue;
         }
         int l = c2.search(add.substring(0,29),parseInt(add.substring(29),2),add);
@@ -282,7 +231,6 @@ public class Cache1 {
 //            m.getMem().set(parseInt(add,2),newValue);
             c2.set(parseInt(add.substring(29),2),newValue);
         }
-       // writethrough(tag,int off,)
     }
     public void evict(int index)
     {
