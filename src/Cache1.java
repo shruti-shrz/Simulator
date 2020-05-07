@@ -229,7 +229,7 @@ public class Cache1 {
         {
 //            if(parseInt(add,2)<m.getMem().size())
 //            m.getMem().set(parseInt(add,2),newValue);
-            c2.set(parseInt(add.substring(29),2),newValue);
+            c2.set(add, parseInt(add.substring(29),2),newValue);
         }
     }
     public void evict(int index)

@@ -286,7 +286,7 @@ class Parser{
                if(g[0]=="3")
                {
                    val = n;
-                   c2.set(parseInt(add.substring(29),2),r.getreg(parseInt(g[1])));// i need here tag index
+                 //  c2.set(parseInt(add.substring(29),2),r.getreg(parseInt(g[1])));// i need here tag index
                    c2.set(add,parseInt(add.substring(29),2),r.getreg(parseInt(g[1])));
                    c1.insert(add.substring(0,29),parseInt(add.substring(29,30),2),parseInt(add,2));
                    return val;

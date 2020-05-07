@@ -52,25 +52,22 @@ public class Cache2 {
         }
         System.out.println();
     }
-    public void finalpush()
-    {
-        if(front!=-1 && rear !=-1)
-        for(int i=front;i<=rear;i++)
-        { if(tag2[i]!=null)
-        {
-            if(front==-1 && rear ==-1){
-                return;
-            }
-            if(tag2[i]!=null)
-            {
-                String l = tag2[i]+"000";
-                for(int j=0;j<8;j++)
-                {
-                    if((parseInt(l,2)+j)<m.getMem().size())
-                        m.getMem().set((parseInt(l,2)+j),cac2[8*i+j]);
+    public void finalpush() {
+        if (front != -1 && rear != -1)
+            for (int i = front; i <= rear; i++) {
+                if (tag2[i] != null) {
+                    if (front == -1 && rear == -1) {
+                        return;
+                    }
+                    if (tag2[i] != null) {
+                        String l = tag2[i] + "000";
+                        for (int j = 0; j < 8; j++) {
+                            if ((parseInt(l, 2) + j) < m.getMem().size())
+                                m.getMem().set((parseInt(l, 2) + j), cac2[8 * i + j]);
+                        }
+                    }
                 }
             }
-        }
     }
     public int pop(String num)
     {
@@ -111,7 +108,7 @@ public class Cache2 {
             }
             return 0;
     }
-    public void set(int off,int newValue)
+    public void set(String add, int off,int newValue)
     {
         m.getMem().set(parseInt(add,2),newValue);
         cac2[rear*8+off] = newValue;
