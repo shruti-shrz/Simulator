@@ -162,12 +162,17 @@ public class Main {
     public static void main(String[] args) {
         BufferedReader file;
         try {
+<<<<<<< HEAD
             String path2 = "C:/Users/Shruti priya/Downloads/test1.asm";
             file = new BufferedReader(new FileReader(path2));
+=======
+            String path1 = "./test.asm";
+//            String path2 = "C:/Users/Shruti priya/Downloads/test1.asm";
+            file = new BufferedReader(new FileReader(path1));
+>>>>>>> e7e366267e60854b66374a8d35e21b32ef3462b0
 
 //                PreParser q = new PreParser(file);
 //            Parser p = new Parser(file);
-
             new Main(file);
 
         } catch (FileNotFoundException e) {
