@@ -210,7 +210,16 @@ class Parser{
             }
             wb(k,currInstr);
         }
+<<<<<<< HEAD
         System.out.println();
+=======
+       // c1.finalPush();
+        //c2.finalpush();
+        c1.pcache();
+        System.out.println();
+        c2.pcache();
+       // System.out.print("hello ex 11");
+>>>>>>> 958eff648761fc702836f8e7ef6ab9de8ba4f15b
         System.out.println(m.getMem());
         r.printreg();
         System.out.println();

@@ -10,6 +10,7 @@ public class Cache1 {
     int front2 = 127;
     int rear2 = 127;
     Memory m = Memory.getInstance();
+    Cache2 c2 = Cache2.getInstance();
     int[] cac1;
     String[] tag1;
 
@@ -221,6 +222,16 @@ public class Cache1 {
 
         } else if (index == 1) {
             cac1[rear2*4 +off] = newValue;
+        }
+        int l = c2.search(add.substring(0,29),parseInt(add.substring(29),2),add);
+        if(l==-1)
+        {
+            m.getMem().set(parseInt(add,2),newValue);
+        }
+        else
+        {
+            m.getMem().set(parseInt(add,2),newValue);
+            c2.set(add.substring(0,30),parseInt(add.substring(30)),newValue);
         }
     }
     public void evict(int index)
