@@ -133,7 +133,7 @@ public class Cache2 {
 //                       break;
 //                   }
 //               }
-        m.getMem().set(parseInt(add,2),newValue);
+      //  m.getMem().set(parseInt(add,2),newValue);
         cac2[rear*8+off] = newValue;
 
     }

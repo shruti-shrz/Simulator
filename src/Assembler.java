@@ -225,9 +225,9 @@ class Parser{
         }
        // c1.finalPush();
         //c2.finalpush();
-       // c1.pcache();
+        c1.pcache();
         System.out.println();
-        //c2.pcache();
+        c2.pcache();
        // System.out.print("hello ex 11");
         System.out.println(m.getMem());
         r.printreg();
