@@ -162,7 +162,6 @@ public class Main {
     public static void main(String[] args) {
         BufferedReader file;
         try {
-//            String path1 = "C:/Users/visha/OneDrive/Desktop/ideas/themes.txt";
             String path2 = "C:/Users/Shruti priya/Downloads/test1.asm";
             file = new BufferedReader(new FileReader(path2));
 

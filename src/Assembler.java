@@ -275,6 +275,7 @@ class Parser{
            {
                if(g[0]=="2")
                {
+                 //  System.out.println(add + parseInt(add,2)+" l ");
                      val = m.getMem().get(parseInt(add,2));
                      System.out.println(" value if present nowhere " + val);
                      c1.insert(add.substring(0,30),parseInt(add.substring(30,31),2),parseInt(add,2));
@@ -329,6 +330,7 @@ class Parser{
     int mem(int v,String[] g)
     {
        // memlatch = Registers;
+      //  System.out.println("index"+v);
         String add = toBinaryString(v,32);
        int val = Controller(add,g);
         return val;
@@ -345,9 +347,9 @@ class Parser{
         if(val!=-1 && g[0]!="3")
         {
 
-            System.out.println(Integer.parseInt(g[1])+"  " +val);
+          //  System.out.println(Integer.parseInt(g[1])+"  " +val);
             r.insert(Integer.parseInt(g[1]),val);
-            System.out.print(r.getreg(Integer.parseInt(g[1])));
+          //  System.out.print(r.getreg(Integer.parseInt(g[1])));
         }
     }
     int exmem(String[] curr)

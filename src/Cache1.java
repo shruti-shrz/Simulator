@@ -84,7 +84,7 @@ public class Cache1 {
                 for (int i = 0; i < 4; i++) {
                     if (((num - num % 4) + i) < m.getMem().size()) {
                         cac1[rear * 4 + i] = m.getMem().get((num - num % 4) + i);
-                        System.out.print(cac1[rear * 4 + i] +" cache one index zero " + (rear * 4 + i)+" ");
+                        System.out.print("cache one " +cac1[rear * 4 + i] +" " + (rear * 4 + i)+" ");
                     }//same i did here
                 }
 
@@ -94,7 +94,7 @@ public class Cache1 {
                 for (int i = 0; i < 4; i++) {
                     if (((num - num % 4) + i) < m.getMem().size())
                         cac1[rear * 4 + i] = m.getMem().get((num - num % 4) + i);
-                    System.out.print(cac1[rear * 4 + i] +" cache one index zero " + (rear * 4 + i)+" ");
+                    System.out.print("cache one "+cac1[rear * 4 + i] +" " + (rear * 4 + i)+" ");
                 }
             }
             System.out.println();
@@ -111,7 +111,7 @@ public class Cache1 {
                 {
                     if(((num-num%4)+i)<m.getMem().size())
                     { cac1[rear2*4 +i] = m.getMem().get((num-num%4)+i);
-                    System.out.print(cac1[rear2 * 4 + i] +" cache 1 index 1 " + (rear2 * 4 + i)+" ");}//same i did here}
+                    System.out.print("cache one"+cac1[rear2 * 4 + i] +" " + (rear2 * 4 + i)+" ");}//same i did here}
                 }
             }else
             {
@@ -124,7 +124,7 @@ public class Cache1 {
                     {
                         //System.out.print(cac1.length + "  l ");
                         cac1[rear2*4 +i] = m.getMem().get((num-num%4)+i);
-                        System.out.print(cac1[rear * 4 + i] +" cache 1 index 0 " + (rear * 4 + i)+" ");
+                        System.out.print(" cache one "+cac1[rear * 4 + i] +" " + (rear * 4 + i)+" ");
                     }
                 }
             }

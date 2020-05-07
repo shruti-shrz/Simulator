@@ -35,7 +35,7 @@ public class Cache2 {
                 if(((num-num%8)+i)<m.getMem().size())
                 {
                     cac2[rear*8 +i] = m.getMem().get((num-num%8)+i);
-                    System.out.print(cac2[rear * 8 + i] +" cache 2 " + (rear * 8 + i)+" ");
+                    System.out.print("cache two"+cac2[rear * 8 + i] +" " + (rear * 8 + i)+" ");
                 }
             }
         }else
@@ -47,7 +47,7 @@ public class Cache2 {
                 if(((num-num%8)+i)<m.getMem().size())
                 {
                     cac2[rear*8 +i] = m.getMem().get((num-num%8)+i);
-                    System.out.print(cac2[rear * 8 + i] +" cache 2 " + (rear * 8 + i)+" ");
+                    System.out.print("cache two "+cac2[rear * 8 + i] +" " + (rear * 8 + i)+" ");
                 }
             }
         }
