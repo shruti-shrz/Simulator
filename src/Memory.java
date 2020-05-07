@@ -14,6 +14,14 @@ public class Memory {
         }
         return memory;
     }
+    public int get(int index)
+    {
+        return mem.get(index);
+    }
+    public void set(int index,int element)
+    {
+        mem.set(index,element);
+    }
     public ArrayList<Integer> getMem(){
         return mem;
     }
