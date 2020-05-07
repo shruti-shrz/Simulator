@@ -17,9 +17,7 @@ public class ALU {
     public ALU(BufferedReader f,ArrayList<String> all,HashMap<String,Integer> b,HashMap<String,Integer> Labels){
         r = Registers.getInstance();
         latch = r.getC();
-//        q = new PreParser(f);
         allLines = all;
-        //memory = Memory.getInstance();
         base = b;
         // System.out.println(labels);
         labels = Labels;

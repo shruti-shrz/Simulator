@@ -30,24 +30,26 @@ public class Cache2 {
             rear++;
             front++;
             tag2[rear] = k;
+            System.out.println(" "+tag2[rear]+" ");
             for(int i=0;i<8;i++)
             {
                 if(((num-num%8)+i)<m.getMem().size())
                 {
                     cac2[rear*8 +i] = m.getMem().get((num-num%8)+i);
-                    System.out.print(cac2[rear * 8 + i] +" cache 2 " + (rear * 8 + i)+" ");
+                    System.out.print("cache two"+cac2[rear * 8 + i] +" " + (rear * 8 + i)+" ");
                 }
             }
         }else
         {
             rear++;
             tag2[rear] = k;//thats it right?? wait just lemme check againok
+            System.out.println(" "+tag2[rear]+" ");
             for(int i=0;i<8;i++)
             {
                 if(((num-num%8)+i)<m.getMem().size())
                 {
                     cac2[rear*8 +i] = m.getMem().get((num-num%8)+i);
-                    System.out.print(cac2[rear * 8 + i] +" cache 2 " + (rear * 8 + i)+" ");
+                    System.out.print("cache two "+cac2[rear * 8 + i] +" " + (rear * 8 + i)+" ");
                 }
             }
         }
@@ -82,7 +84,7 @@ public class Cache2 {
         else
             if(rear==front)
             {
-                int k = cac2[8*rear];
+                int k = 8*rear;
                front=-1;
                rear = -1;
                return k;
@@ -112,7 +114,7 @@ public class Cache2 {
 //                            cac2 = ArrayUtils.toPrimitive(k1.toArray(new Integer[4096]));
                         }
                         rear = rear-1;
-                        return cac2[8*i];
+                        return 8*i;
                     }
 
                 }
@@ -141,21 +143,24 @@ public class Cache2 {
             pop(tag2[front]);
 
     }
-    public int search(String tag,int off,int ch) {
+    public int search(String tag,int off,String add) {
             int i;
             if(front==-1 && rear ==-1)
-                return -1;
+            {  System.out.println("not present in cache2  ");
+                return -1;}
             else {
                 for (i = front; i <= rear; i++) {
+                    System.out.println(" "+tag2[i]+" ");
                     if (tag2[i].equals(tag)) {
                         int k = cac2[off + i * 8];
-                        int m = pop(tag);
-                        push(tag, m);
+                        pop(tag);
+                        push(tag, parseInt(add,2));
                         return k;
                     }
                 }
                 if (i == rear + 1)
-                    return -1;
+                { System.out.println("not present in cache2 ");
+                    return -1;}
             }
         return 0;
     }
