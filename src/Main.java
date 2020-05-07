@@ -18,14 +18,14 @@ public class Main {
     ALU a;
     Registers r;
     Main(BufferedReader file){
-        int offset = 360; // offset for frame setting
+        int offset = 360;
         f=new JFrame();
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Memory m = Memory.getInstance(); //
+        Memory m = Memory.getInstance();
         r = Registers.getInstance();
         Parser p0 = new Parser(file);
         JButton b = new JButton("Simulate");
-        JButton b2 = new JButton("Step by Step");//creating instance of JButton
+        JButton b2 = new JButton("Step by Step");
         b.setBounds(70+offset,450,90, 20);
         b2.setBounds(70+offset,480,120,20);
         StringBuilder sb = new StringBuilder();
@@ -82,9 +82,8 @@ public class Main {
         b2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-           // p0.getalu().flag = -1;
                 if(p0.currInstr[0] == "7")
-                    p0.length = p0.getalu().labels.get(p0.currInstr[1])+1; // why is it not further extending after 556?
+                    p0.length = p0.getalu().labels.get(p0.currInstr[1])+1;
                  else
                     p0.length = p0.getalu().counter +1;
                 int startIndex = 0;
@@ -95,17 +94,13 @@ public class Main {
                 } catch (BadLocationException ex) {
                     ex.printStackTrace();
                 }
-                Highlighter.HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.RED);// for highlighting the line.
+                Highlighter.HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.RED);
                 try {
                     tarea.getHighlighter().addHighlight(startIndex, endIndex, painter);
                 } catch (BadLocationException ex) {
                     ex.printStackTrace();
                 }
-            System.out.println(p0.length + " ");
-            p0.startSimulation();
-            System.out.print("hll");
-
-                System.out.println(p0.stall);
+                p0.startSimulation();
                 a.setText(String.valueOf(p0.cycles));
                 c.setText(String.valueOf(p0.stall));
                 StringBuilder sb = new StringBuilder();
@@ -122,10 +117,8 @@ public class Main {
         b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              //  p0.getalu().flag = 0;
                 p0.length = p0.allLines.size();
                 p0.startSimulation();
-                System.out.println(p0.stall);
                 a.setText(String.valueOf(p0.cycles));
                 c.setText(String.valueOf(p0.stall));
                 StringBuilder sb = new StringBuilder();
@@ -141,7 +134,7 @@ public class Main {
         });
 
         f.add(b);
-        f.add(b2);//adding button in JFrame
+        f.add(b2);
         f.add(l2);
         f.add(l3);
         f.add(l);
@@ -152,23 +145,17 @@ public class Main {
         f.add(panel);
         f.add(panel2);
         f.add(tarea);
-        f.setSize(800,800);//400 width and 500 height
+        f.setSize(800,800);
         f.setLayout(null);
-        //f.pack();//using no layout managers
         f.setVisible(true);
-        //making the frame visible
     }
 
     public static void main(String[] args) {
         BufferedReader file;
         try {
-            String path2 = "C:/Users/Shruti priya/Downloads/test1.asm";
+            String path2 = "./test.asm";
             file = new BufferedReader(new FileReader(path2));
 //            String path2 = "C:/Users/Shruti priya/Downloads/test1.asm";
-          //  file = new BufferedReader(new FileReader(path1));
-
-//                PreParser q = new PreParser(file);
-//            Parser p = new Parser(file);
             new Main(file);
 
         } catch (FileNotFoundException e) {
