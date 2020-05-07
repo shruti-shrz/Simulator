@@ -267,26 +267,29 @@ class Parser{
     int val;
      int Controller(String add,String[] g)
     {
-        int l = c1.search(add.substring(0,30),parseInt(add.substring(31),2),parseInt(add.substring(30,31),2));
+        int l,n;
+        System.out.println(add +" " + add.length());
+        System.out.println(add.substring(0,29)+" "+add.substring(30)+" "+add.substring(29,30));
+         l = c1.search(add.substring(0,29),parseInt(add.substring(30),2),parseInt(add.substring(29,30),2),add);
         if(l==-1)
         {
-           l =  c2.search(add.substring(0,30),parseInt(add.substring(30),2),0);
-           if(l==-1)
+           n =  c2.search(add.substring(0,29),parseInt(add.substring(29),2),add);
+           if(n==-1)
            {
                if(g[0]=="2")
                {
                  //  System.out.println(add + parseInt(add,2)+" l ");
-                     val = m.getMem().get(parseInt(add,2));
+                     val = m.get(parseInt(add,2));
                      System.out.println(" value if present nowhere " + val);
-                     c1.insert(add.substring(0,30),parseInt(add.substring(30,31),2),parseInt(add,2));
-                     c2.insert(add.substring(0,30),parseInt(add,2));
+                     c1.insert(add.substring(0,29),parseInt(add.substring(29,30),2),parseInt(add,2));
+                     c2.insert(add.substring(0,29),parseInt(add,2));
                      return val;
                }
                if(g[0]=="3")
                {
                    m.getMem().set(parseInt(add,2),r.getreg(parseInt(g[1])));
-                   c1.insert(add.substring(0,30),parseInt(add.substring(30,31),2),parseInt(add,2));
-                   c2.insert(add.substring(0,30),parseInt(add,2));
+                   c1.insert(add.substring(0,29),parseInt(add.substring(29,30),2),parseInt(add,2));
+                   c2.insert(add.substring(0,29),parseInt(add,2));
                    System.out.println(" value if present nowhere  sw " + val);
                    return r.getreg(parseInt(g[1]));
                }
@@ -295,16 +298,18 @@ class Parser{
            {
                if(g[0]=="2")
                {
-                   val = l;
+                   val = n;
                    System.out.println(" value if present in c2 " + val);
-                   c1.insert(add.substring(0,30),parseInt(add.substring(30,31),2),parseInt(add,2));
+                  // c2.pop(add.substring(0,30));
+                   // c2.push(add.substring(0,30),n);
+                   c1.insert(add.substring(0,29),parseInt(add.substring(29,30),2),parseInt(add,2));
                    return val;
                }
                if(g[0]=="3")
                {
-                   val = l;
-                   c2.set(add,parseInt(add.substring(30),2),r.getreg(parseInt(g[1])));// i need here tag index
-                   c1.insert(add.substring(0,30),parseInt(add.substring(30,31),2),parseInt(add,2));
+                   val = n;
+                   c2.set(add,parseInt(add.substring(29),2),r.getreg(parseInt(g[1])));// i need here tag index
+                   c1.insert(add.substring(0,29),parseInt(add.substring(29,30),2),parseInt(add,2));
                    System.out.println(" value if present in c2 sw " + val);
                    return val;
                }
@@ -315,12 +320,13 @@ class Parser{
         {
             if(g[0]=="2") {
                 val = l;
+               // c1.pop(val,parseInt(add.substring(30),2));
                 System.out.println(" value if present in c1 " + val);
                 return val;
             }
             if(g[0]=="3") {
                 val = l;
-                c1.set(add.substring(0,30),parseInt(add.substring(31),2),parseInt(add.substring(30,31),2),r.getreg(parseInt(g[1])),add);
+                c1.set(add.substring(0,29),parseInt(add.substring(30),2),parseInt(add.substring(29,30),2),r.getreg(parseInt(g[1])),add);
                 System.out.println(" value if present in c1 sw " + val);
                 return val;
             }
@@ -332,6 +338,7 @@ class Parser{
        // memlatch = Registers;
       //  System.out.println("index"+v);
         String add = toBinaryString(v,32);
+       // System.out.println("index" + add);
        int val = Controller(add,g);
         return val;
     }
