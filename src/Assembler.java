@@ -108,7 +108,7 @@ class Parser{
             int t = set[2].indexOf('(');
             arr[0] = l.get(0);
             arr[1] = set[1].substring(1);
-            arr[2] = set[2].substring(3,set[2].length()-1);
+            arr[2] = set[2].substring(t+2,set[2].length()-1);
             arr[3] = set[2].substring(0,t);
         }else
         if((l.get(1)=="i" && l.get(0)=="9") || (l.get(1)=="i" && l.get(0)=="11"))
@@ -223,11 +223,11 @@ class Parser{
             wb(k,currInstr);
           // write back stage 5
         }
-       // c1.finalPush();
-        //c2.finalpush();
-        c1.pcache();
+        c1.finalPush();
+        c2.finalpush();
+        //c1.pcache();
         System.out.println();
-        c2.pcache();
+       // c2.pcache();
        // System.out.print("hello ex 11");
         System.out.println(m.getMem());
         r.printreg();
@@ -308,7 +308,7 @@ class Parser{
                if(g[0]=="3")
                {
                    val = n;
-                   c2.set(add,parseInt(add.substring(29),2),r.getreg(parseInt(g[1])));// i need here tag index
+                   c2.set(parseInt(add.substring(29),2),r.getreg(parseInt(g[1])));// i need here tag index
                    c1.insert(add.substring(0,29),parseInt(add.substring(29,30),2),parseInt(add,2));
                    System.out.println(" value if present in c2 sw " + val);
                    return val;

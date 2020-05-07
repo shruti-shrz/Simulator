@@ -39,9 +39,6 @@ public class Cache1 {
     public void finalPush() {
         if (front != -1 && rear != -1)
             for (int i = front; i <= rear; i++) {
-                if (front == -1 && rear == -1) { // cache has nothing now
-                    return;
-                }
                 if (tag1[i] != null) {
                     String l = tag1[i] + "0" + "00";
                     for (int j = 0; j < 4; j++) {
@@ -55,9 +52,6 @@ public class Cache1 {
             }
         if (front2 != -1 && rear2 != -1)
             for (int i = front2; i <= rear2; i++) {
-                if (front2 == -1 && rear2 == -1) { // cache has nothing now
-                    return;
-                }
                 if (tag1[i] != null) {
                     String l = tag1[i] + "1" + "00";
                     for (int j = 0; j < 4; j++) {
@@ -284,8 +278,9 @@ public class Cache1 {
         }
         else
         {
-            m.getMem().set(parseInt(add,2),newValue);
-            c2.set(add.substring(0,30),parseInt(add.substring(30)),newValue);
+//            if(parseInt(add,2)<m.getMem().size())
+//            m.getMem().set(parseInt(add,2),newValue);
+            c2.set(parseInt(add.substring(29),2),newValue);
         }
        // writethrough(tag,int off,)
     }

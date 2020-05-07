@@ -59,11 +59,7 @@ public class Cache2 {
     {
         if(front!=-1 && rear !=-1)
         for(int i=front;i<=rear;i++)
-        {
-            if(front==-1 && rear ==-1){ // cache has nothing now
-                return;
-            }
-            if(tag2[i]!=null)
+        { if(tag2[i]!=null)
             {
                 String l = tag2[i]+"000";
                 for(int j=0;j<8;j++)
@@ -122,7 +118,7 @@ public class Cache2 {
             }
             return 0;
     }
-    public void set(String add,int off,int newValue)
+    public void set(int off,int newValue)
     {
 //               for(int i=front;i<=rear;i++)
 //               {
@@ -175,6 +171,7 @@ public class Cache2 {
                 String iAdd = tag2[front] + "000";
                 for (int i = 0; i < 8; i++) {
                     int k = cac2[front * 8 + i];
+                    if((parseInt(iAdd, 2) + i)<m.getMem().size())
                     if (k != m.getMem().get(parseInt(iAdd, 2) + i)) {
                         m.getMem().set((parseInt(iAdd, 2) + i), k);
 
