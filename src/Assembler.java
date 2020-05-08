@@ -32,9 +32,7 @@ class PreParser{
 
                         labels.put(line, lineNum);
                     }
-
                     lineNum++;
-
                 }
             }
             this.storeMem(all);
@@ -211,7 +209,7 @@ class Parser{
             if(parseInt(currInstr[0])==3)
             {
                 lw_sw++;
-                mem(k,currInstr);// mem stage 4
+                mem(k,currInstr);
             }
             if(parseInt(currInstr[0])==2)
             {
@@ -219,19 +217,10 @@ class Parser{
                 k =  mem(k,currInstr);
             }
             wb(k,currInstr);
-            System.out.println("Memory " + m.getMem());
         }
-       // c1.finalPush();
-        //c2.finalpush();
-        //c1.pcache();
-        System.out.println();
-       // c2.pcache();
-       // System.out.print("hello ex 11");
         timeline();
-        System.out.println();
         System.out.println(m.getMem());
         r.printreg();
-        System.out.println();
         System.out.println("miss in 1 "+miss_in_c1);
         System.out.println("miss in 2 "+miss_in_c2);
         System.out.println("hit in 1 "+hit_c1);
@@ -242,7 +231,6 @@ class Parser{
         System.out.println("miss rate one " + miss_rate_1);
         System.out.println("miss rate two " + miss_rate_2);
         System.out.println("AMAT " + amat);
-       // cycles = no_of_instructions + 4 + stall;
         System.out.println("No. of cycles " + cycles);
     }
     ALU alu;
@@ -310,10 +298,8 @@ class Parser{
                if(g[0]=="3")
                {
                    val = n;
-                 //  c2.set(parseInt(add.substring(29),2),r.getreg(parseInt(g[1])));// i need here tag index
                    c1.insert(add.substring(0,29),parseInt(add.substring(29,30),2),parseInt(add,2));
                    c1.set(add.substring(0,29),parseInt(add.substring(30),2),parseInt(add.substring(29,30),2),r.getreg(parseInt(g[1])),add);
-                 //  c2.set(add,parseInt(add.substring(29),2),r.getreg(parseInt(g[1])));
                    return val;
                }
            }
@@ -328,7 +314,6 @@ class Parser{
             }
             if(g[0]=="3") {
                 val = l;
-              //  System.out.println("register"+ r.getreg(parseInt(g[1])));
                 c1.set(add.substring(0,29),parseInt(add.substring(30),2),parseInt(add.substring(29,30),2),r.getreg(parseInt(g[1])),add);
                 return val;
             }
@@ -339,9 +324,10 @@ class Parser{
     {
        miss_rate_1 = (double)miss_in_c1/(double)(miss_in_c1+hit_c1);
        miss_rate_2 =(double)miss_in_c2/(double)(miss_in_c2 + hit_c2);
-       amat = ((double) hit1 + miss_rate_1*((double) hit2+(miss_rate_2*(double)miss_penalty2))); // yaha bhhi typecast karo //nahi
+       amat = ((double) hit1 + miss_rate_1*((double) hit2+(miss_rate_2*(double)miss_penalty2)));
        cycles = (int) ((no_of_instructions-lw_sw) + 4 + lw_sw*amat + stall);
        ipc = (double)no_of_instructions/(double)cycles;
+       stall = (int) (stall + (int)lw_sw*amat);
     }
 
     int mem(int v,String[] g)

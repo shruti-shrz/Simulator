@@ -19,9 +19,8 @@ public class ALU {
         latch = r.getC();
         allLines = all;
         base = b;
-        // System.out.println(labels);
         labels = Labels;
-            counter = labels.get("main")+1;
+        counter = labels.get("main")+1;
     }
 
 
