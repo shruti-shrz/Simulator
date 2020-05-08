@@ -75,6 +75,7 @@ class Parser{
     Dictionary<String,List<String>> opcodes;
     ArrayList<String> allLines;
     static int length=0;
+    static int miss_in_c1,miss_in_c2,hit_c1,hit_c2;
     JTextArea tarea;
     Memory m;
     Cache1 c1 = Cache1.getInstance();
@@ -82,7 +83,11 @@ class Parser{
     Registers r;
     String[] arr;
     PreParser q;
-    static int c=0;
+    static int miss_rate_1=0;
+    static int miss_rate_2=0;
+    int hit1 = 4;
+    int hit2 = 10;
+    int miss_penalty2 = 100;
    static String[] currInstr;
     int[] memlatch;
     int stall;
@@ -234,6 +239,7 @@ class Parser{
         tarea = q.tarea;
         allLines = q.getList();
         length = allLines.size();
+        miss_in_c1=miss_in_c2=hit_c1=hit_c2=0;
         alu = ALU.getInstance(file,allLines,q.base,q.labels);
         Opcodes pt = Opcodes.getInstance();
         opcodes = pt.opt();
@@ -258,9 +264,11 @@ class Parser{
         l = c1.search(add.substring(0,29),parseInt(add.substring(30),2),parseInt(add.substring(29,30),2),add);
         if(l==-1)
         {
+            miss_in_c1++;
            n =  c2.search(add.substring(0,29),parseInt(add.substring(29),2),add);
            if(n==-1)
            {
+               miss_in_c2++;
                if(g[0]=="2")
                {
                    val = m.get(parseInt(add,2));
@@ -278,6 +286,7 @@ class Parser{
            }
            else
            {
+               hit_c2++;
                if(g[0]=="2")
                {
                    val = n;
@@ -298,6 +307,7 @@ class Parser{
         }
         else
         {
+            hit_c1++;
             if(g[0]=="2") {
                 val = l;
                 return val;
@@ -310,6 +320,13 @@ class Parser{
             }
         }
         return 0;
+    }
+
+    static void missrate()
+    {
+       miss_rate_1 = miss_in_c1/(miss_in_c1+hit_c1);
+       miss_rate_2 = miss_in_c2/(miss_in_c2 + hit_c2);
+       
     }
     int mem(int v,String[] g)
     {

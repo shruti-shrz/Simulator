@@ -17,6 +17,7 @@ public class Main {
     private JButton button1;
     ALU a;
     Registers r;
+
     Main(BufferedReader file){
         int offset = 360;
         f=new JFrame();
