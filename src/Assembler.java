@@ -209,9 +209,10 @@ class Parser{
                 k =  mem(k,currInstr);
             }
             wb(k,currInstr);
+            System.out.println("Memory " + m.getMem());
         }
-        c1.finalPush();
-        c2.finalpush();
+       // c1.finalPush();
+        //c2.finalpush();
         //c1.pcache();
         System.out.println();
        // c2.pcache();
@@ -269,9 +270,9 @@ class Parser{
                }
                if(g[0]=="3")
                {
-                   m.getMem().set(parseInt(add,2),r.getreg(parseInt(g[1])));
                    c1.insert(add.substring(0,29),parseInt(add.substring(29,30),2),parseInt(add,2));
                    c2.insert(add.substring(0,29),parseInt(add,2));
+                   c1.set(add.substring(0,29),parseInt(add.substring(30),2),parseInt(add.substring(29,30),2),r.getreg(parseInt(g[1])),add);
                    return r.getreg(parseInt(g[1]));
                }
            }
@@ -287,8 +288,9 @@ class Parser{
                {
                    val = n;
                  //  c2.set(parseInt(add.substring(29),2),r.getreg(parseInt(g[1])));// i need here tag index
-                   c2.set(add,parseInt(add.substring(29),2),r.getreg(parseInt(g[1])));
                    c1.insert(add.substring(0,29),parseInt(add.substring(29,30),2),parseInt(add,2));
+                   c1.set(add.substring(0,29),parseInt(add.substring(30),2),parseInt(add.substring(29,30),2),r.getreg(parseInt(g[1])),add);
+                 //  c2.set(add,parseInt(add.substring(29),2),r.getreg(parseInt(g[1])));
                    return val;
                }
            }
@@ -302,6 +304,7 @@ class Parser{
             }
             if(g[0]=="3") {
                 val = l;
+              //  System.out.println("register"+ r.getreg(parseInt(g[1])));
                 c1.set(add.substring(0,29),parseInt(add.substring(30),2),parseInt(add.substring(29,30),2),r.getreg(parseInt(g[1])),add);
                 return val;
             }

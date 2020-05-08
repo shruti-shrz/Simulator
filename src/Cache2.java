@@ -56,14 +56,14 @@ public class Cache2 {
         if (front != -1 && rear != -1)
             for (int i = front; i <= rear; i++) {
                 if (tag2[i] != null) {
-                    if (front == -1 && rear == -1) {
-                        return;
-                    }
                     if (tag2[i] != null) {
                         String l = tag2[i] + "000";
                         for (int j = 0; j < 8; j++) {
                             if ((parseInt(l, 2) + j) < m.getMem().size())
+                            {
+                                if(cac2[i * 8+ j]!=0)
                                 m.getMem().set((parseInt(l, 2) + j), cac2[8 * i + j]);
+                            }
                         }
                     }
                 }
@@ -110,7 +110,8 @@ public class Cache2 {
     }
     public void set(String add, int off,int newValue)
     {
-        m.getMem().set(parseInt(add,2),newValue);
+          m.getMem().set(parseInt(add,2),newValue);
+        if(add.substring(0,29).equals(tag2[rear]))
         cac2[rear*8+off] = newValue;
 
     }
@@ -131,7 +132,7 @@ public class Cache2 {
                         int k = cac2[off + i * 8];
                         pop(tag);
                         push(tag, parseInt(add,2));
-                        return k;
+                        return cac2[rear*8+ off];
                     }
                 }
                 if (i == rear + 1)
@@ -143,17 +144,17 @@ public class Cache2 {
     }
     public void insert(String tag,int num) {
         if (rear >= 512) {
-            if (tag2[front] != null) {
-                String iAdd = tag2[front] + "000";
-                for (int i = 0; i < 8; i++) {
-                    int k = cac2[front * 8 + i];
-                    if((parseInt(iAdd, 2) + i)<m.getMem().size())
-                    if (k != m.getMem().get(parseInt(iAdd, 2) + i)) {
-                        m.getMem().set((parseInt(iAdd, 2) + i), k);
-                    }
-                }
-
-            }
+//            if (tag2[front] != null) {
+//                String iAdd = tag2[front] + "000";
+//                for (int i = 0; i < 8; i++) {
+//                    int k = cac2[front * 8 + i];
+//                    if((parseInt(iAdd, 2) + i)<m.getMem().size())
+//                    if (k != m.getMem().get(parseInt(iAdd, 2) + i)) {
+//                        m.getMem().set((parseInt(iAdd, 2) + i), k);
+//                    }
+//                }
+//
+//            }
             evict();
         }
         push(tag, num);

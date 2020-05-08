@@ -34,10 +34,10 @@ public class Main {
         }
         JLabel l = new JLabel();
         l.setText(sb.toString());
-        l.setBounds(130+offset,350,200, 40);
+        l.setBounds(130+offset,350,500, 40);
 
         JLabel l2 = new JLabel("Memory = ");
-        l2.setBounds(70+offset,350,100, 40);
+        l2.setBounds(70+offset,350,200, 40);
 
         JLabel l3 = new JLabel("Registers");
         l3.setBounds(70+offset,5,120, 20);

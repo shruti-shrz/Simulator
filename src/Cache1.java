@@ -29,13 +29,11 @@ public class Cache1 {
     public void finalPush() {
         if (front != -1 && rear != -1)
             for (int i = front; i <= rear; i++) {
-                if (front == -1 && rear == -1) {
-                    return;
-                }
                 if (tag1[i] != null) {
                     String l = tag1[i] + "0" + "00";
                     for (int j = 0; j < 4; j++) {
                         if (parseInt(l, 2) + j < m.getMem().size()) {
+                            if(cac1[i * 4 + j]!=0)
                             m.getMem().set((parseInt(l, 2) + j), cac1[i * 4 + j]);
 //                            System.out.println("heyy"+ cac1[i*4 + j]+(parseInt(l,2)+j));
                         }
@@ -49,6 +47,7 @@ public class Cache1 {
                     String l = tag1[i] + "1" + "00";
                     for (int j = 0; j < 4; j++) {
                         if (parseInt(l, 2) + j < m.getMem().size())
+                            if(cac1[i * 4 + j]!=0)
                             m.getMem().set(parseInt(l, 2) + j, cac1[i * 4 + j]);
                     }
                     // if(m.getmem().set((parseInt(l,2)))
@@ -63,18 +62,22 @@ public class Cache1 {
                 rear++;
                 front++;
                 tag1[rear] = k;
+                System.out.println("cache one" + tag1[rear] +" "+ rear);
                 for (int i = 0; i < 4; i++) {
                     if (((num - num % 4) + i) < m.getMem().size()) {
                         cac1[rear * 4 + i] = m.getMem().get((num - num % 4) + i);
+                        System.out.print("cache one "+ cac1[rear*4 + i]+ " "+(rear*4 +i));
                     }
                 }
 
             } else {
                 rear++;
                 tag1[rear] = k;
+                System.out.println("cache one" + tag1[rear] +" "+ rear);
                 for (int i = 0; i < 4; i++) {
                     if (((num - num % 4) + i) < m.getMem().size())
-                        cac1[rear * 4 + i] = m.getMem().get((num - num % 4) + i);
+                    {  cac1[rear * 4 + i] = m.getMem().get((num - num % 4) + i);
+                    System.out.print("cache one "+ cac1[rear*4 + i]+ " "+(rear*4 +i));}
                 }
             }
         }else
@@ -84,21 +87,26 @@ public class Cache1 {
                 rear2++;
                 front2++;
                 tag1[rear2] = k;
+                System.out.println("cache one" + tag1[rear2] +" "+ rear2);
                 for (int i = 0; i < 4; i++) {
                     if (((num - num % 4) + i) < m.getMem().size()) {
                         cac1[rear2 * 4 + i] = m.getMem().get((num - num % 4) + i);
+                        System.out.print("cache one "+ cac1[rear2*4 + i]+ " "+(rear2*4 +i));
                     }
                 }
             }
         } else {
             rear2++;
             tag1[rear2] = k;
+            System.out.println("cache one" + tag1[rear2] +" "+ rear2);
             for (int i = 0; i < 4; i++) {
                 if (((num - num % 4) + i) < m.getMem().size()) {
                     cac1[rear2 * 4 + i] = m.getMem().get((num - num % 4) + i);
+                    System.out.print("cache one "+ cac1[rear2*4 + i]+ " "+(rear2*4 +i));
                 }
             }
         }
+        System.out.println();
     }
 
     public int pop(String num,int index) {
@@ -181,7 +189,7 @@ public class Cache1 {
                         int k = cac1[off + i * 4];
                         pop(tag, index);
                         push(tag, parseInt(add,2), index);
-                        return k;
+                        return cac1[rear*4 +off];
                     }
                 }
                 if (i == rear + 1)
@@ -201,7 +209,7 @@ public class Cache1 {
                         int k = cac1[off + i * 4];
                         int m = pop(tag, index);
                         push(tag, m, index);
-                        return k;
+                        return cac1[rear2*4+off];
                     }
                 }
                 if (i == rear2 + 1)
@@ -228,8 +236,9 @@ public class Cache1 {
         else
         {
 //            if(parseInt(add,2)<m.getMem().size())
-//            m.getMem().set(parseInt(add,2),newValue);
+//
             c2.set(add, parseInt(add.substring(29),2),newValue);
+           // m.getMem().set(parseInt(add,2),newValue);
         }
     }
     public void evict(int index)
