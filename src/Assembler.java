@@ -1,5 +1,3 @@
-import Simulator.Registers;
-
 import javax.swing.*;
 import java.io.BufferedReader;
 import java.util.ArrayList;
