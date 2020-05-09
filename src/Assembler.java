@@ -256,9 +256,11 @@ class Parser{
         off_bit_c1 = (int)Math.ceil((Math.log(ca1.get(1)) / Math.log(2)));//2
         off_bit_c2 = (int)Math.ceil((Math.log(ca2.get(1)) / Math.log(2)));//3
         index_bit_c1 = (int)Math.ceil((Math.log(ca1.get(2)) / Math.log(2)));//1
-        index_bit_c2 = (int)Math.ceil((Math.log(ca1.get(2)) / Math.log(2)));//0
+        index_bit_c2 = (int)Math.ceil((Math.log(ca2.get(2)) / Math.log(2)));//0
         tag_bit_c1 = 32 - (index_bit_c1+off_bit_c1);//29
-        tag_bit_c2 = 32 - (index_bit_c1+off_bit_c2);//29
+        tag_bit_c2 = 32 - (index_bit_c2+off_bit_c2);//29
+        System.out.println(tag_bit_c1+" "+index_bit_c1+" "+off_bit_c1+"");
+        System.out.println(tag_bit_c2+" "+index_bit_c2+" "+off_bit_c2+"");
         c1 = Cache1.getInstance(cache);
         c2 = Cache2.getInstance(cache);
         arr = new String[4];

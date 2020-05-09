@@ -44,92 +44,82 @@ public class Cache2 {
     }
     public void push(String k, int num, int index)
     {
-        int rear = cache2_ref_table.get(index).get(0);
-        int front = cache2_ref_table.get(index).get(1);
-        int rear_validator = validator_ref_table.get(index).get(0);
-        int front_validator = validator_ref_table.get(index).get(0);
-        if(rear == rear_validator && front == front_validator)
-        {
-            rear++;
-            front++;
-            tag2[rear] = k;
-            for(int i=0;i<sets;i++)
-            {
-                if(((num-num% sets)+i)<m.getMem().size())
-                {
-                    cac2[rear*sets +i] = m.getMem().get((num-num%sets)+i);
+        if(cache2_ref_table.get(index)!=null) {
+            int rear = cache2_ref_table.get(index).get(0);
+            int front = cache2_ref_table.get(index).get(1);
+            int rear_validator = validator_ref_table.get(index).get(0);
+            int front_validator = validator_ref_table.get(index).get(0);
+            if (rear == rear_validator && front == front_validator) {
+                rear++;
+                front++;
+                tag2[rear] = k;
+                for (int i = 0; i < sets; i++) {
+                    if (((num - num % sets) + i) < m.getMem().size()) {
+                        cac2[rear * sets + i] = m.getMem().get((num - num % sets) + i);
+                    }
                 }
-            }
-            cache2_ref_table.get(index).set(0,rear);
-            cache2_ref_table.get(index).set(1,front);
-        }else
-        {
-            rear++;
-            tag2[rear] = k;
-            for(int i=0;i<sets;i++)
-            {
-                if(((num-num%sets)+i)<m.getMem().size())
-                {
-                    cac2[rear*sets +i] = m.getMem().get((num-num%sets)+i);
+                cache2_ref_table.get(index).set(0, rear);
+                cache2_ref_table.get(index).set(1, front);
+            } else {
+                rear++;
+                tag2[rear] = k;
+                for (int i = 0; i < sets; i++) {
+                    if (((num - num % sets) + i) < m.getMem().size()) {
+                        cac2[rear * sets + i] = m.getMem().get((num - num % sets) + i);
+                    }
                 }
+                cache2_ref_table.get(index).set(0, rear);
             }
-            cache2_ref_table.get(index).set(0,rear);
         }
     }
     public int pop(String num, int index)
     {
-        int rear = cache2_ref_table.get(index).get(0);
-        int front = cache2_ref_table.get(index).get(1);
-        int rear_validator = validator_ref_table.get(index).get(0);
-        int front_validator = validator_ref_table.get(index).get(1);
-        if(rear==rear_validator && front ==front_validator)
-        {
-           return 0;
-        }
-        else
-            if(rear==front)
-            {
-                int k = sets*rear;
-                front= front_validator;
+        if(cache2_ref_table.get(index)!=null) {
+            int rear = cache2_ref_table.get(index).get(0);
+            int front = cache2_ref_table.get(index).get(1);
+            int rear_validator = validator_ref_table.get(index).get(0);
+            int front_validator = validator_ref_table.get(index).get(1);
+            if (rear == rear_validator && front == front_validator) {
+                return 0;
+            } else if (rear == front) {
+                int k = sets * rear;
+                front = front_validator;
                 rear = rear_validator;
-                cache2_ref_table.get(index).set(0,rear);
-                cache2_ref_table.get(index).set(1,front);
+                cache2_ref_table.get(index).set(0, rear);
+                cache2_ref_table.get(index).set(1, front);
                 return k;
-            }else
-            {
-                for(int i=front;i<=rear;i++)
-                {
-                    if(tag2[i]!=null)
-                    if(tag2[i].equals(num))
-                    {
-                        List<String> l = new ArrayList<String>(Arrays.asList(tag2));
-                        l.remove(num);
-                        tag2 = l.toArray(new String[tag2_size]);
-                        for(int k=0;k<sets;k++)
-                        {
-                            for(int j = sets*i + k ; j <= (rear*sets +sets-1);j++)
-                            {
-                                cac2[j] = cac2[j+1];
+            } else {
+                for (int i = front; i <= rear; i++) {
+                    if (tag2[i] != null)
+                        if (tag2[i].equals(num)) {
+                            List<String> l = new ArrayList<String>(Arrays.asList(tag2));
+                            l.remove(num);
+                            tag2 = l.toArray(new String[tag2_size]);
+                            for (int k = 0; k < sets; k++) {
+                                for (int j = sets * i + k; j <= (rear * sets + sets - 1); j++) {
+                                    cac2[j] = cac2[j + 1];
+                                }
                             }
+                            rear--;
+                            cache2_ref_table.get(index).set(0, rear);
+                            return sets * i;
                         }
-                        rear--;
-                        cache2_ref_table.get(index).set(0,rear);
-                        return sets*i;
-                    }
 
                 }
 
             }
+        }
             return 0;
     }
     public void set(String add,int tag_bit, int off,int newValue, int index)
     {
-        m.getMem().set(parseInt(add,2),newValue);
-        int rear = cache2_ref_table.get(index).get(0);
-        if(add.substring(0,tag_bit).equals(tag2[rear]))
-        {
-            cac2[rear*sets+off] = newValue;
-        }
+
+            m.getMem().set(parseInt(add,2),newValue);
+            int rear = cache2_ref_table.get(index).get(0);
+            if (add.substring(0, tag_bit).equals(tag2[rear])) {
+                cac2[rear * sets + off] = newValue;
+            }
+
 
     }
     public void evict(int index)

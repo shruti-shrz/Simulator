@@ -179,7 +179,7 @@ public class Main {
     public static void main(String[] args) {
         BufferedReader file;
         try {
-            String path2 = "./bubblesort.asm";
+            String path2 = "C:/Users/Shruti priya/Downloads/bubblesort.asm";
             file = new BufferedReader(new FileReader(path2));
             new Main(file);
 

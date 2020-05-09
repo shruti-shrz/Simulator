@@ -183,9 +183,9 @@ public class Cache1 {
         else
         {
             if(index_bit_c2==0)
-            c2.set(add, parseInt(add.substring(tag_bit_c2),2),parseInt(add.substring(tag_bit_c2+index_bit_c2),2),newValue,0);
+            c2.set(add, tag_bit_c2,parseInt(add.substring(tag_bit_c2+index_bit_c2),2),newValue,0);
             else
-                c2.set(add, parseInt(add.substring(tag_bit_c2),2),parseInt(add.substring(tag_bit_c2+index_bit_c2),2),newValue,parseInt(add.substring(tag_bit_c2,(tag_bit_c2+index_bit_c2)),2));
+                c2.set(add,tag_bit_c2,parseInt(add.substring(tag_bit_c2+index_bit_c2),2),newValue,parseInt(add.substring(tag_bit_c2,(tag_bit_c2+index_bit_c2)),2));
         }
     }
     public void evict(int index)
