@@ -19,7 +19,7 @@ public class Cache2 {
         sets =des.get("cache2").get(1);
         shift_size = des.get("cache2").get(0)/(des.get("cache2").get(1)*des.get("cache2").get(2));
         cac2_size = des.get("cache2").get(0);
-        tag2_size = cac2_size/shift_size;
+        tag2_size = cac2_size/des.get("cache2").get(1);
         cac2 = new int[des.get("cache2").get(0)];
         tag2 = new String[des.get("cache2").get(0)/des.get("cache2").get(1)];
         int initialiser = -1;
@@ -142,6 +142,7 @@ public class Cache2 {
                 return -1;
             } else {
                 for (i = front; i <= rear; i++) {
+                    if(tag2[i]!=null)
                     if (tag2[i].equals(tag)) {
                         pop(tag, index);
                         push(tag, parseInt(add, 2), index);

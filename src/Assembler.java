@@ -42,8 +42,11 @@ class PreParser{
         String[] set;
         int mc = 0;
         for(int i =1;i<textIndex(val);i++){
+            //System.out.println(val);
             if(val.get(i).charAt(val.get(i).length()-1)==':') {
                 set = val.get(i + 1).split("[ ,]+");
+//                for(int j=0;j<set.length;j++)
+//                System.out.println(set[j]);
                 base.put(val.get(i).substring(0,val.get(i).length()-1),mc);
                 for (int j = 1; j < set.length; j++) {
                     memory.insert(parseInt(set[j]));
@@ -161,6 +164,7 @@ class Parser{
         String line;
         for(int i=0;i<prevInstr.length;i++)
             prevInstr[i] = "-1";
+        System.out.println(allLines);
         while (alu.counter < length){
             line = allLines.get(alu.counter);
             currInstr = decodeinst(line);
@@ -242,13 +246,21 @@ class Parser{
         q = new PreParser(file);
         tarea = q.tarea;
         allLines = q.getList();
+
+        //System.out.println(allLines.get(1)+"check");
         length = allLines.size();
         miss_in_c1=miss_in_c2=hit_c1=hit_c2=0;
         alu = ALU.getInstance(file,allLines,q.base,q.labels);
         Opcodes pt = Opcodes.getInstance();
         opcodes = pt.opt();
-        ca1 = new ArrayList(Arrays.asList(1024,4,2,4));
-        ca2 = new ArrayList(Arrays.asList(4096,8,1,10,100));//1 implies fully associativity
+        ca1 = new ArrayList<>();
+        ca2 = new ArrayList<>();
+        for(int i =2 ;i<9;i=i+2 )
+        ca1.add(parseInt(allLines.get(0).split("[ ,]+")[i]));
+        for(int i =2 ;i<11;i=i+2 )
+            ca2.add(parseInt(allLines.get(1).split("[ ,]+")[i]));
+        System.out.println(ca1);
+        System.out.println(ca2);
         cache.put("cache1",ca1);
         cache.put("cache2",ca2);
         off_bit_c1 = (int)Math.ceil((Math.log(ca1.get(1)) / Math.log(2)));//2
@@ -280,9 +292,9 @@ class Parser{
      int Controller(String add,String[] g) {
         int l,n;
         if(index_bit_c1==0)
-        l = c1.search(add.substring(0,tag_bit_c1),parseInt(add.substring(tag_bit_c1+index_bit_c1),2),0,add);
+        l = c1.search(add.substring(0,tag_bit_c1),parseInt(add.substring(tag_bit_c1+index_bit_c1),2),add,0);
         else
-            l = c1.search(add.substring(0,tag_bit_c1),parseInt(add.substring(tag_bit_c1+index_bit_c1),2),parseInt(add.substring(tag_bit_c1,(tag_bit_c1+index_bit_c1)),2),add);
+            l = c1.search(add.substring(0,tag_bit_c1),parseInt(add.substring(tag_bit_c1+index_bit_c1),2),add,parseInt(add.substring(tag_bit_c1,(tag_bit_c1+index_bit_c1)),2));
         if(l==-1)
         {
             miss_in_c1++;
@@ -318,7 +330,10 @@ class Parser{
                    else
                        c2.insert(add.substring(0,tag_bit_c2),parseInt(add.substring(tag_bit_c2,(tag_bit_c2+index_bit_c2)),2),parseInt(add,2));
 
-                   c1.set(tag_bit_c2,index_bit_c2,parseInt(add.substring(tag_bit_c1+index_bit_c1),2),parseInt(add.substring(tag_bit_c1,(tag_bit_c1+index_bit_c1)),2),r.getreg(parseInt(g[1])),add);
+                   if(index_bit_c1==0)
+                       c1.set(tag_bit_c2,index_bit_c2,parseInt(add.substring(tag_bit_c1+index_bit_c1),2),0,r.getreg(parseInt(g[1])),add);
+                   else
+                       c1.set(tag_bit_c2,index_bit_c2,parseInt(add.substring(tag_bit_c1+index_bit_c1),2),parseInt(add.substring(tag_bit_c1,(tag_bit_c1+index_bit_c1)),2),r.getreg(parseInt(g[1])),add);
 
                    return r.getreg(parseInt(g[1]));
                }
@@ -326,7 +341,7 @@ class Parser{
            else
            {
                hit_c2++;
-               System.out.println("heyy"+hit_c2);
+              // System.out.println("heyy"+hit_c2);
                if(g[0]=="2")
                {
                    val = n;
@@ -343,7 +358,10 @@ class Parser{
                        c1.insert(add.substring(0,tag_bit_c1),0,parseInt(add,2));
                    else
                        c1.insert(add.substring(0,tag_bit_c1),parseInt(add.substring(tag_bit_c1,(tag_bit_c1+index_bit_c1)),2),parseInt(add,2));
-                   c1.set(tag_bit_c2,index_bit_c2,parseInt(add.substring(tag_bit_c1+index_bit_c1),2),parseInt(add.substring(tag_bit_c1,(tag_bit_c1+index_bit_c1)),2),r.getreg(parseInt(g[1])),add);
+                   if(index_bit_c1==0)
+                       c1.set(tag_bit_c2,index_bit_c2,parseInt(add.substring(tag_bit_c1+index_bit_c1),2),0,r.getreg(parseInt(g[1])),add);
+                   else
+                       c1.set(tag_bit_c2,index_bit_c2,parseInt(add.substring(tag_bit_c1+index_bit_c1),2),parseInt(add.substring(tag_bit_c1,(tag_bit_c1+index_bit_c1)),2),r.getreg(parseInt(g[1])),add);
                    return val;
                }
            }
@@ -358,6 +376,9 @@ class Parser{
             }
             if(g[0]=="3") {
                 val = l;
+                if(index_bit_c1==0)
+                    c1.set(tag_bit_c2,index_bit_c2,parseInt(add.substring(tag_bit_c1+index_bit_c1),2),0,r.getreg(parseInt(g[1])),add);
+                else
                 c1.set(tag_bit_c2,index_bit_c2,parseInt(add.substring(tag_bit_c1+index_bit_c1),2),parseInt(add.substring(tag_bit_c1,(tag_bit_c1+index_bit_c1)),2),r.getreg(parseInt(g[1])),add);
                 return val;
             }

@@ -10,6 +10,7 @@ public class Cache1 {
     Dictionary<Integer,ArrayList<Integer>> cache1_ref_table = new Hashtable<>();
     ArrayList<Integer>  initials = new ArrayList<>();
     int offset ;
+    int tag_size;
 
     Cache1(Dictionary<String,ArrayList<Integer>> des) {
         cac1 = new int[des.get("cache1").get(0)];
@@ -17,6 +18,7 @@ public class Cache1 {
         c2 = Cache2.getInstance(des);
         int shift_size = des.get("cache1").get(0)/(des.get("cache1").get(1)*des.get("cache1").get(2));//
         int initialiser = -1;
+        tag_size = des.get("cache1").get(0)/des.get("cache1").get(1);
         offset = des.get("cache1").get(1);
         for (int i=0;i<des.get("cache1").get(2);i++){//same thing do for cache 2
             ArrayList<Integer> l = new ArrayList<>();
@@ -66,12 +68,14 @@ public class Cache1 {
     public void push(String k, int num, int index) {
         if(cache1_ref_table.get(index)!=null)
         {
+            System.out.println("initials"+initials);
             if(cache1_ref_table.get(index).get(0)==initials.get(index) && cache1_ref_table.get(index).get(1)==initials.get(index))
             {
               int t =  cache1_ref_table.get(index).get(0);
               t = t+1;
               int t2 =  cache1_ref_table.get(index).get(1);
               t2 = t2+1;
+                System.out.println(t +" "+ t2);
               cache1_ref_table.get(index).add(0,t);
                 cache1_ref_table.get(index).add(1,t2);
                 tag1[t2] = k;
@@ -86,6 +90,7 @@ public class Cache1 {
                 t2 = t2+1;
                 cache1_ref_table.get(index).add(1,t2);
             tag1[t2] = k;
+                System.out.println(" "+ t2);
             for (int i = 0; i < offset; i++) {
                 if (((num - num % offset) + i) < m.getMem().size())
                 {  cac1[t2 * offset + i] = m.getMem().get((num - num % offset) + i);
@@ -119,7 +124,7 @@ public class Cache1 {
                             if (tag1[i].equals(num)) {
                                 List<String> l = new ArrayList<String>(Arrays.asList(tag1));
                                 l.remove(num);
-                                tag1 = l.toArray(new String[256]);
+                                tag1 = l.toArray(new String[tag_size]);
                                 for (int k = 0; k < offset; k++) {
                                     if(cac1==null)
                                         return -1;
@@ -139,26 +144,29 @@ public class Cache1 {
 
         return 0;
     }
-    public int search(String tag,int off,int index,String add) {
-        int i;
-        if(cache1_ref_table.get(index)!=null)
-        {
-            if(cache1_ref_table.get(index).get(0)==initials.get(index) && cache1_ref_table.get(index).get(1)==initials.get(index))
+    public int search(String tag,int off,String add, int index) {
+        if(cache1_ref_table.get(index)!=null) {
+            int rear = cache1_ref_table.get(index).get(1);
+            int front = cache1_ref_table.get(index).get(0);
+            int rear_validator = initials.get(index);
+            int front_validator = initials.get(index);
+            // System.out.println(rear+"  ch "+front);
+            int i;
+            if (front == front_validator && rear == rear_validator) {
                 return -1;
-            else
-            {
-                int t =  cache1_ref_table.get(index).get(0);
-                int t2 =  cache1_ref_table.get(index).get(1);
-                for (i = t; i <= t2; i++) {
+            } else {
+                System.out.println(rear +" "+ front);
+                for (i = front; i <= rear; i++) {
                     if(tag1[i]!=null)
                         if (tag1[i].equals(tag)) {
                             pop(tag, index);
-                            push(tag, parseInt(add,2), index);
-                            return cac1[t2*offset +off];
+                            push(tag, parseInt(add, 2), index);
+                            // System.out.println("yes");
+                            return cac1[rear * offset + off];
                         }
                 }
-                if (i == t2 + 1)
-                {
+                if (i == rear + 1) {
+                    // System.out.println("no");
                     return -1;
                 }
             }
