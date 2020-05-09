@@ -1,11 +1,13 @@
+Cache1, size, 4096, blocks, 4, associativity, 2, latency, 4
+Cache2, size, 4096, blocks, 8, associativity, 1, latency, 10, mempenalty, 100
 .data
 arr:
-.word 5, 3, 21, 20, 9, 1, 100
+.word 11, 3, 21, 20, 9, 1, 10, 100, 13, 2, 99, 27, 12, 8, 4, 104, 5 
 .text
 .globl main
 main:
-li t1, 7 #n
-li t2, 6 #n-1
+li t1, 17 #n
+li t2, 16 #n-1
 li t4, 0 #i
 li t6, 1
 loop1:
