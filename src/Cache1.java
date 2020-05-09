@@ -5,10 +5,6 @@ public class Cache1 {
     int[] cac1;
     String[] tag1;
     static Cache1 cache1;
-    int front = -1;
-    int rear = -1;
-    int front2 = 127;
-    int rear2 = 127;
     Memory m = Memory.getInstance();
     Cache2 c2;
     Dictionary<Integer,ArrayList<Integer>> cache1_ref_table = new Hashtable<>();
@@ -19,7 +15,7 @@ public class Cache1 {
         cac1 = new int[des.get("cache1").get(0)];
         tag1 = new String[des.get("cache1").get(0)/des.get("cache1").get(1)];
         c2 = Cache2.getInstance(des);
-        int shift_size = des.get("cache1").get(0)/(des.get("cache1").get(1)*des.get("cache1").get(2));
+        int shift_size = des.get("cache1").get(0)/(des.get("cache1").get(1)*des.get("cache1").get(2));//
         int initialiser = -1;
         offset = des.get("cache1").get(1);
         for (int i=0;i<des.get("cache1").get(2);i++){//same thing do for cache 2
@@ -169,22 +165,27 @@ public class Cache1 {
         }
         return 0;
     }
-    public void set(String tag,int off,int index,int newValue,String add) {
-        int i;
+    public void set(int tag_bit_c2,int index_bit_c2,int off,int index,int newValue,String add) {
         if(cache1_ref_table.get(index)!=null)
         {
             int t2 =  cache1_ref_table.get(index).get(1);
             cac1[t2*offset+off] = newValue;
         }
-
-        int l = c2.search(add.substring(0,29),parseInt(add.substring(29),2),add);
+        int l;
+        if(index_bit_c2==0)
+         l = c2.search(add.substring(0,tag_bit_c2),parseInt(add.substring(tag_bit_c2+index_bit_c2),2),add,0);
+        else
+            l = c2.search(add.substring(0,tag_bit_c2),parseInt(add.substring(tag_bit_c2+index_bit_c2),2),add,parseInt(add.substring(tag_bit_c2,(index_bit_c2+tag_bit_c2)),2));
         if(l==-1)
         {
             m.getMem().set(parseInt(add,2),newValue);
         }
         else
         {
-            c2.set(add, parseInt(add.substring(29),2),newValue);
+            if(index_bit_c2==0)
+            c2.set(add, parseInt(add.substring(tag_bit_c2),2),parseInt(add.substring(tag_bit_c2+index_bit_c2),2),newValue,0);
+            else
+                c2.set(add, parseInt(add.substring(tag_bit_c2),2),parseInt(add.substring(tag_bit_c2+index_bit_c2),2),newValue,parseInt(add.substring(tag_bit_c2,(tag_bit_c2+index_bit_c2)),2));
         }
     }
     public void evict(int index)

@@ -279,26 +279,46 @@ class Parser{
     int val;
      int Controller(String add,String[] g) {
         int l,n;
-        l = c1.search(add.substring(0,tag_bit_c1),parseInt(add.substring(30),2),parseInt(add.substring(29,30),2),add);
+        if(index_bit_c1==0)
+        l = c1.search(add.substring(0,tag_bit_c1),parseInt(add.substring(tag_bit_c1+index_bit_c1),2),0,add);
+        else
+            l = c1.search(add.substring(0,tag_bit_c1),parseInt(add.substring(tag_bit_c1+index_bit_c1),2),parseInt(add.substring(tag_bit_c1,(tag_bit_c1+index_bit_c1)),2),add);
         if(l==-1)
         {
             miss_in_c1++;
-           n =  c2.search(add.substring(0,29),parseInt(add.substring(29),2),add);
+            if(index_bit_c2==0)
+                n =  c2.search(add.substring(0,tag_bit_c2),parseInt(add.substring(tag_bit_c2+index_bit_c2),2),add,0);
+            else
+                n =  c2.search(add.substring(0,tag_bit_c2),parseInt(add.substring(tag_bit_c2+index_bit_c2),2),add,parseInt(add.substring(tag_bit_c2,(tag_bit_c2+index_bit_c2)),2));
            if(n==-1)
            {
                miss_in_c2++;
                if(g[0]=="2")
                {
                    val = m.get(parseInt(add,2));
-                   c1.insert(add.substring(0,tag_bit_c1),parseInt(add.substring(tag_bit_c1,(tag_bit_c1+index_bit_c1)),2),parseInt(add,2));
-                   c2.insert(add.substring(0,29),parseInt(add,2));
+                   if(index_bit_c1==0)
+                   c1.insert(add.substring(0,tag_bit_c1),0,parseInt(add,2));
+                   else
+                       c1.insert(add.substring(0,tag_bit_c1),parseInt(add.substring(tag_bit_c1,(tag_bit_c1+index_bit_c1)),2),parseInt(add,2));
+                   if(index_bit_c2==0)
+                       c2.insert(add.substring(0,tag_bit_c2),0,parseInt(add,2));
+                   else
+                        c2.insert(add.substring(0,tag_bit_c2),parseInt(add.substring(tag_bit_c2,(tag_bit_c2+index_bit_c2)),2),parseInt(add,2));
                    return val;
                }
                if(g[0]=="3")
                {
-                   c1.insert(add.substring(0,29),parseInt(add.substring(29,30),2),parseInt(add,2));
-                   c2.insert(add.substring(0,29),parseInt(add,2));
-                   c1.set(add.substring(0,29),parseInt(add.substring(30),2),parseInt(add.substring(29,30),2),r.getreg(parseInt(g[1])),add);
+                   if(index_bit_c1==0)
+                       c1.insert(add.substring(0,tag_bit_c1),0,parseInt(add,2));
+                   else
+                       c1.insert(add.substring(0,tag_bit_c1),parseInt(add.substring(tag_bit_c1,(tag_bit_c1+index_bit_c1)),2),parseInt(add,2));
+                   if(index_bit_c2==0)
+                       c2.insert(add.substring(0,tag_bit_c2),0,parseInt(add,2));
+                   else
+                       c2.insert(add.substring(0,tag_bit_c2),parseInt(add.substring(tag_bit_c2,(tag_bit_c2+index_bit_c2)),2),parseInt(add,2));
+
+                   c1.set(tag_bit_c2,index_bit_c2,parseInt(add.substring(tag_bit_c1+index_bit_c1),2),parseInt(add.substring(tag_bit_c1,(tag_bit_c1+index_bit_c1)),2),r.getreg(parseInt(g[1])),add);
+
                    return r.getreg(parseInt(g[1]));
                }
            }
@@ -308,14 +328,20 @@ class Parser{
                if(g[0]=="2")
                {
                    val = n;
-                   c1.insert(add.substring(0,29),parseInt(add.substring(29,30),2),parseInt(add,2));
+                   if(index_bit_c1==0)
+                       c1.insert(add.substring(0,tag_bit_c1),0,parseInt(add,2));
+                   else
+                       c1.insert(add.substring(0,tag_bit_c1),parseInt(add.substring(tag_bit_c1,(tag_bit_c1+index_bit_c1)),2),parseInt(add,2));
                    return val;
                }
                if(g[0]=="3")
                {
                    val = n;
-                   c1.insert(add.substring(0,29),parseInt(add.substring(29,30),2),parseInt(add,2));
-                   c1.set(add.substring(0,29),parseInt(add.substring(30),2),parseInt(add.substring(29,30),2),r.getreg(parseInt(g[1])),add);
+                   if(index_bit_c1==0)
+                       c1.insert(add.substring(0,tag_bit_c1),0,parseInt(add,2));
+                   else
+                       c1.insert(add.substring(0,tag_bit_c1),parseInt(add.substring(tag_bit_c1,(tag_bit_c1+index_bit_c1)),2),parseInt(add,2));
+                   c1.set(tag_bit_c2,index_bit_c2,parseInt(add.substring(tag_bit_c1+index_bit_c1),2),parseInt(add.substring(tag_bit_c1,(tag_bit_c1+index_bit_c1)),2),r.getreg(parseInt(g[1])),add);
                    return val;
                }
            }
@@ -330,7 +356,7 @@ class Parser{
             }
             if(g[0]=="3") {
                 val = l;
-                c1.set(add.substring(0,29),parseInt(add.substring(30),2),parseInt(add.substring(29,30),2),r.getreg(parseInt(g[1])),add);
+                c1.set(tag_bit_c2,index_bit_c2,parseInt(add.substring(tag_bit_c1+index_bit_c1),2),parseInt(add.substring(tag_bit_c1,(tag_bit_c1+index_bit_c1)),2),r.getreg(parseInt(g[1])),add);
                 return val;
             }
         }
