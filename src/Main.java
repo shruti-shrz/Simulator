@@ -1,5 +1,3 @@
-import Simulator.Registers;
-
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
@@ -27,8 +25,8 @@ public class Main {
         Parser p0 = new Parser(file);
         JButton b = new JButton("Simulate");
         JButton b2 = new JButton("Step by Step");
-        b.setBounds(70+offset,450,90, 20);
-        b2.setBounds(70+offset,480,120,20);
+        b.setBounds(70+offset,560,90, 20);
+        b2.setBounds(70+offset,590,120,20);
         StringBuilder sb = new StringBuilder();
         for (Integer i : m.getMem()) {
             sb.append(i == null ? "" : i.toString()+", ");
@@ -72,13 +70,31 @@ public class Main {
         l6.setBounds(70+offset,410,100, 40);
         JLabel c = new JLabel();
         c.setText("0");
-        c.setBounds(180+offset,410,200, 40);
+        c.setBounds(200+offset,410,200, 40);
 
         JLabel l5 = new JLabel("cycles = "); // for cycle label
         l5.setBounds(70+offset,380,100, 40);
         JLabel a = new JLabel();
         a.setText("0");
-        a.setBounds(180+offset,380,200, 40);
+        a.setBounds(200+offset,380,200, 40);
+
+        JLabel l7 = new JLabel("Cache 1 miss rate = ");
+        l7.setBounds(70+offset,440,120,40);
+        JLabel d = new JLabel();
+        d.setText("0");
+        d.setBounds(200+offset,440,200, 40);
+
+        JLabel l8 = new JLabel("Cache 2 miss rate = ");
+        l8.setBounds(70+offset,470,120,40);
+        JLabel h = new JLabel();
+        h.setText("0");
+        h.setBounds(200+offset,470,200, 40);
+
+        JLabel l9 = new JLabel("IPC = ");
+        l9.setBounds(70+offset,500,120,40);
+        JLabel g = new JLabel();
+        g.setText("0");
+        g.setBounds(200+offset,500,200, 40);
 
         b2.addActionListener(new ActionListener() {
             @Override
@@ -122,6 +138,9 @@ public class Main {
                 p0.startSimulation();
                 a.setText(String.valueOf(p0.cycles));
                 c.setText(String.valueOf(p0.stall));
+                d.setText(String.valueOf((double)Math.round((p0.miss_rate_1)*10000)/10000));
+                h.setText(String.valueOf((double)Math.round((p0.miss_rate_2)*10000)/10000));
+                g.setText(String.valueOf((double)Math.round((p0.ipc)*10000)/10000));
                 StringBuilder sb = new StringBuilder();
                 for (Integer i : m.getMem()) {
                     sb.append(i == null ? "" : i.toString()+", ");
@@ -141,8 +160,14 @@ public class Main {
         f.add(l);
         f.add(l5);
         f.add(l6);
+        f.add(l7);
+        f.add(l8);
+        f.add(l9);
         f.add(a);
         f.add(c);
+        f.add(d);
+        f.add(h);
+        f.add(g);
         f.add(panel);
         f.add(panel2);
         f.add(tarea);
@@ -154,9 +179,8 @@ public class Main {
     public static void main(String[] args) {
         BufferedReader file;
         try {
-            String path2 = "C:/Users/Shruti priya/Downloads/bubblesort.asm";
+            String path2 = "./bubblesort.asm";
             file = new BufferedReader(new FileReader(path2));
-//            String path2 = "C:/Users/Shruti priya/Downloads/test1.asm";
             new Main(file);
 
         } catch (FileNotFoundException e) {

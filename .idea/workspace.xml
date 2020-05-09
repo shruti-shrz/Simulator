@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cc9dbc55-7cb9-4180-b3ca-68743d961dbd" name="Default Changelist" comment="" />
+    <list default="true" id="cc9dbc55-7cb9-4180-b3ca-68743d961dbd" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Simulator/ALU.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Simulator/ALU.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Simulator/Cache1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Simulator/Cache1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Simulator/Cache2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Simulator/Cache2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Simulator/Main$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Simulator/Main$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Simulator/Main$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Simulator/Main$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Simulator/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Simulator/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Simulator/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Simulator/Parser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Simulator/PreParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Simulator/PreParser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Simulator/Simulator/Registers.class" beforeDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,12 +36,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ALU.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1955">
-              <caret line="120" selection-start-line="120" selection-end-line="120" />
-              <folding>
-                <element signature="e#5073#5074#0" expanded="true" />
-                <element signature="e#5101#5102#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="1938">
+              <caret line="117" selection-start-line="117" selection-end-line="117" />
             </state>
           </provider>
         </entry>
@@ -36,8 +45,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Cache2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2159">
-              <caret line="134" column="36" selection-start-line="134" selection-start-column="36" selection-end-line="134" selection-end-column="36" />
+            <state relative-caret-position="2125">
+              <caret line="132" column="36" selection-start-line="132" selection-start-column="36" selection-end-line="132" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -48,11 +57,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="22" column="23" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="417">
+              <caret line="138" column="53" selection-start-line="138" selection-start-column="53" selection-end-line="138" selection-end-column="53" />
             </state>
           </provider>
         </entry>
@@ -60,8 +66,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Cache1.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1513">
-              <caret line="211" column="49" selection-start-line="211" selection-start-column="49" selection-end-line="211" selection-end-column="49" />
+            <state relative-caret-position="255">
+              <caret line="62" column="79" selection-start-line="62" selection-start-column="79" selection-end-line="62" selection-end-column="79" />
             </state>
           </provider>
         </entry>
@@ -87,12 +93,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Assembler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-51">
-              <caret line="336" column="5" selection-start-line="336" selection-start-column="5" selection-end-line="336" selection-end-column="5" />
-              <folding>
-                <element signature="e#1980#1981#0" expanded="true" />
-                <element signature="e#2006#2007#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="187">
+              <caret line="263" column="68" lean-forward="true" selection-start-line="263" selection-start-column="22" selection-end-line="263" selection-end-column="68" />
             </state>
           </provider>
         </entry>
@@ -106,27 +108,12 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>currInstr</find>
-      <find>counter</find>
-      <find>dirtybit</find>
-      <find>tag1</find>
-      <find>tag2</find>
-      <find>Sys</find>
-      <find>System</find>
-      <find>no</find>
-      <find>cyc</find>
-    </findStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Cache1.java" />
-        <option value="$PROJECT_DIR$/src/Cache2.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/src/Assembler.java" />
       </list>
@@ -135,11 +122,10 @@
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="10" />
-    <option name="y" value="20" />
-    <option name="width" value="1346" />
-    <option name="height" value="688" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="width" value="748" />
+    <option name="height" value="745" />
   </component>
   <component name="ProjectId" id="1Y1gEdnAdTChmnKc2TUXOSVugm9" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -253,18 +239,19 @@
       <workItem from="1588651246590" duration="16772000" />
       <workItem from="1588766675684" duration="13240000" />
       <workItem from="1588908829617" duration="5792000" />
-      <workItem from="1588932413018" duration="3129000" />
+      <workItem from="1588932413018" duration="2774000" />
+      <workItem from="1589005455034" duration="2193000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="125054000" />
+    <option name="totallyTimeSpent" value="128204000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25718608" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.3422619" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -273,13 +260,13 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.22061191" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.19162641" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.10628019" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.23993559" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
@@ -310,6 +297,7 @@
               <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
                 <collection />
               </option>
+              <option name="COLUMN_ORDER" />
             </State>
           </value>
         </entry>
@@ -331,30 +319,34 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
+    <state x="620" y="324" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1588948167733">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="620" y="324" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1536.864@0.0.1536.864" timestamp="1588948167733" />
     <state x="549" y="190" key="FileChooserDialogImpl" timestamp="1583502669640">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="549" y="190" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1583502669640" />
-    <state width="1493" height="2" key="GridCell.Tab.0.bottom" timestamp="1587284241170">
+    <state width="1493" height="2" key="GridCell.Tab.0.bottom" timestamp="1588950443793">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="981" height="64" key="GridCell.Tab.0.bottom/0.0.1024.768@0.0.1024.768" timestamp="1583592856745" />
-    <state width="1493" height="2" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1587284241170" />
-    <state width="1493" height="2" key="GridCell.Tab.0.center" timestamp="1587284241169">
+    <state width="1493" height="2" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1588950443793" />
+    <state width="1493" height="2" key="GridCell.Tab.0.center" timestamp="1588950443793">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="981" height="64" key="GridCell.Tab.0.center/0.0.1024.768@0.0.1024.768" timestamp="1583592856745" />
-    <state width="1493" height="2" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1587284241169" />
-    <state width="1493" height="2" key="GridCell.Tab.0.left" timestamp="1587284241169">
+    <state width="1493" height="2" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1588950443793" />
+    <state width="1493" height="2" key="GridCell.Tab.0.left" timestamp="1588950443793">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="981" height="64" key="GridCell.Tab.0.left/0.0.1024.768@0.0.1024.768" timestamp="1583592856745" />
-    <state width="1493" height="2" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1587284241169" />
-    <state width="1493" height="2" key="GridCell.Tab.0.right" timestamp="1587284241169">
+    <state width="1493" height="2" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1588950443793" />
+    <state width="1493" height="2" key="GridCell.Tab.0.right" timestamp="1588950443793">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="981" height="64" key="GridCell.Tab.0.right/0.0.1024.768@0.0.1024.768" timestamp="1583592856745" />
-    <state width="1493" height="2" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1587284241169" />
+    <state width="1493" height="2" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1588950443793" />
     <state x="279" y="78" key="SettingsEditor" timestamp="1582554431920">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -379,29 +371,15 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/ALU.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1955">
-          <caret line="120" selection-start-line="120" selection-end-line="120" />
-          <folding>
-            <element signature="e#5073#5074#0" expanded="true" />
-            <element signature="e#5101#5102#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="1938">
+          <caret line="117" selection-start-line="117" selection-end-line="117" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Cache2.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2159">
-          <caret line="134" column="36" selection-start-line="134" selection-start-column="36" selection-end-line="134" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="22" column="23" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+        <state relative-caret-position="2125">
+          <caret line="132" column="36" selection-start-line="132" selection-start-column="36" selection-end-line="132" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -422,21 +400,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="417">
+          <caret line="138" column="53" selection-start-line="138" selection-start-column="53" selection-end-line="138" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Assembler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-51">
-          <caret line="336" column="5" selection-start-line="336" selection-start-column="5" selection-end-line="336" selection-end-column="5" />
-          <folding>
-            <element signature="e#1980#1981#0" expanded="true" />
-            <element signature="e#2006#2007#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="187">
+          <caret line="263" column="68" lean-forward="true" selection-start-line="263" selection-start-column="22" selection-end-line="263" selection-end-column="68" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Cache1.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1513">
-          <caret line="211" column="49" selection-start-line="211" selection-start-column="49" selection-end-line="211" selection-end-column="49" />
+        <state relative-caret-position="255">
+          <caret line="62" column="79" selection-start-line="62" selection-start-column="79" selection-end-line="62" selection-end-column="79" />
         </state>
       </provider>
     </entry>

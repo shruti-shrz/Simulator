@@ -50,7 +50,6 @@ public class Cache2 {
                 }
             }
         }
-        System.out.println();
     }
     public void finalpush() {
         if (front != -1 && rear != -1)
@@ -127,7 +126,6 @@ public class Cache2 {
             }
             else {
                 for (i = front; i <= rear; i++) {
-                    System.out.println(" "+tag2[i]+" ");
                     if (tag2[i].equals(tag)) {
                         int k = cac2[off + i * 8];
                         pop(tag);
@@ -144,17 +142,6 @@ public class Cache2 {
     }
     public void insert(String tag,int num) {
         if (rear >= 512) {
-//            if (tag2[front] != null) {
-//                String iAdd = tag2[front] + "000";
-//                for (int i = 0; i < 8; i++) {
-//                    int k = cac2[front * 8 + i];
-//                    if((parseInt(iAdd, 2) + i)<m.getMem().size())
-//                    if (k != m.getMem().get(parseInt(iAdd, 2) + i)) {
-//                        m.getMem().set((parseInt(iAdd, 2) + i), k);
-//                    }
-//                }
-//
-//            }
             evict();
         }
         push(tag, num);

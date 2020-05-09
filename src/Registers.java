@@ -1,4 +1,3 @@
-package Simulator;
 
 public class Registers {
     static Registers registers;
