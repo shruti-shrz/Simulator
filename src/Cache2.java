@@ -18,7 +18,9 @@ public class Cache2 {
         cache2_ref_table = new Hashtable<>();
         validator_ref_table = new Hashtable<>();
         sets =des.get("cache2").get(1);
-        shift_size = des.get("cache2").get(0)/(des.get("cache2").get(1)*des.get("cache2").get(2)); ;
+        shift_size = des.get("cache2").get(0)/(des.get("cache2").get(1)*des.get("cache2").get(2));
+        cac2_size = des.get("cache2").get(0);
+        tag2_size = cac2_size/shift_size;
         cac2 = new int[des.get("cache2").get(0)];
         tag2 = new String[des.get("cache2").get(0)/des.get("cache2").get(1)];
         int initialiser = -1;
