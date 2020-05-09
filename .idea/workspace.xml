@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cc9dbc55-7cb9-4180-b3ca-68743d961dbd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Simulator/ALU.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Simulator/ALU.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Simulator/Cache1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Simulator/Cache1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Simulator/Cache2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Simulator/Cache2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Simulator/Main$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Simulator/Main$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Simulator/Main$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Simulator/Main$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Simulator/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Simulator/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Simulator/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Simulator/Parser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Simulator/PreParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Simulator/PreParser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Simulator/Simulator/Registers.class" beforeDir="false" />
-    </list>
+    <list default="true" id="cc9dbc55-7cb9-4180-b3ca-68743d961dbd" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -45,8 +32,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Cache2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2125">
-              <caret line="132" column="36" selection-start-line="132" selection-start-column="36" selection-end-line="132" selection-end-column="36" />
+            <state relative-caret-position="85">
+              <caret line="12" column="36" lean-forward="true" selection-start-line="12" selection-start-column="36" selection-end-line="12" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -57,7 +44,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="417">
+            <state relative-caret-position="1947">
               <caret line="138" column="53" selection-start-line="138" selection-start-column="53" selection-end-line="138" selection-end-column="53" />
             </state>
           </provider>
@@ -66,15 +53,19 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Cache1.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="62" column="79" selection-start-line="62" selection-start-column="79" selection-end-line="62" selection-end-column="79" />
+            <state relative-caret-position="442">
+              <caret line="28" column="33" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/out/production/Simulator/Opcodes.class">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="17" column="5" lean-forward="true" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -93,8 +84,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Assembler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="263" column="68" lean-forward="true" selection-start-line="263" selection-start-column="22" selection-end-line="263" selection-end-column="68" />
+            <state relative-caret-position="323">
+              <caret line="292" column="128" selection-start-line="292" selection-start-column="128" selection-end-line="292" selection-end-column="128" />
             </state>
           </provider>
         </entry>
@@ -115,14 +106,16 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/Main.java" />
+        <option value="$PROJECT_DIR$/src/Cache2.java" />
         <option value="$PROJECT_DIR$/src/Assembler.java" />
+        <option value="$PROJECT_DIR$/src/Cache1.java" />
       </list>
     </option>
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-8" />
     <option name="width" value="748" />
     <option name="height" value="745" />
@@ -245,7 +238,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="128204000" />
+    <option name="totallyTimeSpent" value="134932000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -376,19 +369,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Cache2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2125">
-          <caret line="132" column="36" selection-start-line="132" selection-start-column="36" selection-end-line="132" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/out/production/Simulator/Opcodes.class">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Memory.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -400,24 +380,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/out/production/Simulator/Opcodes.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="17" column="5" lean-forward="true" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
+        <state relative-caret-position="1947">
           <caret line="138" column="53" selection-start-line="138" selection-start-column="53" selection-end-line="138" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Cache2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="12" column="36" lean-forward="true" selection-start-line="12" selection-start-column="36" selection-end-line="12" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Assembler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="263" column="68" lean-forward="true" selection-start-line="263" selection-start-column="22" selection-end-line="263" selection-end-column="68" />
+        <state relative-caret-position="323">
+          <caret line="292" column="128" selection-start-line="292" selection-start-column="128" selection-end-line="292" selection-end-column="128" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Cache1.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="62" column="79" selection-start-line="62" selection-start-column="79" selection-end-line="62" selection-end-column="79" />
+        <state relative-caret-position="442">
+          <caret line="28" column="33" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
         </state>
       </provider>
     </entry>

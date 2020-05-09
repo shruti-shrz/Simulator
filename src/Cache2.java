@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Dictionary;
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
@@ -12,15 +13,15 @@ public class Cache2 {
     Memory m = Memory.getInstance();
     int[] cac2;
     String[] tag2;
-    Cache2(){
+    Cache2(Dictionary<String,ArrayList<Integer>> des){
         cac2 = new int[4096];
         tag2 = new String[512];
     }
-    public static  synchronized Cache2 getInstance()
+    public static  synchronized Cache2 getInstance(Dictionary<String,ArrayList<Integer>> des)
     {
         if(cache2==null)
         {
-            cache2 = new Cache2();
+            cache2 = new Cache2(des);
         }
         return cache2;
     }
@@ -51,23 +52,23 @@ public class Cache2 {
             }
         }
     }
-    public void finalpush() {
-        if (front != -1 && rear != -1)
-            for (int i = front; i <= rear; i++) {
-                if (tag2[i] != null) {
-                    if (tag2[i] != null) {
-                        String l = tag2[i] + "000";
-                        for (int j = 0; j < 8; j++) {
-                            if ((parseInt(l, 2) + j) < m.getMem().size())
-                            {
-                                if(cac2[i * 8+ j]!=0)
-                                m.getMem().set((parseInt(l, 2) + j), cac2[8 * i + j]);
-                            }
-                        }
-                    }
-                }
-            }
-    }
+//    public void finalpush() {
+//        if (front != -1 && rear != -1)
+//            for (int i = front; i <= rear; i++) {
+//                if (tag2[i] != null) {
+//                    if (tag2[i] != null) {
+//                        String l = tag2[i] + "000";
+//                        for (int j = 0; j < 8; j++) {
+//                            if ((parseInt(l, 2) + j) < m.getMem().size())
+//                            {
+//                                if(cac2[i * 8+ j]!=0)
+//                                m.getMem().set((parseInt(l, 2) + j), cac2[8 * i + j]);
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//    }
     public int pop(String num)
     {
         if(rear==-1 && front ==-1)
