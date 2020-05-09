@@ -12,7 +12,8 @@ public class Cache1 {
     Memory m = Memory.getInstance();
     Cache2 c2;
     Dictionary<Integer,ArrayList<Integer>> cache1_ref_table = new Hashtable<>();
-
+    ArrayList<Integer>  initials = new ArrayList<>();
+    int offset ;
 
     Cache1(Dictionary<String,ArrayList<Integer>> des) {
         cac1 = new int[des.get("cache1").get(0)];
@@ -20,11 +21,12 @@ public class Cache1 {
         c2 = Cache2.getInstance(des);
         int shift_size = des.get("cache1").get(0)/(des.get("cache1").get(1)*des.get("cache1").get(2));
         int initialiser = -1;
-
+        offset = des.get("cache1").get(1);
         for (int i=0;i<des.get("cache1").get(2);i++){//same thing do for cache 2
             ArrayList<Integer> l = new ArrayList<>();
             l.add(initialiser);
             l.add(initialiser);
+            initials.add(initialiser);
             initialiser += shift_size;
             l.add(initialiser+1);
             cache1_ref_table.put(i,l);
@@ -66,151 +68,100 @@ public class Cache1 {
 //    }
 
     public void push(String k, int num, int index) {
-        if (index == 0) {
-            if ((rear == -1 && front == -1)) {
-                rear++;
-                front++;
-                tag1[rear] = k;
-                for (int i = 0; i < 4; i++) {
-                    if (((num - num % 4) + i) < m.getMem().size()) {
-                        cac1[rear * 4 + i] = m.getMem().get((num - num % 4) + i);
-                    }
-                }
-
-            } else {
-                rear++;
-                tag1[rear] = k;
-                for (int i = 0; i < 4; i++) {
-                    if (((num - num % 4) + i) < m.getMem().size())
-                    {  cac1[rear * 4 + i] = m.getMem().get((num - num % 4) + i);
-                    System.out.print("cache one "+ cac1[rear*4 + i]+ " "+(rear*4 +i));}
-                }
-            }
-        }else
-        if (index == 1) {
-
-            if ((rear2 == 127 && front2 == 127)) {
-                rear2++;
-                front2++;
-                tag1[rear2] = k;
-                for (int i = 0; i < 4; i++) {
-                    if (((num - num % 4) + i) < m.getMem().size()) {
-                        cac1[rear2 * 4 + i] = m.getMem().get((num - num % 4) + i);
+        if(cache1_ref_table.get(index)!=null)
+        {
+            if(cache1_ref_table.get(index).get(0)==initials.get(index) && cache1_ref_table.get(index).get(1)==initials.get(index))
+            {
+              int t =  cache1_ref_table.get(index).get(0);
+              t = t+1;
+              int t2 =  cache1_ref_table.get(index).get(1);
+              t2 = t2+1;
+              cache1_ref_table.get(index).add(0,t);
+                cache1_ref_table.get(index).add(1,t2);
+                tag1[t2] = k;
+                for (int i = 0; i < offset; i++) {
+                    if (((num - num % offset) + i) < m.getMem().size()) {
+                        cac1[t2 * offset + i] = m.getMem().get((num - num % offset) + i);
                     }
                 }
             }
-        } else {
-            rear2++;
-            tag1[rear2] = k;
-            for (int i = 0; i < 4; i++) {
-                if (((num - num % 4) + i) < m.getMem().size()) {
-                    cac1[rear2 * 4 + i] = m.getMem().get((num - num % 4) + i);
-                }
+            else {
+                int t2 =  cache1_ref_table.get(index).get(1);
+                t2 = t2+1;
+                cache1_ref_table.get(index).add(1,t2);
+            tag1[t2] = k;
+            for (int i = 0; i < offset; i++) {
+                if (((num - num % offset) + i) < m.getMem().size())
+                {  cac1[t2 * offset + i] = m.getMem().get((num - num % offset) + i);
+                   // System.out.print("cache one "+ cac1[rear*4 + i]+ " "+(rear*4 +i));
+                    }
             }
+        }
         }
     }
 
     public int pop(String num,int index) {
-        if (index == 0)
-        { if (rear == -1 && front == -1) {
+        if(cache1_ref_table.get(index)!=null)
+        {
+            if(cache1_ref_table.get(index).get(0)==initials.get(index) && cache1_ref_table.get(index).get(1)==initials.get(index))
                 return -1;
-            } else if (rear == front) {
-                int k = 4*rear;
-                front = -1;
-                rear = -1;
-                return k;
-            } else {
-                for (int i = front; i <= rear; i++) {
-                    if(tag1[i]!=null)
-                    if (tag1[i].equals(num)) {
-                        List<String> l = new ArrayList<String>(Arrays.asList(tag1));
-                        l.remove(num);
-                        tag1 = l.toArray(new String[256]);
-                        for (int k = 0; k < 4; k++) {
-                            if(cac1==null)
-                                return -1;
-                            for(int j = 4*i + k ; j <= (rear*4 +3);j++)
-                            {
-                                cac1[j] = cac1[j+1];
-                            }
-                        }
-                        rear--;
-                        return 4*i;
-                    }
-
+            else
+                if(cache1_ref_table.get(index).get(0)==cache1_ref_table.get(index).get(1))
+                {
+                    int t2 =  cache1_ref_table.get(index).get(1);
+                    int k = offset*t2;
+                    cache1_ref_table.get(index).add(0,initials.get(index));
+                    cache1_ref_table.get(index).add(1,initials.get(index));
+                    return k;
                 }
-
-            }
-    }
-        if(index==1) {
-            if (rear2 == 127 && front2 == 127) {
-                return 0;
-            } else if (rear2 == front2) {
-                int k = 4*front2;
-                front2 = 127;
-                rear2 = 127;
-                return k;
-            } else {
-                for (int i = front2; i <= rear2; i++) {
-                    if(tag1[i]!=null)
-                    if (tag1[i].equals(num)) {
-                        List<String> l = new ArrayList<String>(Arrays.asList(tag1));
-                        l.remove(num);
-                        tag1 = l.toArray(new String[256]);
-                        for (int k = 0; k < 4; k++) {
-                            if(cac1==null)
-                                return -1;
-                            for(int j = 4*i + k ; j <= (rear2*4 +3);j++)
-                            {
-                                cac1[j] = cac1[j+1];
+                else
+                {
+                    int t =  cache1_ref_table.get(index).get(0);
+                    int t2 =  cache1_ref_table.get(index).get(1);
+                    for (int i = t; i <= t2; i++) {
+                        if(tag1[i]!=null)
+                            if (tag1[i].equals(num)) {
+                                List<String> l = new ArrayList<String>(Arrays.asList(tag1));
+                                l.remove(num);
+                                tag1 = l.toArray(new String[256]);
+                                for (int k = 0; k < offset; k++) {
+                                    if(cac1==null)
+                                        return -1;
+                                    for(int j = offset*i + k ; j <= (t2*offset +offset-1);j++)
+                                    {
+                                        cac1[j] = cac1[j+1];
+                                    }
+                                }
+                                t2 = t2-1;
+                                cache1_ref_table.get(index).add(1,t2);
+                                return 4*i;
                             }
-                        }
-                        rear2--;
-                        return 4*i;
+
                     }
-
                 }
-
-            }
         }
+
         return 0;
     }
     public int search(String tag,int off,int index,String add) {
         int i;
-        if (index == 0) {
-            if(rear==-1 && front==-1)
-            {
-               return -1;
-            }
-            else {
-                for (i = front; i <= rear; i++) {
-                    if(tag1[i]!=null)
-                    if (tag1[i].equals(tag)) {
-                        int k = cac1[off + i * 4];
-                        pop(tag, index);
-                        push(tag, parseInt(add,2), index);
-                        return cac1[rear*4 +off];
-                    }
-                }
-                if (i == rear + 1)
-                {
-                    return -1;
-                }
-            }
-        } else if (index == 1) {
-            if (rear2 == 127 && front2 == 127) {
+        if(cache1_ref_table.get(index)!=null)
+        {
+            if(cache1_ref_table.get(index).get(0)==initials.get(index) && cache1_ref_table.get(index).get(1)==initials.get(index))
                 return -1;
-            } else {
-                for (i = front2; i <= rear2; i++) {
+            else
+            {
+                int t =  cache1_ref_table.get(index).get(0);
+                int t2 =  cache1_ref_table.get(index).get(1);
+                for (i = t; i <= t2; i++) {
                     if(tag1[i]!=null)
-                    if (tag1[i].equals(tag)) {
-                        int k = cac1[off + i * 4];
-                        int m = pop(tag, index);
-                        push(tag, m, index);
-                        return cac1[rear2*4+off];
-                    }
+                        if (tag1[i].equals(tag)) {
+                            pop(tag, index);
+                            push(tag, parseInt(add,2), index);
+                            return cac1[t2*offset +off];
+                        }
                 }
-                if (i == rear2 + 1)
+                if (i == t2 + 1)
                 {
                     return -1;
                 }
@@ -220,12 +171,12 @@ public class Cache1 {
     }
     public void set(String tag,int off,int index,int newValue,String add) {
         int i;
-        if (index == 0) {
-            cac1[rear*4 + off] = newValue;
-
-        } else if (index == 1) {
-            cac1[rear2*4 +off] = newValue;
+        if(cache1_ref_table.get(index)!=null)
+        {
+            int t2 =  cache1_ref_table.get(index).get(1);
+            cac1[t2*offset+off] = newValue;
         }
+
         int l = c2.search(add.substring(0,29),parseInt(add.substring(29),2),add);
         if(l==-1)
         {
@@ -238,22 +189,29 @@ public class Cache1 {
     }
     public void evict(int index)
     {
-        if(index==0)
-        pop(tag1[front],index);
-        if(index==1)
+        if(cache1_ref_table.get(index)!=null)
         {
-          pop(tag1[front2],index);
+            int t =  cache1_ref_table.get(index).get(0);
+            pop(tag1[t],index);
         }
     }
     public void insert(String tag,int index,int num)
         {
-            if(index==0 && rear >=128)
-            { evict(index);}
-            else
-                if(index==1 && rear2>=256)
-                {
-                    evict(index);
-                }
+            if(cache1_ref_table.get(index)!=null)
+            {
+               if(cache1_ref_table.get(index).get(1) >= cache1_ref_table.get(index).get(2))
+               {
+                  evict(index);
+               }
+
+            }
+//            if(index==0 && rear >=128)
+//            { evict(index);}
+//            else
+//                if(index==1 && rear2>=256)
+//                {
+//                    evict(index);
+//                }
             push(tag,num,index);
         }
 
