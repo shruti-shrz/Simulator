@@ -70,6 +70,8 @@ class Parser{
     ArrayList<String> allLines;
     int tag_bit_c1=0;
     int tag_bit_c2=0;
+   static ArrayList<Integer> ca1;
+   static ArrayList<Integer> ca2;
     int index_bit_c1=0;
     int index_bit_c2=0;
     int off_bit_c1=0;
@@ -88,9 +90,6 @@ class Parser{
     static double miss_rate_1= 0.0;
     static double miss_rate_2 = 0.0;
    static double amat=0.0;
-    static int hit1 = 4;
-    static int hit2 = 10;
-    static int miss_penalty2 = 100;
    static String[] currInstr;
     int[] memlatch;
     static int stall;
@@ -236,8 +235,7 @@ class Parser{
         System.out.println("No. of cycles " + cycles);
     }
     ALU alu;
-    ArrayList<Integer> ca1;
-    ArrayList<Integer> ca2;
+
     Parser(BufferedReader file){
         cycles = 0;
         stall = 0;
@@ -250,7 +248,7 @@ class Parser{
         Opcodes pt = Opcodes.getInstance();
         opcodes = pt.opt();
         ca1 = new ArrayList(Arrays.asList(1024,4,2,4));
-        ca2 = new ArrayList(Arrays.asList(4096,8,1,10,100));
+        ca2 = new ArrayList(Arrays.asList(4096,8,1,10,100));//1 implies fully associativity
         cache.put("cache1",ca1);
         cache.put("cache2",ca2);
         off_bit_c1 = (int)Math.ceil((Math.log(ca1.get(1)) / Math.log(2)));//2
@@ -302,6 +300,7 @@ class Parser{
                    c1.insert(add.substring(0,tag_bit_c1),0,parseInt(add,2));
                    else
                        c1.insert(add.substring(0,tag_bit_c1),parseInt(add.substring(tag_bit_c1,(tag_bit_c1+index_bit_c1)),2),parseInt(add,2));
+
                    if(index_bit_c2==0)
                        c2.insert(add.substring(0,tag_bit_c2),0,parseInt(add,2));
                    else
@@ -327,6 +326,7 @@ class Parser{
            else
            {
                hit_c2++;
+               System.out.println("heyy"+hit_c2);
                if(g[0]=="2")
                {
                    val = n;
@@ -366,9 +366,11 @@ class Parser{
     }
     static void timeline()
     {
+        System.out.println(miss_in_c2);
+        System.out.println("hit2 "+hit_c2);
        miss_rate_1 = (double)miss_in_c1/(double)(miss_in_c1+hit_c1);
        miss_rate_2 =(double)miss_in_c2/(double)(miss_in_c2 + hit_c2);
-       amat = ((double) hit1 + miss_rate_1*((double) hit2+(miss_rate_2*(double)miss_penalty2)));
+       amat = ((double) ca1.get(3) + miss_rate_1*((double) ca2.get(3)+(miss_rate_2*(double)ca2.get(4))));
        cycles = (int) ((no_of_instructions-lw_sw) + 4 + lw_sw*amat + stall);
        ipc = (double)no_of_instructions/(double)cycles;
        stall = (int) (stall + (int)lw_sw*(amat-1));

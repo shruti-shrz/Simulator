@@ -9,14 +9,13 @@ public class Cache2 {
     int[] cac2;
     String[] tag2;
     Dictionary<Integer,List<Integer>> cache2_ref_table;
-    Dictionary<Integer,List<Integer>> validator_ref_table;
     int sets;
     int shift_size;
     int tag2_size;
     int cac2_size;
+    ArrayList<Integer>  initials = new ArrayList<>();
     Cache2(Dictionary<String,ArrayList<Integer>> des){
         cache2_ref_table = new Hashtable<>();
-        validator_ref_table = new Hashtable<>();
         sets =des.get("cache2").get(1);
         shift_size = des.get("cache2").get(0)/(des.get("cache2").get(1)*des.get("cache2").get(2));
         cac2_size = des.get("cache2").get(0);
@@ -29,12 +28,13 @@ public class Cache2 {
             List<Integer> l = new ArrayList<Integer>();
             l.add(initialiser);
             l.add(initialiser);
+            initials.add(initialiser);
             initialiser += shift_size;
             l.add(initialiser+1);
             cache2_ref_table.put(i,l);
-            validator_ref_table.put(i,l);
-
         }
+       // System.out.println(cache2_ref_table);
+        //System.out.println(initials);
     }
     public static  synchronized Cache2 getInstance(Dictionary<String,ArrayList<Integer>> des)
     {
@@ -46,11 +46,12 @@ public class Cache2 {
     }
     public void push(String k, int num, int index)
     {
-        if(cache2_ref_table.get(index)!=null) {
-            int rear = cache2_ref_table.get(index).get(0);
-            int front = cache2_ref_table.get(index).get(1);
-            int rear_validator = validator_ref_table.get(index).get(0);
-            int front_validator = validator_ref_table.get(index).get(0);
+       // System.out.println("check");
+        int rear = cache2_ref_table.get(index).get(0);
+        int front = cache2_ref_table.get(index).get(1);
+            int rear_validator = initials.get(index);
+            int front_validator = initials.get(index);
+           // System.out.println("push1"+rear+" "+front+" "+rear_validator+" "+front_validator);
             if (rear == rear_validator && front == front_validator) {
                 rear++;
                 front++;
@@ -73,14 +74,14 @@ public class Cache2 {
                 cache2_ref_table.get(index).set(0, rear);
             }
         }
-    }
+
     public int pop(String num, int index)
     {
         if(cache2_ref_table.get(index)!=null) {
             int rear = cache2_ref_table.get(index).get(0);
             int front = cache2_ref_table.get(index).get(1);
-            int rear_validator = validator_ref_table.get(index).get(0);
-            int front_validator = validator_ref_table.get(index).get(1);
+            int rear_validator = initials.get(index);
+            int front_validator = initials.get(index);
             if (rear == rear_validator && front == front_validator) {
                 return 0;
             } else if (rear == front) {
@@ -133,8 +134,9 @@ public class Cache2 {
         if(cache2_ref_table.get(index)!=null) {
             int rear = cache2_ref_table.get(index).get(0);
             int front = cache2_ref_table.get(index).get(1);
-            int rear_validator = validator_ref_table.get(index).get(0);
-            int front_validator = validator_ref_table.get(index).get(0);
+            int rear_validator = initials.get(index);
+            int front_validator = initials.get(index);
+           // System.out.println(rear+"  ch "+front);
             int i;
             if (front == front_validator && rear == rear_validator) {
                 return -1;
@@ -143,10 +145,12 @@ public class Cache2 {
                     if (tag2[i].equals(tag)) {
                         pop(tag, index);
                         push(tag, parseInt(add, 2), index);
+                       // System.out.println("yes");
                         return cac2[rear * sets + off];
                     }
                 }
                 if (i == rear + 1) {
+                   // System.out.println("no");
                     return -1;
                 }
             }
@@ -156,7 +160,7 @@ public class Cache2 {
     public void insert(String tag,int index ,int num) {
         if(cache2_ref_table.get(index)!=null) {
             int rear = cache2_ref_table.get(index).get(0);
-            if (rear >= validator_ref_table.get(index).get(2)) {
+            if (rear >= cache2_ref_table.get(index).get(2)) {
                 evict(index);
             }
         }
