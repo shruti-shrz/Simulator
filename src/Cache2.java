@@ -1,5 +1,5 @@
-import java.util.*;
 
+import java.util.*;
 import static java.lang.Integer.parseInt;
 //import static jdk.nashorn.internal.objects.NativeArray.pop;
 
@@ -38,11 +38,11 @@ public class Cache2 {
             initialiser += shift_size;
         }
     }
-    public static  synchronized Cache2 getInstance()
+    public static  synchronized Cache2 getInstance(int size)
     {
         if(cache2==null)
         {
-            cache2 = new Cache2();
+            cache2 = new Cache2(size);
         }
         return cache2;
     }
@@ -80,7 +80,7 @@ public class Cache2 {
             cache2_ref_table.get(index).set(0,rear);
         }
     }
-    public int pop(String num,int index)
+    public int pop(String num, int index)
     {
         int rear = cache2_ref_table.get(index).get(0);
         int front = cache2_ref_table.get(index).get(1);

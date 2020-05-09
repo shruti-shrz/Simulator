@@ -1,16 +1,13 @@
 import javax.swing.*;
 import java.io.BufferedReader;
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import static java.lang.Integer.parseInt;
 
 class PreParser{
     ArrayList<String> all = new ArrayList<>();
     HashMap<String,Integer> base = new HashMap<>();
-    Cache1 c1 = Cache1.getInstance();
+    //Cache1 c1 = Cache1.getInstance();
     Memory memory = Memory.getInstance();
     HashMap<String,Integer> labels = new HashMap<>();
     int lineNum = 0;
@@ -69,15 +66,22 @@ class PreParser{
 
 class Parser{
     Dictionary<String,List<String>> opcodes;
+    static Dictionary<String, ArrayList<Integer>> cache = new Hashtable();
     ArrayList<String> allLines;
+    int tag_bit_c1=0;
+    int tag_bit_c2=0;
+    int index_bit_c1=0;
+    int index_bit_c2=0;
+    int off_bit_c1=0;
+    int off_bit_c2=0;
     static int length=0;
     static int lw_sw=0;
     static double ipc =0.0;
     static int miss_in_c1,miss_in_c2,hit_c1,hit_c2;
     JTextArea tarea;
     Memory m;
-    Cache1 c1 = Cache1.getInstance();
-    Cache2 c2 = Cache2.getInstance();
+    Cache1 c1;
+    Cache2 c2;
     Registers r;
     String[] arr;
     PreParser q;
@@ -232,6 +236,8 @@ class Parser{
         System.out.println("No. of cycles " + cycles);
     }
     ALU alu;
+    ArrayList<Integer> ca1;
+    ArrayList<Integer> ca2;
     Parser(BufferedReader file){
         cycles = 0;
         stall = 0;
@@ -243,6 +249,18 @@ class Parser{
         alu = ALU.getInstance(file,allLines,q.base,q.labels);
         Opcodes pt = Opcodes.getInstance();
         opcodes = pt.opt();
+        ca1 = new ArrayList(Arrays.asList(1024,4,2,4));
+        ca2 = new ArrayList(Arrays.asList(4096,8,1,10,100));
+        cache.put("cache1",ca1);
+        cache.put("cache2",ca2);
+        off_bit_c1 = (int)Math.ceil((Math.log(ca1.get(1)) / Math.log(2)));//2
+        off_bit_c2 = (int)Math.ceil((Math.log(ca2.get(1)) / Math.log(2)));//3
+        index_bit_c1 = (int)Math.ceil((Math.log(ca1.get(2)) / Math.log(2)));//1
+        index_bit_c2 = (int)Math.ceil((Math.log(ca1.get(2)) / Math.log(2)));//0
+        tag_bit_c1 = 32 - (index_bit_c1+off_bit_c1);//29
+        tag_bit_c2 = 32 - (index_bit_c1+off_bit_c2);//29
+        c1 = Cache1.getInstance(cache);
+        c2 = Cache2.getInstance(cache);
         arr = new String[4];
         currInstr = new String[4];
         prevInstr = new String[4];
@@ -261,7 +279,7 @@ class Parser{
     int val;
      int Controller(String add,String[] g) {
         int l,n;
-        l = c1.search(add.substring(0,29),parseInt(add.substring(30),2),parseInt(add.substring(29,30),2),add);
+        l = c1.search(add.substring(0,tag_bit_c1),parseInt(add.substring(30),2),parseInt(add.substring(29,30),2),add);
         if(l==-1)
         {
             miss_in_c1++;
@@ -272,7 +290,7 @@ class Parser{
                if(g[0]=="2")
                {
                    val = m.get(parseInt(add,2));
-                   c1.insert(add.substring(0,29),parseInt(add.substring(29,30),2),parseInt(add,2));
+                   c1.insert(add.substring(0,tag_bit_c1),parseInt(add.substring(tag_bit_c1,(tag_bit_c1+index_bit_c1)),2),parseInt(add,2));
                    c2.insert(add.substring(0,29),parseInt(add,2));
                    return val;
                }
@@ -325,7 +343,7 @@ class Parser{
        amat = ((double) hit1 + miss_rate_1*((double) hit2+(miss_rate_2*(double)miss_penalty2)));
        cycles = (int) ((no_of_instructions-lw_sw) + 4 + lw_sw*amat + stall);
        ipc = (double)no_of_instructions/(double)cycles;
-       stall = (int) (stall + (int)lw_sw*amat);
+       stall = (int) (stall + (int)lw_sw*(amat-1));
     }
 
     int mem(int v,String[] g)

@@ -2,8 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cc9dbc55-7cb9-4180-b3ca-68743d961dbd" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Simulator/ALU.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Simulator/ALU.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Simulator/Cache1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Simulator/Cache1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Simulator/Cache2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Simulator/Cache2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Simulator/Main$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Simulator/Main$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Simulator/Main$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Simulator/Main$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Simulator/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Simulator/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Simulator/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Simulator/Parser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Simulator/PreParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Simulator/PreParser.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,14 +40,39 @@
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="10" />
-    <option name="y" value="20" />
-    <option name="width" value="1346" />
-    <option name="height" value="688" />
-  </component>
   <component name="ProjectId" id="1Y1gEdnAdTChmnKc2TUXOSVugm9" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Simulator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Simulator" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Simulator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Simulator" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Simulator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Simulator" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Assembler.java" type="529ef68f:ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -108,11 +141,12 @@
       <workItem from="1588766675684" duration="13240000" />
       <workItem from="1588908829617" duration="5792000" />
       <workItem from="1588932413018" duration="2774000" />
+      <workItem from="1589005455034" duration="2193000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="124699000" />
+    <option name="totallyTimeSpent" value="134932000" />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />

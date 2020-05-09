@@ -25,8 +25,8 @@ public class Main {
         Parser p0 = new Parser(file);
         JButton b = new JButton("Simulate");
         JButton b2 = new JButton("Step by Step");
-        b.setBounds(70+offset,530,90, 20);
-        b2.setBounds(70+offset,560,120,20);
+        b.setBounds(70+offset,560,90, 20);
+        b2.setBounds(70+offset,590,120,20);
         StringBuilder sb = new StringBuilder();
         for (Integer i : m.getMem()) {
             sb.append(i == null ? "" : i.toString()+", ");
@@ -70,31 +70,31 @@ public class Main {
         l6.setBounds(70+offset,410,100, 40);
         JLabel c = new JLabel();
         c.setText("0");
-        c.setBounds(180+offset,410,200, 40);
+        c.setBounds(200+offset,410,200, 40);
 
         JLabel l5 = new JLabel("cycles = "); // for cycle label
         l5.setBounds(70+offset,380,100, 40);
         JLabel a = new JLabel();
         a.setText("0");
-        a.setBounds(180+offset,380,200, 40);
+        a.setBounds(200+offset,380,200, 40);
 
         JLabel l7 = new JLabel("Cache 1 miss rate = ");
         l7.setBounds(70+offset,440,120,40);
         JLabel d = new JLabel();
         d.setText("0");
-        d.setBounds(180+offset,440,200, 40);
+        d.setBounds(200+offset,440,200, 40);
 
         JLabel l8 = new JLabel("Cache 2 miss rate = ");
         l8.setBounds(70+offset,470,120,40);
         JLabel h = new JLabel();
         h.setText("0");
-        h.setBounds(180+offset,470,200, 40);
+        h.setBounds(200+offset,470,200, 40);
 
         JLabel l9 = new JLabel("IPC = ");
         l9.setBounds(70+offset,500,120,40);
         JLabel g = new JLabel();
         g.setText("0");
-        g.setBounds(180+offset,500,200, 40);
+        g.setBounds(200+offset,500,200, 40);
 
         b2.addActionListener(new ActionListener() {
             @Override
@@ -138,9 +138,9 @@ public class Main {
                 p0.startSimulation();
                 a.setText(String.valueOf(p0.cycles));
                 c.setText(String.valueOf(p0.stall));
-                d.setText(String.valueOf(p0.miss_rate_1));
-                h.setText(String.valueOf(p0.miss_rate_2));
-                g.setText(String.valueOf(p0.ipc));
+                d.setText(String.valueOf((double)Math.round((p0.miss_rate_1)*10000)/10000));
+                h.setText(String.valueOf((double)Math.round((p0.miss_rate_2)*10000)/10000));
+                g.setText(String.valueOf((double)Math.round((p0.ipc)*10000)/10000));
                 StringBuilder sb = new StringBuilder();
                 for (Integer i : m.getMem()) {
                     sb.append(i == null ? "" : i.toString()+", ");

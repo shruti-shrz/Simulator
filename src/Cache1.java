@@ -1,56 +1,69 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static java.lang.Integer.parseInt;
 public class Cache1 {
+    int[] cac1;
+    String[] tag1;
     static Cache1 cache1;
     int front = -1;
     int rear = -1;
     int front2 = 127;
     int rear2 = 127;
     Memory m = Memory.getInstance();
-    Cache2 c2 = Cache2.getInstance();
-    int[] cac1;
-    String[] tag1;
+    Cache2 c2;
+    Dictionary<Integer,ArrayList<Integer>> cache1_ref_table = new Hashtable<>();
 
-    Cache1() {
-        cac1 = new int[1024];
-        tag1 = new String[256];
+
+    Cache1(Dictionary<String,ArrayList<Integer>> des) {
+        cac1 = new int[des.get("cache1").get(0)];
+        tag1 = new String[des.get("cache1").get(0)/des.get("cache1").get(1)];
+        c2 = Cache2.getInstance(des);
+        int shift_size = des.get("cache1").get(0)/(des.get("cache1").get(1)*des.get("cache1").get(2));
+        int initialiser = -1;
+
+        for (int i=0;i<des.get("cache1").get(2);i++){//same thing do for cache 2
+            ArrayList<Integer> l = new ArrayList<>();
+            l.add(initialiser);
+            l.add(initialiser);
+            initialiser += shift_size;
+            l.add(initialiser+1);
+            cache1_ref_table.put(i,l);
+
+        }
     }
 
-    public static synchronized Cache1 getInstance() {
+    public static synchronized Cache1 getInstance(Dictionary<String,ArrayList<Integer>> des) {
         if (cache1 == null) {
-            cache1 = new Cache1();
+            cache1 = new Cache1(des);
         }
         return cache1;
     }
 
-    public void finalPush() {
-        if (front != -1 && rear != -1)
-            for (int i = front; i <= rear; i++) {
-                if (tag1[i] != null) {
-                    String l = tag1[i] + "0" + "00";
-                    for (int j = 0; j < 4; j++) {
-                        if (parseInt(l, 2) + j < m.getMem().size()) {
-                            if(cac1[i * 4 + j]!=0)
-                            m.getMem().set((parseInt(l, 2) + j), cac1[i * 4 + j]);
-                        }
-                    }
-                }
-            }
-        if (front2 != -1 && rear2 != -1)
-            for (int i = front2; i <= rear2; i++) {
-                if (tag1[i] != null) {
-                    String l = tag1[i] + "1" + "00";
-                    for (int j = 0; j < 4; j++) {
-                        if (parseInt(l, 2) + j < m.getMem().size())
-                            if(cac1[i * 4 + j]!=0)
-                            m.getMem().set(parseInt(l, 2) + j, cac1[i * 4 + j]);
-                    }
-                }
-            }
-    }
+//    public void finalPush() {
+//        if (front != -1 && rear != -1)
+//            for (int i = front; i <= rear; i++) {
+//                if (tag1[i] != null) {
+//                    String l = tag1[i] + "0" + "00";
+//                    for (int j = 0; j < 4; j++) {
+//                        if (parseInt(l, 2) + j < m.getMem().size()) {
+//                            if(cac1[i * 4 + j]!=0)
+//                            m.getMem().set((parseInt(l, 2) + j), cac1[i * 4 + j]);
+//                        }
+//                    }
+//                }
+//            }
+//        if (front2 != -1 && rear2 != -1)
+//            for (int i = front2; i <= rear2; i++) {
+//                if (tag1[i] != null) {
+//                    String l = tag1[i] + "1" + "00";
+//                    for (int j = 0; j < 4; j++) {
+//                        if (parseInt(l, 2) + j < m.getMem().size())
+//                            if(cac1[i * 4 + j]!=0)
+//                            m.getMem().set(parseInt(l, 2) + j, cac1[i * 4 + j]);
+//                    }
+//                }
+//            }
+//    }
 
     public void push(String k, int num, int index) {
         if (index == 0) {
