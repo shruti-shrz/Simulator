@@ -126,11 +126,15 @@ public class Cache2 {
             }
             return 0;
     }
-    public void set(String add, int off,int newValue)
+    public void set(String add, int off,int newValue, int index)
     {
-          m.getMem().set(parseInt(add,2),newValue);
-        if(add.substring(0,29).equals(tag2[rear]))
-        cac2[rear*8+off] = newValue;
+        int limiter = (int) (32 - (Math.log(sets)) - (Math.log(shift_size)));
+        m.getMem().set(parseInt(add,2),newValue);
+        int rear = cache2_ref_table.get(index).get(0);
+        if(add.substring(0,limiter+1).equals(tag2[rear]))
+        {
+            cac2[rear*shift_size+off] = newValue;
+        }
 
     }
     public void evict(int index)
