@@ -68,14 +68,13 @@ public class Cache1 {
     public void push(String k, int num, int index) {
         if(cache1_ref_table.get(index)!=null)
         {
-            System.out.println("initials"+initials);
             if(cache1_ref_table.get(index).get(0)==initials.get(index) && cache1_ref_table.get(index).get(1)==initials.get(index))
             {
               int t =  cache1_ref_table.get(index).get(0);
               t = t+1;
               int t2 =  cache1_ref_table.get(index).get(1);
               t2 = t2+1;
-                System.out.println(t +" "+ t2);
+//                System.out.println(t +" "+ t2);
               cache1_ref_table.get(index).add(0,t);
                 cache1_ref_table.get(index).add(1,t2);
                 tag1[t2] = k;
@@ -90,7 +89,7 @@ public class Cache1 {
                 t2 = t2+1;
                 cache1_ref_table.get(index).add(1,t2);
             tag1[t2] = k;
-                System.out.println(" "+ t2);
+//                System.out.println(" "+ t2);
             for (int i = 0; i < offset; i++) {
                 if (((num - num % offset) + i) < m.getMem().size())
                 {  cac1[t2 * offset + i] = m.getMem().get((num - num % offset) + i);
@@ -155,7 +154,7 @@ public class Cache1 {
             if (front == front_validator && rear == rear_validator) {
                 return -1;
             } else {
-                System.out.println(rear +" "+ front);
+//                System.out.println(rear +" "+ front);
                 for (i = front; i <= rear; i++) {
                     if(tag1[i]!=null)
                         if (tag1[i].equals(tag)) {

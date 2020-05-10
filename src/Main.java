@@ -17,7 +17,7 @@ public class Main {
     Registers r;
 
     Main(BufferedReader file){
-        int offset = 360;
+        int offset = 410;
         f=new JFrame();
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Memory m = Memory.getInstance();
@@ -65,7 +65,7 @@ public class Main {
             panel2.add(lbw1.get(i));
         }
         JTextArea tarea = p0.tarea; // this one
-        tarea.setBounds(70,10,300,600);
+        tarea.setBounds(70,10,400,600);
         JLabel l6 = new JLabel("stalls = "); // for stall label
         l6.setBounds(70+offset,410,100, 40);
         JLabel c = new JLabel();
@@ -96,24 +96,28 @@ public class Main {
         g.setText("0");
         g.setBounds(200+offset,500,200, 40);
 
+        final int[] startIndex = {0};
+        final int[] endIndex = {0};
+
         b2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                System.out.println(startIndex[0]+" "+endIndex[0]);
                 if(p0.currInstr[0] == "7")
                     p0.length = p0.getalu().labels.get(p0.currInstr[1])+1;
                  else
                     p0.length = p0.getalu().counter +1;
-                int startIndex = 0;
-                int endIndex = 0;
+                Highlighter highlighter = tarea.getHighlighter();
+                highlighter.removeAllHighlights();
                 try {
-                    startIndex = tarea.getLineStartOffset(p0.alu.counter);
-                    endIndex = tarea.getLineEndOffset(p0.alu.counter);
+                    startIndex[0] = tarea.getLineStartOffset(p0.alu.counter);
+                    endIndex[0] = tarea.getLineEndOffset(p0.alu.counter);
                 } catch (BadLocationException ex) {
                     ex.printStackTrace();
                 }
-                Highlighter.HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.RED);
+                Highlighter.HighlightPainter curr_painter = new DefaultHighlighter.DefaultHighlightPainter(Color.RED);
                 try {
-                    tarea.getHighlighter().addHighlight(startIndex, endIndex, painter);
+                    tarea.getHighlighter().addHighlight(startIndex[0], endIndex[0], curr_painter);
                 } catch (BadLocationException ex) {
                     ex.printStackTrace();
                 }
@@ -171,7 +175,7 @@ public class Main {
         f.add(panel);
         f.add(panel2);
         f.add(tarea);
-        f.setSize(800,800);
+        f.setSize(1000,800);
         f.setLayout(null);
         f.setVisible(true);
     }
@@ -179,7 +183,7 @@ public class Main {
     public static void main(String[] args) {
         BufferedReader file;
         try {
-            String path2 = "C:/Users/Shruti priya/Downloads/bubblesort.asm";
+            String path2 = "./bubblesort.asm";
             file = new BufferedReader(new FileReader(path2));
             new Main(file);
 
