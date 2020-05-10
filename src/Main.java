@@ -17,7 +17,8 @@ public class Main {
     Registers r;
 
     Main(BufferedReader file){
-        int offset = 580;
+        int offset = 550;
+        int y_offset = 350;
         f=new JFrame();
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Memory m = Memory.getInstance();
@@ -48,8 +49,19 @@ public class Main {
         JPanel panel2 = new JPanel();
         panel2.setBounds(120+offset,30,30, 400);
         panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
+
+        JPanel panel3 = new JPanel(); // will contain lbw2
+        panel3.setBounds(160+offset,30,50, 320);
+        panel3.setLayout(new BoxLayout(panel3, BoxLayout.Y_AXIS));
+
+        JPanel panel4 = new JPanel(); // will contain lbw3
+        panel4.setBounds(210+offset,30,80, 320);
+        panel4.setLayout(new BoxLayout(panel4, BoxLayout.Y_AXIS));
+
         ArrayList<JLabel> lbw0 = new ArrayList<>();
         ArrayList<JLabel> lbw1 = new ArrayList<>();
+        ArrayList<JLabel> lbw2 = new ArrayList<>();
+        ArrayList<JLabel> lbw3 = new ArrayList<>();
         for(int i=0;i<=19;i++)
         {
             JLabel p = new JLabel();
@@ -64,8 +76,23 @@ public class Main {
             lbw1.get(i).setText(String.valueOf(p0.getalu().getReg()[i]));
             panel2.add(lbw1.get(i));
         }
+        for(int i=0;i<=11;i++)
+        {
+            int s = 20 + i;
+            JLabel p = new JLabel();
+            lbw2.add(p);
+            lbw2.get(i).setText("t" + s + "  =  ");
+            panel3.add(lbw2.get(i));
+        }
+        for(int i=0;i<=11;i++)
+        {
+            JLabel p = new JLabel();
+            lbw3.add(p);
+            lbw3.get(i).setText(String.valueOf(p0.getalu().getReg()[i+20]));
+            panel4.add(lbw3.get(i));
+        }
         JTextArea tarea = p0.tarea; // this one
-        tarea.setBounds(70,10,550,600);
+        tarea.setBounds(40,10,550,600);
         JLabel l6 = new JLabel("stalls = "); // for stall label
         l6.setBounds(70+offset,410,100, 40);
         JLabel c = new JLabel();
@@ -103,7 +130,6 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int l1,m1;
-                System.out.println(startIndex[0]+" "+endIndex[0]);
                 if(p0.currInstr[0] == "7")
                     p0.length = p0.getalu().labels.get(p0.currInstr[1])+1;
                 else
@@ -141,7 +167,7 @@ public class Main {
                 } catch (BadLocationException ex) {
                     ex.printStackTrace();
                 }
-                Highlighter.HighlightPainter curr_painter = new DefaultHighlighter.DefaultHighlightPainter(Color.RED);
+                Highlighter.HighlightPainter curr_painter = new DefaultHighlighter.DefaultHighlightPainter(Color.ORANGE);
                 try {
                     tarea.getHighlighter().addHighlight(startIndex[0], endIndex[0], curr_painter);
                 } catch (BadLocationException ex) {
@@ -166,6 +192,10 @@ public class Main {
                     lbw1.get(i).setText(String.valueOf(r.getreg(i)));
                     panel2.add(lbw1.get(i));
                 }
+                for(int i=0;i<=11;i++) {
+                    lbw3.get(i).setText(String.valueOf(r.getreg(i+20)));
+                    panel4.add(lbw3.get(i));
+                }
             }
         });
         b.addActionListener(new ActionListener() {
@@ -173,6 +203,23 @@ public class Main {
             public void actionPerformed(ActionEvent e) {
                 p0.length = p0.allLines.size();
                 p0.startSimulation(-1);
+                try {
+                    startIndex[0] = tarea.getLineStartOffset(p0.alu.counter);
+                    endIndex[0] = tarea.getLineEndOffset(p0.alu.counter);
+                } catch (BadLocationException ex) {
+                    ex.printStackTrace();
+                }
+
+                Highlighter highlighter = tarea.getHighlighter();
+                highlighter.removeAllHighlights();
+
+                Highlighter.HighlightPainter curr_painter = new DefaultHighlighter.DefaultHighlightPainter(Color.ORANGE);
+                try {
+                    tarea.getHighlighter().addHighlight(startIndex[0], endIndex[0], curr_painter);
+                } catch (BadLocationException ex) {
+                    ex.printStackTrace();
+                }
+
                 a.setText(String.valueOf(p0.cycles));
                 c.setText(String.valueOf(p0.stall));
                 d.setText(String.valueOf((double)Math.round((p0.miss_rate_1)*10000)/10000));
@@ -186,6 +233,10 @@ public class Main {
                 for(int i=0;i<=19;i++) {
                     lbw1.get(i).setText(String.valueOf(r.getreg(i)));
                     panel2.add(lbw1.get(i));
+                }
+                for(int i=0;i<=11;i++) {
+                    lbw3.get(i).setText(String.valueOf(r.getreg(i+20)));
+                    panel4.add(lbw3.get(i));
                 }
             }
         });
@@ -207,6 +258,8 @@ public class Main {
         f.add(g);
         f.add(panel);
         f.add(panel2);
+        f.add(panel3);
+        f.add(panel4);
         f.add(tarea);
         f.setSize(1000,800);
         f.setLayout(null);
