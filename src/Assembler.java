@@ -17,7 +17,7 @@ class PreParser{
         try{
             while((line = file.readLine()) != null){
                 line = line.trim();
-                tarea.append(line+'\n');
+                tarea.append("  "+line+'\n');
                 all.add(line);
                 if (line.length() != 0) {
                     if(line.charAt(line.length() - 1) == ':') {

@@ -18,7 +18,6 @@ public class Main {
 
     Main(BufferedReader file){
         int offset = 550;
-        int y_offset = 350;
         f=new JFrame();
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Memory m = Memory.getInstance();
