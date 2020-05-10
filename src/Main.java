@@ -17,7 +17,7 @@ public class Main {
     Registers r;
 
     Main(BufferedReader file){
-        int offset = 410;
+        int offset = 580;
         f=new JFrame();
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Memory m = Memory.getInstance();
@@ -65,7 +65,7 @@ public class Main {
             panel2.add(lbw1.get(i));
         }
         JTextArea tarea = p0.tarea; // this one
-        tarea.setBounds(70,10,400,600);
+        tarea.setBounds(70,10,550,600);
         JLabel l6 = new JLabel("stalls = "); // for stall label
         l6.setBounds(70+offset,410,100, 40);
         JLabel c = new JLabel();

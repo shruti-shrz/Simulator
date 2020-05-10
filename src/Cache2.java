@@ -33,8 +33,6 @@ public class Cache2 {
             l.add(initialiser+1);
             cache2_ref_table.put(i,l);
         }
-       // System.out.println(cache2_ref_table);
-        //System.out.println(initials);
     }
     public static  synchronized Cache2 getInstance(Dictionary<String,ArrayList<Integer>> des)
     {

@@ -20,7 +20,7 @@ public class Cache1 {
         int initialiser = -1;
         tag_size = des.get("cache1").get(0)/des.get("cache1").get(1);
         offset = des.get("cache1").get(1);
-        for (int i=0;i<des.get("cache1").get(2);i++){//same thing do for cache 2
+        for (int i=0;i<des.get("cache1").get(2);i++){
             ArrayList<Integer> l = new ArrayList<>();
             l.add(initialiser);
             l.add(initialiser);
@@ -39,31 +39,6 @@ public class Cache1 {
         return cache1;
     }
 
-//    public void finalPush() {
-//        if (front != -1 && rear != -1)
-//            for (int i = front; i <= rear; i++) {
-//                if (tag1[i] != null) {
-//                    String l = tag1[i] + "0" + "00";
-//                    for (int j = 0; j < 4; j++) {
-//                        if (parseInt(l, 2) + j < m.getMem().size()) {
-//                            if(cac1[i * 4 + j]!=0)
-//                            m.getMem().set((parseInt(l, 2) + j), cac1[i * 4 + j]);
-//                        }
-//                    }
-//                }
-//            }
-//        if (front2 != -1 && rear2 != -1)
-//            for (int i = front2; i <= rear2; i++) {
-//                if (tag1[i] != null) {
-//                    String l = tag1[i] + "1" + "00";
-//                    for (int j = 0; j < 4; j++) {
-//                        if (parseInt(l, 2) + j < m.getMem().size())
-//                            if(cac1[i * 4 + j]!=0)
-//                            m.getMem().set(parseInt(l, 2) + j, cac1[i * 4 + j]);
-//                    }
-//                }
-//            }
-//    }
 
     public void push(String k, int num, int index) {
         if(cache1_ref_table.get(index)!=null)
@@ -213,13 +188,6 @@ public class Cache1 {
                }
 
             }
-//            if(index==0 && rear >=128)
-//            { evict(index);}
-//            else
-//                if(index==1 && rear2>=256)
-//                {
-//                    evict(index);
-//                }
             push(tag,num,index);
         }
 

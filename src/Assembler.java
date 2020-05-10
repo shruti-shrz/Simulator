@@ -7,7 +7,6 @@ import static java.lang.Integer.parseInt;
 class PreParser{
     ArrayList<String> all = new ArrayList<>();
     HashMap<String,Integer> base = new HashMap<>();
-    //Cache1 c1 = Cache1.getInstance();
     Memory memory = Memory.getInstance();
     HashMap<String,Integer> labels = new HashMap<>();
     int lineNum = 0;
@@ -42,11 +41,8 @@ class PreParser{
         String[] set;
         int mc = 0;
         for(int i =1;i<textIndex(val);i++){
-            //System.out.println(val);
             if(val.get(i).charAt(val.get(i).length()-1)==':') {
                 set = val.get(i + 1).split("[ ,]+");
-//                for(int j=0;j<set.length;j++)
-//                System.out.println(set[j]);
                 base.put(val.get(i).substring(0,val.get(i).length()-1),mc);
                 for (int j = 1; j < set.length; j++) {
                     memory.insert(parseInt(set[j]));
@@ -166,11 +162,7 @@ class Parser{
     public void startSimulation(int ch)
     {
         String line;
-        //System.out.println(allLines);
-        System.out.println(alu.counter+" "+length+" length ");
-//        System.out.println(allLines);
         while (alu.counter < length){
-            System.out.println(alu.counter+" "+length+" lengthin ");
             line = allLines.get(alu.counter);
             currInstr = decodeinst(line);
             if(currInstr[0].equals("-2"))
@@ -232,16 +224,15 @@ class Parser{
                 length = alu.counter;
             }
         }
-        System.out.println("No. of instructions " + no_of_instructions);
+
         timeline(ch,currInstr);
-        System.out.println("check " + (int)amat);
         r.printreg();
+        System.out.println("No. of instructions " + no_of_instructions);
         System.out.println("miss in 1 "+miss_in_c1);
         System.out.println("miss in 2 "+miss_in_c2);
         System.out.println("hit in 1 "+hit_c1);
         System.out.println("hit in 2 "+hit_c2);
         System.out.println("Stall " + stall);
-
         System.out.println("IPC " + ipc);
         System.out.println("miss rate one " + miss_rate_1);
         System.out.println("miss rate two " + miss_rate_2);
@@ -269,8 +260,6 @@ class Parser{
         ca1.add(parseInt(allLines.get(0).split("[ ,]+")[i]));
         for(int i =2 ;i<11;i=i+2 )
             ca2.add(parseInt(allLines.get(1).split("[ ,]+")[i]));
-//        System.out.println(ca1);
-//        System.out.println(ca2);
         cache.put("cache1",ca1);
         cache.put("cache2",ca2);
         off_bit_c1 = (int)Math.ceil((Math.log(ca1.get(1)) / Math.log(2)));//2
@@ -279,8 +268,6 @@ class Parser{
         index_bit_c2 = (int)Math.ceil((Math.log(ca2.get(2)) / Math.log(2)));//0
         tag_bit_c1 = 32 - (index_bit_c1+off_bit_c1);//29
         tag_bit_c2 = 32 - (index_bit_c2+off_bit_c2);//29
-//        System.out.println(tag_bit_c1+" "+index_bit_c1+" "+off_bit_c1+"");
-//        System.out.println(tag_bit_c2+" "+index_bit_c2+" "+off_bit_c2+"");
         c1 = Cache1.getInstance(cache);
         c2 = Cache2.getInstance(cache);
         arr = new String[4];
@@ -355,7 +342,6 @@ class Parser{
            {
                hit_c2++;
                cycle_step = cycle_step+ca2.get(3)+4;
-              // System.out.println("heyy"+hit_c2);
                if(g[0]=="2")
                {
                    val = n;
@@ -405,7 +391,6 @@ class Parser{
        miss_rate_1 = (double)miss_in_c1/(double)(miss_in_c1+hit_c1);
        miss_rate_2 =(double)miss_in_c2/(double)(miss_in_c2 + hit_c2);
        amat = ((double) ca1.get(3) + miss_rate_1*((double) ca2.get(3)+(miss_rate_2*(double)ca2.get(4))));
-       System.out.println("amattt "+amat);
        if(ch==0)
        {
            if(arr[0]=="2"||arr[0]=="3")
