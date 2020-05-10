@@ -79,9 +79,11 @@ class Parser{
     int index_bit_c2=0;
     int off_bit_c1=0;
     int off_bit_c2=0;
+    static int stall=0;
     static int length=0;
     static int lw_sw=0;
     static double ipc =0.0;
+    static double amat=0.0;
     static int miss_in_c1,miss_in_c2,hit_c1,hit_c2;
     JTextArea tarea;
     Memory m;
@@ -92,10 +94,10 @@ class Parser{
     PreParser q;
     static double miss_rate_1= 0.0;
     static double miss_rate_2 = 0.0;
-   static double amat=0.0;
+
    static String[] currInstr;
     int[] memlatch;
-    static int stall;
+
    static int cycles;
     String[] decodeinst(String line){
         String[] set = line.split("[ ,]+");
@@ -162,12 +164,11 @@ class Parser{
     public void startSimulation(int ch)
     {
         String line;
-        for(int i=0;i<prevInstr.length;i++)
-            prevInstr[i] = "-1";
         //System.out.println(allLines);
         System.out.println(alu.counter+" "+length+" length ");
 //        System.out.println(allLines);
         while (alu.counter < length){
+            System.out.println(alu.counter+" "+length+" lengthin ");
             line = allLines.get(alu.counter);
             currInstr = decodeinst(line);
             if(currInstr[0].equals("-2"))
@@ -224,21 +225,26 @@ class Parser{
                 k =  mem(k,currInstr);
             }
             wb(k,currInstr);
+            if(ch==0)
+            {
+                length = alu.counter;
+            }
         }
-        timeline();
-//        System.out.println(m.getMem());
+        System.out.println("No. of instructions " + no_of_instructions);
+        timeline(ch);
+        System.out.println("check " + (int)amat);
         r.printreg();
-//        System.out.println("miss in 1 "+miss_in_c1);
-//        System.out.println("miss in 2 "+miss_in_c2);
-//        System.out.println("hit in 1 "+hit_c1);
-//        System.out.println("hit in 2 "+hit_c2);
-//        System.out.println("Stall " + stall);
-//        System.out.println("No. of instructions " + no_of_instructions);
-//        System.out.println("IPC " + ipc);
-//        System.out.println("miss rate one " + miss_rate_1);
-//        System.out.println("miss rate two " + miss_rate_2);
-//        System.out.println("AMAT " + amat);
-//        System.out.println("No. of cycles " + cycles);
+        System.out.println("miss in 1 "+miss_in_c1);
+        System.out.println("miss in 2 "+miss_in_c2);
+        System.out.println("hit in 1 "+hit_c1);
+        System.out.println("hit in 2 "+hit_c2);
+        System.out.println("Stall " + stall);
+
+        System.out.println("IPC " + ipc);
+        System.out.println("miss rate one " + miss_rate_1);
+        System.out.println("miss rate two " + miss_rate_2);
+        System.out.println("AMAT " + amat);
+        System.out.println("No. of cycles " + cycles);
     }
     ALU alu;
 
@@ -278,6 +284,8 @@ class Parser{
         arr = new String[4];
         currInstr = new String[4];
         prevInstr = new String[4];
+        for(int i=0;i<prevInstr.length;i++)
+            prevInstr[i] = "-1";
         r = Registers.getInstance();
         m = Memory.getInstance();
         memlatch = new int[32];
@@ -387,15 +395,16 @@ class Parser{
         }
         return 0;
     }
-    static void timeline()
+    static void timeline(int ch)
     {
-//        System.out.println(miss_in_c2);
-//        System.out.println("hit2 "+hit_c2);
        miss_rate_1 = (double)miss_in_c1/(double)(miss_in_c1+hit_c1);
        miss_rate_2 =(double)miss_in_c2/(double)(miss_in_c2 + hit_c2);
        amat = ((double) ca1.get(3) + miss_rate_1*((double) ca2.get(3)+(miss_rate_2*(double)ca2.get(4))));
-
-       cycles = (int) ((no_of_instructions-lw_sw) + 4 + lw_sw*amat + stall);
+        if((int)amat == 0)
+        {
+            cycles = (int) ((no_of_instructions-lw_sw) + 4 + 0 + stall);}
+        else
+            cycles = (int) ((no_of_instructions-lw_sw) + 4 + lw_sw*amat + stall);
        ipc = (double)no_of_instructions/(double)cycles;
        stall = (int) (stall + (int)lw_sw*(amat-1));
     }

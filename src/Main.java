@@ -105,14 +105,14 @@ public class Main {
                 int l1,m1;
                 System.out.println(startIndex[0]+" "+endIndex[0]);
                 if(p0.currInstr[0] == "7")
-                    p0.length = p0.getalu().labels.get(p0.currInstr[1])+2;
+                    p0.length = p0.getalu().labels.get(p0.currInstr[1])+1;
                 else
                     if(p0.currInstr[0]=="5")
                     {
                         l1 = r.getreg(Integer.parseInt(p0.currInstr[1]));
                         m1 = r.getreg(Integer.parseInt(p0.currInstr[2]));
                         if( l1!= m1){
-                            p0.length = p0.getalu().labels.get(p0.currInstr[3])+2;
+                            p0.length = p0.getalu().labels.get(p0.currInstr[3])+1;
                         }else
                             p0.length = p0.getalu().counter +1;;
                     }
@@ -122,7 +122,7 @@ public class Main {
                             l1 = r.getreg(Integer.parseInt(p0.currInstr[1]));
                             m1 = r.getreg(Integer.parseInt(p0.currInstr[2]));
                             if( l1== m1){
-                                p0.length = p0.getalu().labels.get(p0.currInstr[3])+2;
+                                p0.length = p0.getalu().labels.get(p0.currInstr[3])+1;
                             }else
                                 p0.length = p0.getalu().counter +1;;
                         }
@@ -132,6 +132,7 @@ public class Main {
                         }
                     else
                     p0.length = p0.getalu().counter +1;
+
                 Highlighter highlighter = tarea.getHighlighter();
                 highlighter.removeAllHighlights();
                 try {
@@ -146,7 +147,11 @@ public class Main {
                 } catch (BadLocationException ex) {
                     ex.printStackTrace();
                 }
-                p0.startSimulation(0);
+                if(p0.length<p0.allLines.size())
+                {
+                    p0.startSimulation(0);
+                }
+
                 a.setText(String.valueOf(p0.cycles));
                 c.setText(String.valueOf(p0.stall));
                 d.setText(String.valueOf((double)Math.round((p0.miss_rate_1)*10000)/10000));
