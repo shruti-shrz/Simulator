@@ -94,7 +94,7 @@ class Parser{
     static double miss_rate_2 = 0.0;
 
    static String[] currInstr;
-    int[] memlatch;
+
 
    static int cycles;
     String[] decodeinst(String line){
@@ -277,7 +277,6 @@ class Parser{
             prevInstr[i] = "-1";
         r = Registers.getInstance();
         m = Memory.getInstance();
-        memlatch = new int[32];
     }
     public static String toBinaryString(int a, int len)
     {
@@ -398,7 +397,7 @@ class Parser{
             else
            cycle2 = cycle2 +5;
        }
-            if(ch!=0)
+       if(ch!=0)
             cycles = (int) ((no_of_instructions-lw_sw) + 4 + lw_sw*amat + stall);
        ipc = (double)no_of_instructions/(double)cycles;
        stall = (int) (stall + (int)lw_sw*(amat-1));
@@ -426,7 +425,8 @@ class Parser{
     }
     int memwb(String[] curr)
     {
-        return alu.executer(curr,1);
+        alu.memlatch = r.getC();
+        return alu.executer(curr,2);
     }
     void dataforwarding_memwb()
     {

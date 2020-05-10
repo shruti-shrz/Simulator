@@ -11,10 +11,12 @@ public class ALU {
     HashMap<String,Integer> base;
     static int counter;
     static ALU alu;
+    static int[] memlatch;
     static HashMap<String,Integer> labels;
     public ALU(BufferedReader f,ArrayList<String> all,HashMap<String,Integer> b,HashMap<String,Integer> Labels){
         r = Registers.getInstance();
         latch = r.getC();
+        memlatch = new int[32];
         allLines = all;
         base = b;
         labels = Labels;
@@ -24,6 +26,8 @@ public class ALU {
 
     public int executer(String[] arr, int ch){
         try{
+            if(ch==2)
+                latch = memlatch;
             if(Integer.parseInt(arr[0]) == 0){
                 int l,m;
                 if(ch==0)

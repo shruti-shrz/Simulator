@@ -1,4 +1,4 @@
-Cache1, size, 4096, blocks, 4, associativity, 4, latency, 4
+Cache1, size, 4096, blocks, 4, associativity, 1, latency, 4
 Cache2, size, 4096, blocks, 8, associativity, 1, latency, 10, mempenalty, 100
 .data
 arr:
