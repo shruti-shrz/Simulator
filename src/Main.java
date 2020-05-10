@@ -152,7 +152,7 @@ public class Main {
                     p0.startSimulation(0);
                 }
 
-                a.setText(String.valueOf(p0.cycles));
+                a.setText(String.valueOf(p0.cycle2));
                 c.setText(String.valueOf(p0.stall));
                 d.setText(String.valueOf((double)Math.round((p0.miss_rate_1)*10000)/10000));
                 h.setText(String.valueOf((double)Math.round((p0.miss_rate_2)*10000)/10000));

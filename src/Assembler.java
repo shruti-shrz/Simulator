@@ -73,6 +73,8 @@ class Parser{
     ArrayList<String> allLines;
     int tag_bit_c1=0;
     int tag_bit_c2=0;
+    static int cycle_step =0;
+    static int cycle2 =0;
    static ArrayList<Integer> ca1;
    static ArrayList<Integer> ca2;
     int index_bit_c1=0;
@@ -231,7 +233,7 @@ class Parser{
             }
         }
         System.out.println("No. of instructions " + no_of_instructions);
-        timeline(ch);
+        timeline(ch,currInstr);
         System.out.println("check " + (int)amat);
         r.printreg();
         System.out.println("miss in 1 "+miss_in_c1);
@@ -315,6 +317,7 @@ class Parser{
            if(n==-1)
            {
                miss_in_c2++;
+               cycle_step = cycle_step+ca2.get(4)+4;
                if(g[0]=="2")
                {
                    val = m.get(parseInt(add,2));
@@ -351,6 +354,7 @@ class Parser{
            else
            {
                hit_c2++;
+               cycle_step = cycle_step+ca2.get(3)+4;
               // System.out.println("heyy"+hit_c2);
                if(g[0]=="2")
                {
@@ -380,6 +384,7 @@ class Parser{
         else
         {
             hit_c1++;
+            cycle_step = cycle_step+ca1.get(3)+4;
             if(g[0]=="2") {
                 val = l;
                 return val;
@@ -395,15 +400,20 @@ class Parser{
         }
         return 0;
     }
-    static void timeline(int ch)
+    static void timeline(int ch,String[] arr)
     {
        miss_rate_1 = (double)miss_in_c1/(double)(miss_in_c1+hit_c1);
        miss_rate_2 =(double)miss_in_c2/(double)(miss_in_c2 + hit_c2);
        amat = ((double) ca1.get(3) + miss_rate_1*((double) ca2.get(3)+(miss_rate_2*(double)ca2.get(4))));
-        if((int)amat == 0)
-        {
-            cycles = (int) ((no_of_instructions-lw_sw) + 4 + 0 + stall);}
-        else
+       System.out.println("amattt "+amat);
+       if(ch==0)
+       {
+           if(arr[0]=="2"||arr[0]=="3")
+               cycle2 = cycle2 + cycle_step;
+            else
+           cycle2 = cycle2 +5;
+       }
+            if(ch!=0)
             cycles = (int) ((no_of_instructions-lw_sw) + 4 + lw_sw*amat + stall);
        ipc = (double)no_of_instructions/(double)cycles;
        stall = (int) (stall + (int)lw_sw*(amat-1));
