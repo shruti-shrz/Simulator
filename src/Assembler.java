@@ -166,6 +166,7 @@ class Parser{
             prevInstr[i] = "-1";
         //System.out.println(allLines);
         System.out.println(alu.counter+" "+length+" length ");
+//        System.out.println(allLines);
         while (alu.counter < length){
             line = allLines.get(alu.counter);
             currInstr = decodeinst(line);
@@ -225,19 +226,19 @@ class Parser{
             wb(k,currInstr);
         }
         timeline();
-        System.out.println(m.getMem());
+//        System.out.println(m.getMem());
         r.printreg();
-        System.out.println("miss in 1 "+miss_in_c1);
-        System.out.println("miss in 2 "+miss_in_c2);
-        System.out.println("hit in 1 "+hit_c1);
-        System.out.println("hit in 2 "+hit_c2);
-        System.out.println("Stall " + stall);
-        System.out.println("No. of instructions " + no_of_instructions);
-        System.out.println("IPC " + ipc);
-        System.out.println("miss rate one " + miss_rate_1);
-        System.out.println("miss rate two " + miss_rate_2);
-        System.out.println("AMAT " + amat);
-        System.out.println("No. of cycles " + cycles);
+//        System.out.println("miss in 1 "+miss_in_c1);
+//        System.out.println("miss in 2 "+miss_in_c2);
+//        System.out.println("hit in 1 "+hit_c1);
+//        System.out.println("hit in 2 "+hit_c2);
+//        System.out.println("Stall " + stall);
+//        System.out.println("No. of instructions " + no_of_instructions);
+//        System.out.println("IPC " + ipc);
+//        System.out.println("miss rate one " + miss_rate_1);
+//        System.out.println("miss rate two " + miss_rate_2);
+//        System.out.println("AMAT " + amat);
+//        System.out.println("No. of cycles " + cycles);
     }
     ALU alu;
 
@@ -260,8 +261,8 @@ class Parser{
         ca1.add(parseInt(allLines.get(0).split("[ ,]+")[i]));
         for(int i =2 ;i<11;i=i+2 )
             ca2.add(parseInt(allLines.get(1).split("[ ,]+")[i]));
-        System.out.println(ca1);
-        System.out.println(ca2);
+//        System.out.println(ca1);
+//        System.out.println(ca2);
         cache.put("cache1",ca1);
         cache.put("cache2",ca2);
         off_bit_c1 = (int)Math.ceil((Math.log(ca1.get(1)) / Math.log(2)));//2
@@ -270,8 +271,8 @@ class Parser{
         index_bit_c2 = (int)Math.ceil((Math.log(ca2.get(2)) / Math.log(2)));//0
         tag_bit_c1 = 32 - (index_bit_c1+off_bit_c1);//29
         tag_bit_c2 = 32 - (index_bit_c2+off_bit_c2);//29
-        System.out.println(tag_bit_c1+" "+index_bit_c1+" "+off_bit_c1+"");
-        System.out.println(tag_bit_c2+" "+index_bit_c2+" "+off_bit_c2+"");
+//        System.out.println(tag_bit_c1+" "+index_bit_c1+" "+off_bit_c1+"");
+//        System.out.println(tag_bit_c2+" "+index_bit_c2+" "+off_bit_c2+"");
         c1 = Cache1.getInstance(cache);
         c2 = Cache2.getInstance(cache);
         arr = new String[4];
@@ -388,8 +389,8 @@ class Parser{
     }
     static void timeline()
     {
-        System.out.println(miss_in_c2);
-        System.out.println("hit2 "+hit_c2);
+//        System.out.println(miss_in_c2);
+//        System.out.println("hit2 "+hit_c2);
        miss_rate_1 = (double)miss_in_c1/(double)(miss_in_c1+hit_c1);
        miss_rate_2 =(double)miss_in_c2/(double)(miss_in_c2 + hit_c2);
        amat = ((double) ca1.get(3) + miss_rate_1*((double) ca2.get(3)+(miss_rate_2*(double)ca2.get(4))));
