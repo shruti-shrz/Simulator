@@ -99,9 +99,34 @@ public class Main {
         b2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int l1,m1;
                 if(p0.currInstr[0] == "7")
-                    p0.length = p0.getalu().labels.get(p0.currInstr[1])+1;
-                 else
+                    p0.length = p0.getalu().labels.get(p0.currInstr[1])+2;
+                else
+                    if(p0.currInstr[0]=="5")
+                    {
+                        l1 = r.getreg(Integer.parseInt(p0.currInstr[1]));
+                        m1 = r.getreg(Integer.parseInt(p0.currInstr[2]));
+                        if( l1!= m1){
+                            p0.length = p0.getalu().labels.get(p0.currInstr[3])+2;
+                        }else
+                            p0.length = p0.getalu().counter +1;;
+                    }
+                    else
+                        if(p0.currInstr[0]=="6")
+                        {
+                            l1 = r.getreg(Integer.parseInt(p0.currInstr[1]));
+                            m1 = r.getreg(Integer.parseInt(p0.currInstr[2]));
+                            if( l1== m1){
+                                p0.length = p0.getalu().labels.get(p0.currInstr[3])+2;
+                            }else
+                                p0.length = p0.getalu().counter +1;;
+                        }
+                        if(p0.currInstr[0]=="3")
+                        {
+                            p0.length = p0.getalu().counter + 1;
+                        }
+                    else
                     p0.length = p0.getalu().counter +1;
                 int startIndex = 0;
                 int endIndex = 0;
@@ -117,9 +142,12 @@ public class Main {
                 } catch (BadLocationException ex) {
                     ex.printStackTrace();
                 }
-                p0.startSimulation();
+                p0.startSimulation(0);
                 a.setText(String.valueOf(p0.cycles));
                 c.setText(String.valueOf(p0.stall));
+                d.setText(String.valueOf((double)Math.round((p0.miss_rate_1)*10000)/10000));
+                h.setText(String.valueOf((double)Math.round((p0.miss_rate_2)*10000)/10000));
+                g.setText(String.valueOf((double)Math.round((p0.ipc)*10000)/10000));
                 StringBuilder sb = new StringBuilder();
                 for (Integer i : m.getMem()) {
                     sb.append(i == null ? "" : i.toString()+", ");
@@ -135,7 +163,7 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 p0.length = p0.allLines.size();
-                p0.startSimulation();
+                p0.startSimulation(-1);
                 a.setText(String.valueOf(p0.cycles));
                 c.setText(String.valueOf(p0.stall));
                 d.setText(String.valueOf((double)Math.round((p0.miss_rate_1)*10000)/10000));

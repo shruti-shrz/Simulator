@@ -159,12 +159,13 @@ class Parser{
     static String[] prevInstr;
     int k;
    static int no_of_instructions;
-    public void startSimulation()
+    public void startSimulation(int ch)
     {
         String line;
         for(int i=0;i<prevInstr.length;i++)
             prevInstr[i] = "-1";
-        System.out.println(allLines);
+        //System.out.println(allLines);
+        System.out.println(alu.counter+" "+length+" length ");
         while (alu.counter < length){
             line = allLines.get(alu.counter);
             currInstr = decodeinst(line);
@@ -392,6 +393,7 @@ class Parser{
        miss_rate_1 = (double)miss_in_c1/(double)(miss_in_c1+hit_c1);
        miss_rate_2 =(double)miss_in_c2/(double)(miss_in_c2 + hit_c2);
        amat = ((double) ca1.get(3) + miss_rate_1*((double) ca2.get(3)+(miss_rate_2*(double)ca2.get(4))));
+
        cycles = (int) ((no_of_instructions-lw_sw) + 4 + lw_sw*amat + stall);
        ipc = (double)no_of_instructions/(double)cycles;
        stall = (int) (stall + (int)lw_sw*(amat-1));
